@@ -10,7 +10,7 @@
 - Lavora per fasi e fermati dove indicato.
 - Non inventare dati, numeri, clienti, testimonianze o risultati. Ciò che non è verificabile nelle fonti (https://promo.nativo.studio/, https://nativo.studio/) va segnato con un commento `<!-- DA VERIFICARE: ... -->` in italiano.
 - Controlla ogni sezione con screenshot a 390 px e 1440 px.
-- Brief completo: `../../../../../materiale-nativo/brief-landing-nativo.md`. Analisi e proposta approvata: `analisi.md`.
+- Brief completo: `../../../../../materiale-nativo/brief-landing-nativo.md`. Analisi e proposta (da approvare): `analisi.md`.
 
 ## Regole tecniche
 
