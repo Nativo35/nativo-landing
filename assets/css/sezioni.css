@@ -63,6 +63,32 @@
 	line-height: 1.55;
 }
 
+/* Hover solo con il mouse. Le card non sono cliccabili: niente cursore a manina né focus. */
+@media (hover: hover) {
+	.problema,
+	.problema__icona {
+		transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+	}
+
+	.problema:hover {
+		transform: translateY(-4px);
+		border-color: var(--c-accento);
+		box-shadow: 0 0 0 1px var(--c-accento), 0 18px 36px -18px rgb(48 48 46 / 0.28);
+	}
+
+	.problema:hover .problema__icona {
+		background: var(--c-accento);
+		transform: translateY(-2px);
+	}
+}
+
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+	.problema,
+	.problema__icona { transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; }
+	.problema:hover,
+	.problema:hover .problema__icona { transform: none; }
+}
+
 .problemi__nuovo {
 	margin-top: var(--s-5);
 	padding: var(--s-4) var(--s-5);
