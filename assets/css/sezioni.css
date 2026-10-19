@@ -1,0 +1,92 @@
+/* Sezioni sotto la prima schermata. Caricato senza bloccare il rendering; le variabili sono in critical.css. */
+
+/* Struttura comune delle sezioni */
+.sezione { padding-block: var(--sezione); }
+.sezione--alt { background: var(--c-fondo-alt); border-block: 1px solid var(--c-linea); }
+
+.sezione__intestazione {
+	max-width: 44rem;
+	margin-bottom: var(--s-6);
+}
+
+.sezione__titolo { font-size: var(--t-h2); }
+
+.sezione__sottotitolo {
+	margin-top: var(--s-4);
+	color: var(--c-testo-2);
+	font-size: var(--t-grande);
+	line-height: 1.55;
+}
+
+@media (min-width: 64rem) {
+	.sezione__intestazione { margin-bottom: var(--s-7); }
+}
+
+/* Problemi */
+.problemi__griglia {
+	display: grid;
+	gap: var(--s-3);
+}
+
+.problema {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	column-gap: var(--s-4);
+	row-gap: var(--s-1);
+	padding: var(--s-5);
+	background: var(--c-fondo);
+	border: 1px solid var(--c-linea);
+	border-radius: var(--raggio-grande);
+}
+
+.problema__icona {
+	grid-row: span 2;
+	display: grid;
+	place-items: center;
+	width: 3rem;
+	height: 3rem;
+	border: 2px solid var(--c-testo);
+	border-radius: 50%;
+	background: var(--c-fondo);
+}
+.problema__icona .icona { width: 1.5rem; height: 1.5rem; }
+
+.problema__titolo {
+	align-self: end;
+	font-size: 1.1875rem;
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+}
+
+.problema__testo {
+	color: var(--c-testo-2);
+	line-height: 1.55;
+}
+
+.problemi__nuovo {
+	margin-top: var(--s-5);
+	padding: var(--s-4) var(--s-5);
+	border-left: 4px solid var(--c-accento);
+	background: var(--c-fondo);
+	border-radius: 0 var(--raggio) var(--raggio) 0;
+	line-height: 1.5;
+}
+
+@media (min-width: 40rem) {
+	.problemi__griglia { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); }
+	.problema { grid-template-columns: 1fr; row-gap: var(--s-3); }
+
+	/* Icone, titoli e testi allineati tra le card della stessa riga. */
+	@supports (grid-template-rows: subgrid) {
+		.problemi__griglia { row-gap: var(--s-4); }
+		.problema { grid-row: span 3; grid-template-rows: subgrid; }
+	}
+	.problema__icona { grid-row: auto; }
+	.problema__titolo { align-self: start; }
+}
+
+@media (min-width: 64rem) {
+	.problemi__griglia { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+	.problema { padding: var(--s-6) var(--s-5); }
+	.problemi__nuovo { margin-top: var(--s-6); font-size: var(--t-grande); }
+}

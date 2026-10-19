@@ -58,6 +58,15 @@ add_action( 'wp_head', function () {
 	echo '<style id="nl-critical">' . $css . "</style>\n"; // phpcs:ignore WordPress.Security.EscapeOutput -- file del tema.
 }, 2 );
 
+/**
+ * CSS delle sezioni sotto la prima schermata: caricato senza bloccare il rendering.
+ */
+add_action( 'wp_head', function () {
+	$href = esc_url( add_query_arg( 'ver', filemtime( NL_DIR . '/assets/css/sezioni.css' ), NL_URI . '/assets/css/sezioni.css' ) );
+	echo '<link rel="stylesheet" href="' . $href . '" media="print" onload="this.media=\'all\'">' . "\n"; // phpcs:ignore WordPress.WP.EnqueuedResources
+	echo '<noscript><link rel="stylesheet" href="' . $href . '"></noscript>' . "\n"; // phpcs:ignore WordPress.WP.EnqueuedResources
+}, 3 );
+
 add_action( 'wp_head', function () {
 	echo '<meta name="description" content="' . esc_attr( 'Siti web su misura per PMI e professionisti in Toscana: un unico referente, prezzi chiari fin da subito, SEO e mobile inclusi. Preventivo gratuito.' ) . '">' . "\n";
 	echo '<meta name="theme-color" content="#FFFFFF">' . "\n";

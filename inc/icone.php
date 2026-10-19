@@ -10,6 +10,10 @@ function nl_icona( $nome, $classe = 'icona' ) {
 		'telefono' => '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
 		'spunta'   => '<path d="m5 12 5 5L20 7"/>',
 		'freccia'  => '<path d="M5 12h14M13 6l6 6-6 6"/>',
+		'lento'      => '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9.5 2h5"/>',
+		'smartphone' => '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18h2"/>',
+		'ricerca'    => '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/>',
+		'posta'      => '<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5z"/>',
 	);
 	if ( ! isset( $tracciati[ $nome ] ) ) {
 		return;
