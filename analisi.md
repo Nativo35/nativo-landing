@@ -496,7 +496,7 @@ Il rosa dell'offerta viene tolto: lo sconto vive in una banda antracite con la p
 | 1 | Hero | bianco | Ricevi il preventivo gratis |
 | 2 | Problemi | grigio chiaro, card bianche | Voglio un sito che mi porta clienti |
 | 3 | Cosa ottieni | bianco, elenco breve | Scopri quanto costa il tuo sito |
-| 4 | Pacchetti | grigio chiaro, prezzi in grande, "Più richiesto" in evidenza, banda antracite con lo sconto | Preventivo gratis per [pacchetto] |
+| 4 | Pacchetti | grigio chiaro, prezzi in grande, "Più richiesto" in evidenza, banda antracite con lo sconto | Voglio [pacchetto] |
 | 5 | Progetti | bianco | Voglio un sito così |
 | 6 | Referente, metodo e numeri | banda turchese per i numeri in grande | Parla con Matteo, è gratis |
 | 7 | Testimonianze (nascosta se vuota) | bianco | — |
@@ -541,6 +541,15 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Vedi i risultati. → Sai quante persone arrivano e quante ti scrivono.
 - Prezzo in grande: "a partire da [prezzo minimo dal pannello]"
 - CTA: **Scopri quanto costa il tuo sito** (scorre ai pacchetti) + riga anti-rischio
+
+**Pacchetti**
+- Titolo: Prezzi chiari. **[Nessuna sorpresa.]**
+- Sottotitolo: Scegli il punto di partenza. Il preventivo finale dipende da quello che ti serve davvero.
+- Sito Vetrina: "Per presentare la tua attività e ricevere richieste." · da [prezzo] · online in 3–4 settimane · Design su misura · Perfetto su smartphone · SEO di base per Google · Form e pulsanti per farti scrivere · Lo aggiorni da solo · CTA: **Voglio il Sito Vetrina**
+- Sito + Blog (Più richiesto, card scura): "Per farti trovare su Google, articolo dopo articolo." · da [prezzo] · online in 4–6 settimane · Tutto del Sito Vetrina · Blog che porta visite da Google · Parole chiave studiate per te · Newsletter integrata · Articoli pronti per Google e per le risposte AI · CTA: **Voglio Sito + Blog**
+- E-commerce: "Per vendere online, 24 ore su 24." · da [prezzo] · online in 5–7 settimane · Prodotti illimitati · Pagamenti con carta e PayPal · Ordini e spedizioni da un pannello semplice · Coupon e promozioni · SEO per e-commerce · CTA: **Voglio l'E-commerce**
+- Banda scura dello sconto: −[X]% grande + la frase unica dal pannello
+- Nota: Prezzi IVA esclusa. Hosting e dominio a parte: possiamo gestirli noi o usare quelli che hai già.
 
 ### 8.3 Punti da confermare
 

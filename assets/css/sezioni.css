@@ -209,3 +209,108 @@
 
 	.soluzione__azione { margin-top: var(--s-6); padding: var(--s-6); }
 }
+
+/* Pacchetti */
+.pacchetti__griglia {
+	display: grid;
+	gap: var(--s-5);
+	align-items: stretch;
+}
+
+.pacchetto {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	padding: var(--s-6) var(--s-5) var(--s-5);
+	background: var(--c-fondo);
+	border: 2px solid var(--c-linea);
+	border-radius: var(--raggio-grande);
+}
+
+.pacchetto__nome { font-size: 1.625rem; letter-spacing: -0.02em; }
+.pacchetto__per { margin-top: var(--s-2); color: var(--c-testo-2); line-height: 1.4; }
+
+.pacchetto__prezzo {
+	margin-top: var(--s-5);
+	color: var(--c-scuro);
+	font-size: clamp(2.75rem, 2.2rem + 2vw, 3.5rem);
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: -0.04em;
+	white-space: nowrap;
+}
+.pacchetto__prezzo small { color: var(--c-testo-2); font-size: 1.125rem; font-weight: 400; letter-spacing: 0; }
+
+.pacchetto__tempi {
+	display: inline-block;
+	align-self: flex-start;
+	margin-top: var(--s-3);
+	padding: 0.15rem 0.6rem;
+	background: var(--c-fondo-alt);
+	border-radius: 999px;
+	font-size: var(--t-piccolo);
+	font-weight: 700;
+}
+
+.pacchetto__voci { margin-block: var(--s-5) var(--s-6); padding-top: var(--s-5); border-top: 1px solid var(--c-linea); }
+
+/* La CTA resta in fondo alla card, alla stessa altezza in tutte le card. */
+.pacchetto__azione { margin-top: auto; }
+.pacchetto .cta { justify-items: stretch; }
+.pacchetto .pulsante--grande { width: 100%; padding-inline: 1rem; font-size: 1rem; text-wrap: balance; }
+.pacchetto .cta__rischio { text-align: center; }
+
+/* Card "Più richiesto": scura, per staccare dalle altre */
+.pacchetto--evidenza {
+	background: var(--c-scuro);
+	border-color: var(--c-scuro);
+	color: #fff;
+	box-shadow: 8px 8px 0 var(--c-accento);
+}
+.pacchetto--evidenza .pacchetto__nome,
+.pacchetto--evidenza .pacchetto__prezzo { color: #fff; }
+.pacchetto--evidenza .pacchetto__per,
+.pacchetto--evidenza .pacchetto__prezzo small,
+.pacchetto--evidenza .cta__rischio { color: #d4d4cf; }
+.pacchetto--evidenza .pacchetto__tempi { background: rgb(255 255 255 / 0.12); }
+.pacchetto--evidenza .pacchetto__voci { border-top-color: rgb(255 255 255 / 0.2); }
+.pacchetto--evidenza .pulsante { border-color: var(--c-cta); box-shadow: 0 4px 0 var(--c-accento); }
+.pacchetto--evidenza .pulsante:hover,
+.pacchetto--evidenza .pulsante:focus-visible { background: #fff; color: var(--c-scuro); box-shadow: 0 6px 0 var(--c-cta); }
+
+.pacchetto__etichetta {
+	position: absolute;
+	top: 0;
+	left: var(--s-5);
+	transform: translateY(-50%);
+	padding: 0.3rem 0.8rem;
+	font-size: 0.8125rem;
+}
+
+/* Banda grande dello sconto */
+.sconto--grande {
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--s-3);
+	margin-top: var(--s-7);
+	padding: var(--s-6) var(--s-5);
+	border-radius: var(--raggio-grande);
+}
+.sconto--grande .sconto__percentuale { font-size: clamp(4rem, 3rem + 4vw, 6.5rem); }
+.sconto--grande .sconto__testo { font-size: var(--t-grande); max-width: 34rem; }
+
+.pacchetti__nota { margin-top: var(--s-4); color: var(--c-testo-2); font-size: var(--t-piccolo); }
+
+@media (min-width: 64rem) {
+	.pacchetti__griglia { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); padding-top: var(--s-3); }
+	.pacchetto { padding: var(--s-7) var(--s-6) var(--s-6); }
+	.pacchetto__etichetta { left: var(--s-6); }
+	.pacchetto__per { min-height: 2.8em; } /* due righe: prezzi allineati tra le card */
+
+	.sconto--grande {
+		flex-direction: row;
+		align-items: center;
+		gap: var(--s-6);
+		padding: var(--s-6) var(--s-7);
+	}
+}
