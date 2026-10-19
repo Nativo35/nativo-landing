@@ -1,0 +1,434 @@
+/* CSS critico, stampato inline nell'head: base, header, hero, footer. Mobile first (390 px). */
+
+@font-face {
+	font-family: "Gilroy";
+	src: url("../fonts/gilroy-400.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Gilroy";
+	src: url("../fonts/gilroy-600.woff2") format("woff2");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	/* Palette (analisi.md, sezione 5) */
+	--c-testo: #30302e;
+	--c-testo-2: #5c5c57;
+	--c-fondo: #fff;
+	--c-fondo-alt: #f6f6f3;
+	--c-linea: #e3e3de;
+	--c-accento: #00ffd1;
+	--c-accento-scuro: #00735f;
+	--c-offerta: #c4183f;
+	--c-offerta-fondo: #fdecef;
+
+	/* Spaziature */
+	--s-1: 0.25rem;
+	--s-2: 0.5rem;
+	--s-3: 0.75rem;
+	--s-4: 1rem;
+	--s-5: 1.5rem;
+	--s-6: 2rem;
+	--s-7: 3rem;
+	--s-8: 4rem;
+	--s-9: 6rem;
+	--margine: 1rem;
+	--larghezza: 75rem;
+	--sezione: clamp(3rem, 2rem + 4vw, 6rem);
+
+	/* Forme e testo */
+	--raggio: 0.75rem;
+	--raggio-grande: 1.25rem;
+	--font: "Gilroy", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+	--t-piccolo: 0.875rem;
+	--t-base: 1.0625rem;
+	--t-grande: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+	--t-h1: clamp(2.125rem, 1.45rem + 2.9vw, 3.75rem);
+	--t-h2: clamp(1.75rem, 1.35rem + 1.7vw, 2.75rem);
+}
+
+@media (min-width: 48rem) {
+	:root { --margine: 2rem; }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	scroll-behavior: smooth;
+	scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+}
+
+body {
+	margin: 0;
+	background: var(--c-fondo);
+	color: var(--c-testo);
+	font-family: var(--font);
+	font-size: var(--t-base);
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, p, ul { margin: 0; }
+h1, h2, h3 { font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; text-wrap: balance; }
+p { text-wrap: pretty; }
+img, svg { display: block; max-width: 100%; height: auto; }
+strong { font-weight: 600; }
+a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
+[role="list"] { list-style: none; padding: 0; }
+
+:focus-visible {
+	outline: 3px solid var(--c-accento-scuro);
+	outline-offset: 3px;
+	border-radius: 4px;
+}
+
+.contenitore {
+	width: 100%;
+	max-width: calc(var(--larghezza) + 2 * var(--margine));
+	margin-inline: auto;
+	padding-inline: var(--margine);
+}
+
+.salta-contenuto {
+	position: absolute;
+	left: var(--s-4);
+	top: -10rem;
+	z-index: 100;
+	padding: var(--s-3) var(--s-4);
+	background: var(--c-testo);
+	color: #fff;
+	border-radius: var(--raggio);
+}
+.salta-contenuto:focus { top: var(--s-4); }
+
+.icona { flex: none; width: 1.25rem; height: 1.25rem; }
+
+/* Pulsanti */
+.pulsante {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--s-2);
+	min-height: 3.25rem;
+	padding: 0.8rem 1.5rem;
+	background: var(--c-accento);
+	color: var(--c-testo);
+	border: 2px solid var(--c-testo);
+	border-radius: var(--raggio);
+	font: inherit;
+	font-weight: 600;
+	line-height: 1.2;
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+.pulsante:hover { background: var(--c-testo); color: var(--c-accento); }
+.pulsante:active { transform: translateY(1px); }
+.pulsante .icona { transition: transform 0.15s ease; }
+.pulsante:hover .icona { transform: translateX(3px); }
+
+.pulsante--piccolo {
+	min-height: 2.75rem;
+	padding: 0.5rem 1rem;
+	font-size: var(--t-piccolo);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pulsante, .pulsante .icona { transition: none; }
+}
+
+/* Header */
+.testata {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	background: rgb(255 255 255 / 0.94);
+	border-bottom: 1px solid var(--c-linea);
+	backdrop-filter: saturate(1.4) blur(8px);
+}
+
+.testata__barra {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--s-4);
+	min-height: 4rem;
+}
+
+.testata__logo { display: block; flex: none; }
+.testata__logo img { width: 7.5rem; height: auto; }
+
+.testata__azioni { display: flex; align-items: center; gap: var(--s-2); }
+
+.testata__tel {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--s-2);
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	color: var(--c-testo);
+	font-weight: 600;
+	font-size: var(--t-piccolo);
+	text-decoration: none;
+	border-radius: var(--raggio);
+}
+.testata__tel:hover { color: var(--c-accento-scuro); }
+.testata__tel-numero { display: none; }
+
+@media (min-width: 40rem) {
+	.testata__logo img { width: 9.25rem; }
+	.testata__azioni { gap: var(--s-5); }
+	.testata__tel-numero { display: inline; }
+}
+
+@media (min-width: 64rem) {
+	.testata__barra { min-height: 4.75rem; }
+	.pulsante--piccolo { font-size: 1rem; padding-inline: 1.25rem; }
+}
+
+/* Hero */
+.hero {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	padding-block: var(--s-6) var(--sezione);
+}
+
+.hero__griglia {
+	display: grid;
+	gap: var(--s-7);
+}
+
+.occhiello {
+	display: inline-flex;
+	align-items: flex-start;
+	gap: var(--s-2);
+	margin-bottom: var(--s-4);
+	color: var(--c-testo-2);
+	font-size: var(--t-piccolo);
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+.occhiello::before {
+	content: "";
+	flex: none;
+	margin-top: 0.3em;
+	width: 0.75rem;
+	height: 0.75rem;
+	background: var(--c-accento);
+	border: 2px solid var(--c-testo);
+	border-radius: 50%;
+}
+
+.hero__titolo {
+	max-width: 17ch;
+	font-size: var(--t-h1);
+	line-height: 1.06;
+	letter-spacing: -0.03em;
+}
+
+.variante-b .hero__titolo { max-width: 20ch; }
+
+.hero__titolo mark {
+	background: linear-gradient(transparent 58%, var(--c-accento) 58%, var(--c-accento) 90%, transparent 90%);
+	color: inherit;
+	padding-inline: 0.05em;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+.hero__sottotitolo {
+	max-width: 36rem;
+	margin-top: var(--s-5);
+	color: var(--c-testo-2);
+	font-size: var(--t-grande);
+	line-height: 1.55;
+}
+
+.hero__azioni {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s-3);
+	margin-top: var(--s-6);
+}
+.hero__azioni .pulsante { width: 100%; }
+
+.hero__tel {
+	align-self: center;
+	padding: var(--s-2);
+	color: var(--c-testo);
+	text-decoration-color: var(--c-linea);
+	text-decoration-thickness: 2px;
+}
+.hero__tel:hover { text-decoration-color: var(--c-accento-scuro); }
+
+.fiducia {
+	display: flex;
+	align-items: center;
+	gap: var(--s-4);
+	margin-top: var(--s-6);
+	padding-top: var(--s-5);
+	border-top: 1px solid var(--c-linea);
+}
+
+.nl-ritratto {
+	flex: none;
+	width: 4rem;
+	height: 4rem;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid var(--c-testo);
+}
+
+.nl-ritratto--vuoto {
+	display: grid;
+	place-items: center;
+	background: var(--c-fondo-alt);
+	color: var(--c-testo-2);
+	font-weight: 600;
+	letter-spacing: 0.04em;
+}
+
+.fiducia__lista {
+	display: grid;
+	gap: var(--s-1);
+	font-size: var(--t-piccolo);
+	line-height: 1.4;
+}
+.fiducia__lista li { display: flex; gap: var(--s-2); align-items: flex-start; }
+.fiducia__lista .icona { width: 1rem; height: 1rem; margin-top: 0.1rem; color: var(--c-accento-scuro); stroke-width: 2.5; }
+
+/* Riquadro prezzi della hero */
+.prezzi-lampo {
+	position: relative;
+	padding: var(--s-5);
+	background: var(--c-fondo-alt);
+	border: 1px solid var(--c-linea);
+	border-radius: var(--raggio-grande);
+}
+
+.prezzi-lampo__titolo {
+	font-weight: 600;
+	font-size: 1.125rem;
+	margin-bottom: var(--s-3);
+}
+
+.prezzi-lampo__lista li {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-areas: "nome prezzo" "tempi prezzo";
+	align-items: center;
+	column-gap: var(--s-4);
+	padding-block: var(--s-3);
+	border-bottom: 1px solid var(--c-linea);
+}
+
+.prezzi-lampo__nome { grid-area: nome; font-weight: 600; }
+.prezzi-lampo__tempi { grid-area: tempi; color: var(--c-testo-2); font-size: var(--t-piccolo); }
+.prezzi-lampo__prezzo { grid-area: prezzo; font-weight: 600; font-size: 1.25rem; white-space: nowrap; }
+.prezzi-lampo__prezzo small { font-size: var(--t-piccolo); font-weight: 400; color: var(--c-testo-2); }
+
+.offerta {
+	margin-top: var(--s-4);
+	padding: var(--s-3) var(--s-4);
+	background: var(--c-offerta-fondo);
+	color: var(--c-offerta);
+	border-radius: var(--raggio);
+	font-size: var(--t-piccolo);
+	line-height: 1.45;
+}
+
+.prezzi-lampo__link {
+	display: inline-block;
+	margin-top: var(--s-4);
+	padding-block: var(--s-2);
+	font-size: var(--t-piccolo);
+	font-weight: 600;
+}
+
+@media (min-width: 40rem) {
+	.hero__azioni { flex-direction: row; align-items: center; gap: var(--s-5); }
+	.hero__azioni .pulsante { width: auto; }
+}
+
+@media (min-width: 64rem) {
+	.hero { padding-block: var(--s-9) 7rem; }
+
+	.hero__griglia {
+		grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+		align-items: center;
+		gap: var(--s-8);
+	}
+
+	/* La barra del logo "nativo/studio" come segno grafico dietro ai prezzi. */
+	.hero::after {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		top: -10%;
+		right: 22%;
+		width: 2px;
+		height: 130%;
+		background: var(--c-accento);
+		transform: rotate(24deg);
+		pointer-events: none;
+	}
+
+	.prezzi-lampo {
+		padding: var(--s-6);
+		background: var(--c-fondo);
+		box-shadow: 0 1px 0 var(--c-linea), 0 24px 48px -24px rgb(48 48 46 / 0.18);
+	}
+}
+
+/* Footer */
+.piede {
+	padding-block: var(--s-7);
+	background: var(--c-fondo-alt);
+	border-top: 1px solid var(--c-linea);
+	color: var(--c-testo-2);
+	font-size: var(--t-piccolo);
+}
+
+.piede__griglia { display: grid; gap: var(--s-5); }
+.piede__logo { width: 7.5rem; margin-bottom: var(--s-3); }
+.piede a { color: var(--c-testo); }
+.piede__contatti { display: grid; gap: var(--s-2); }
+.piede__contatti a { display: inline-block; padding-block: var(--s-1); }
+.piede__legale strong { color: var(--c-testo); }
+.piede__link { display: flex; flex-wrap: wrap; gap: var(--s-4); padding-top: var(--s-5); border-top: 1px solid var(--c-linea); }
+
+@media (min-width: 64rem) {
+	.piede__griglia { grid-template-columns: 1.2fr 1fr; column-gap: var(--s-8); }
+	.piede__legale, .piede__link { grid-column: 1 / -1; }
+}
+
+/* Segnaposto visibili solo da loggati con permessi di amministrazione */
+.nl-segnaposto {
+	display: inline-block;
+	margin-top: var(--s-3);
+	padding: var(--s-1) var(--s-3);
+	border: 2px dashed var(--c-offerta);
+	border-radius: var(--raggio);
+	color: var(--c-offerta);
+	font-size: var(--t-piccolo);
+	font-weight: 600;
+}

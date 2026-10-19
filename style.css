@@ -1,0 +1,14 @@
+/*
+Theme Name: Nativo Landing
+Theme URI: https://promo.nativo.studio/
+Author: Nativo Studio
+Author URI: https://nativo.studio/
+Description: Tema classico leggero per la landing delle campagne di Nativo Studio. Niente page builder, niente jQuery.
+Version: 0.1.0
+Requires at least: 6.5
+Requires PHP: 8.1
+License: Proprietario
+Text Domain: nativo-landing
+*/
+
+/* Gli stili sono in assets/css/: critical.css viene stampato inline nell'head. */
