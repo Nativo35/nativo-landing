@@ -9,5 +9,6 @@ get_header();
 
 get_template_part( 'template-parts/hero' );
 get_template_part( 'template-parts/problemi' );
+get_template_part( 'template-parts/soluzione' );
 
 get_footer();

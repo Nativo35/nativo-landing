@@ -116,3 +116,94 @@
 	.problema { padding: var(--s-6) var(--s-5); }
 	.problemi__nuovo { margin-top: var(--s-6); font-size: var(--t-grande); }
 }
+
+/* Soluzione: cosa ottieni */
+.soluzione__griglia {
+	display: grid;
+	row-gap: var(--s-6);
+}
+
+/* Su mobile la CTA va dopo l'elenco: l'intestazione "si apre" nella griglia. */
+.soluzione__intestazione { display: contents; }
+.soluzione__intestazione .sezione__titolo { order: 0; }
+.soluzione__intestazione .sezione__sottotitolo { order: 1; margin-top: calc(var(--s-6) * -1 + var(--s-4)); }
+.soluzione__elenco { order: 2; }
+.soluzione__azione { order: 3; }
+
+.soluzione__azione {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--s-3);
+}
+.soluzione__azione .pulsante { width: 100%; }
+
+.soluzione__prezzo { color: var(--c-testo-2); font-size: var(--t-piccolo); }
+.soluzione__prezzo strong { color: var(--c-testo); }
+
+.soluzione__etichetta {
+	margin-bottom: var(--s-3);
+	color: var(--c-testo-2);
+	font-size: var(--t-piccolo);
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.inclusi { display: grid; }
+
+.incluso {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	column-gap: var(--s-4);
+	row-gap: var(--s-1);
+	padding-block: var(--s-5);
+	border-top: 1px solid var(--c-linea);
+}
+
+.incluso__icona {
+	grid-row: span 2;
+	display: grid;
+	place-items: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	background: var(--c-accento);
+	border: 2px solid var(--c-testo);
+	border-radius: 50%;
+}
+.incluso__icona .icona { width: 1.125rem; height: 1.125rem; stroke-width: 2.5; }
+
+.incluso__titolo { align-self: center; font-size: 1.1875rem; line-height: 1.25; letter-spacing: -0.01em; }
+.incluso__testo { color: var(--c-testo-2); line-height: 1.55; }
+
+@media (min-width: 40rem) {
+	.soluzione__azione { flex-direction: row; gap: var(--s-5); align-items: center; }
+	.soluzione__azione .pulsante { width: auto; }
+}
+
+@media (min-width: 48rem) {
+	.inclusi { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-6); }
+}
+
+@media (min-width: 64rem) {
+	.soluzione__griglia {
+		grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+		column-gap: var(--s-8);
+		align-items: start;
+	}
+
+	.soluzione__intestazione {
+		display: block;
+		position: sticky;
+		top: 7rem;
+		margin-bottom: 0;
+	}
+	.soluzione__intestazione .sezione__sottotitolo { margin-top: var(--s-4); }
+
+	.soluzione__azione {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--s-3);
+		margin-top: var(--s-6);
+	}
+}
