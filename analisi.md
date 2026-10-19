@@ -459,3 +459,70 @@ Il brand usa oggi **Gilroy** (commerciale, file TTF caricati sul sito), con Robo
 **Da sistemare fuori dalla landing (sito ufficiale)**
 - [ ] Il link "Realizzazione Siti Web" punta a `/servizi/realizzazione-siti-web-toscana/%20` (spazio finale, passa da un redirect 301).
 - [ ] REA e indirizzo da rendere coerenti con la landing.
+
+---
+
+## 8. Revisione: stile più marketing e orientato alla CTA (proposta del 19/10/2026)
+
+Obiettivo: una pagina più energica, con le CTA che si trovano subito, frasi brevi alla seconda persona e lo stesso fondo chiaro. Nessuna urgenza finta: niente countdown, "posti limitati" o numeri non verificabili.
+
+### 8.1 Grafica
+
+**Colori: ogni colore ha un solo compito**
+
+| Ruolo | Colore | Uso | Contrasto |
+|---|---|---|---|
+| CTA | `#FF5300` arancio (dal CSS di nativo.studio) | **Solo** pulsanti di azione | testo `#1A1A19` su arancio 5,4:1 ✅; pulsante su bianco 3,2:1 ✅ (soglia 3:1 per i componenti) |
+| Parole chiave e bande | `#00FFD1` turchese | Evidenziatore pieno nei titoli, spunte, bande colorate | testo antracite su turchese 10,2:1 ✅ |
+| Testo e bande scure | `#30302E` antracite | Testo, banda dell'offerta, banda del form | 13,2:1 su bianco ✅ |
+| Sfondi | `#FFFFFF` / `#F6F6F3` | Alternanza delle sezioni | |
+
+Il rosa dell'offerta viene tolto: lo sconto vive in una banda antracite con la percentuale in turchese grande. Così l'arancio resta l'unico colore "da cliccare".
+
+**Tipografia**
+- Titoli in Gilroy **Bold (700)** al posto del SemiBold (600), più grandi: H1 fino a 80 px su desktop e 43 px a 390 px. Restano due file di font (400 e 700), circa 40 KB in tutto.
+- Una o due parole chiave per titolo con evidenziatore turchese pieno.
+
+**CTA**
+- Pulsante arancio più grande (altezza 60 px), testo orientato al beneficio, freccia.
+- Hover evidente: fondo scuro, testo bianco, leggero sollevamento e freccia che avanza (200 ms; senza movimento con `prefers-reduced-motion`).
+- Sotto ogni CTA principale la riga anti-rischio: **Gratis · Senza impegno · Risposta entro 24 ore**.
+- Su mobile, una barra fissa in basso con CTA e telefono: compare dopo la hero e sparisce quando il form è a schermo.
+
+**Ritmo delle sezioni**
+
+| # | Sezione | Sfondo | CTA di fine sezione |
+|---|---|---|---|
+| 1 | Hero | bianco | Ricevi il preventivo gratis |
+| 2 | Problemi | grigio chiaro, card bianche | Voglio un sito che mi porta clienti |
+| 3 | Cosa ottieni | bianco, elenco breve | Scopri quanto costa il tuo sito |
+| 4 | Pacchetti | grigio chiaro, prezzi in grande, "Più richiesto" in evidenza, banda antracite con lo sconto | Preventivo gratis per [pacchetto] |
+| 5 | Progetti | bianco | Voglio un sito così |
+| 6 | Referente, metodo e numeri | banda turchese per i numeri in grande | Parla con Matteo, è gratis |
+| 7 | Testimonianze (nascosta se vuota) | bianco | — |
+| 8 | FAQ | grigio chiaro | Hai altre domande? Chiama Matteo |
+| 9 | Form | banda antracite, form bianco | Ricevi il preventivo gratis |
+
+### 8.2 Testi
+
+Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatti, più clienti, più tempo), elenchi al posto dei paragrafi.
+
+**Hero**
+- Titolo A: **Il sito che ti porta [più clienti].**
+- Titolo B: **Il tuo sito non porta contatti? [Rifacciamolo.]**
+- Sottotitolo: Un sito su misura che ti fa trovare su Google e trasforma le visite in richieste.
+- Elenco: Più richieste di preventivo, non solo visite · Un solo referente, Matteo, dall'inizio alla fine · Prezzi chiari: da [prezzo minimo dal pannello]
+- CTA A: **Ricevi il preventivo gratis** · CTA B: **Ricevi una valutazione gratis**
+- Riga anti-rischio: Gratis · Senza impegno · Risposta entro 24 ore
+- Fiducia: foto di Matteo + "Ti risponde Matteo Pugi, fondatore di Nativo Studio" · "Preferisci chiamare? [telefono]"
+- Riquadro prezzi: tre pacchetti con prezzo grande, "Più richiesto" su Sito + Blog, sconto in banda scura con percentuale e giorni letti dal pannello.
+
+**Pacchetti** (sezione 4.4, da applicare): per ogni pacchetto prezzo grande, tempi, 4–5 voci con spunta, CTA "Preventivo gratis per …". Card "Più richiesto" in evidenza (bordo antracite, etichetta turchese). Sotto, la banda dello sconto con la frase unica: "Sconto del [X]% se accetti il preventivo entro [N] giorni dal ricevimento."
+
+**Problemi e Cosa ottieni** (già realizzate, da riallineare): titoli con una parola evidenziata, testi delle card ridotti a una riga dove possibile, CTA di fine sezione.
+
+### 8.3 Punti da confermare
+
+<!-- DA VERIFICARE: "Risposta entro 24 ore" è una promessa anche nel weekend. Le fonti dicono sia "entro 24 ore" sia "entro un giorno lavorativo". -->
+<!-- DA VERIFICARE: la CTA "Ricevi il preventivo gratis in 24 ore" non è stata usata: secondo le fonti in 24 ore arriva una prima valutazione, il preventivo dettagliato arriva dopo la chiamata. Il "24 ore" resta nella riga anti-rischio, riferito alla risposta. -->
+<!-- DA VERIFICARE: l'etichetta "Più richiesto" su Sito + Blog viene mostrata su tua indicazione: va bene solo se corrisponde ai dati reali. -->

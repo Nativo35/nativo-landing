@@ -145,3 +145,44 @@ function nl_ritratto( $classe = 'nl-ritratto' ) {
 	}
 	return '<span class="' . esc_attr( $classe ) . ' ' . esc_attr( $classe ) . '--vuoto" role="img" aria-label="Matteo Pugi"><span aria-hidden="true">MP</span></span>';
 }
+
+/**
+ * Riga anti-rischio, identica sotto ogni CTA principale.
+ */
+function nl_rischio_testo() {
+	return 'Gratis · Senza impegno · Risposta entro 24 ore';
+}
+
+/**
+ * CTA principale: pulsante arancio con freccia e riga anti-rischio.
+ * $posizione finisce in data-cta, per distinguere le CTA nel tracciamento.
+ */
+function nl_cta( $testo, $posizione, $href = '#preventivo', $rischio = true ) {
+	?>
+	<div class="cta">
+		<a class="pulsante pulsante--grande" href="<?php echo esc_url( $href ); ?>" data-cta="<?php echo esc_attr( $posizione ); ?>">
+			<span><?php echo esc_html( $testo ); ?></span>
+			<?php nl_icona( 'freccia' ); ?>
+		</a>
+		<?php if ( $rischio ) : ?>
+			<!-- DA VERIFICARE: "Risposta entro 24 ore" vale anche nel weekend? Le fonti dicono anche "entro un giorno lavorativo". -->
+			<p class="cta__rischio"><?php echo esc_html( nl_rischio_testo() ); ?></p>
+		<?php endif; ?>
+	</div>
+	<?php
+}
+
+/**
+ * Banda scura dello sconto: percentuale in grande e la frase unica di nl_sconto_testo().
+ */
+function nl_sconto_banda( $classe = '' ) {
+	if ( ! nl_sconto_attivo() ) {
+		return;
+	}
+	?>
+	<div class="sconto <?php echo esc_attr( $classe ); ?>">
+		<p class="sconto__percentuale" aria-hidden="true">−<?php echo (int) nl_opt( 'sconto_percentuale' ); ?>%</p>
+		<p class="sconto__testo"><?php echo wp_kses_post( nl_sconto_testo() ); ?></p>
+	</div>
+	<?php
+}

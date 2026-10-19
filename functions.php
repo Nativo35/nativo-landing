@@ -37,6 +37,8 @@ add_action( 'init', function () {
 } );
 
 add_action( 'wp_enqueue_scripts', function () {
+	wp_enqueue_script( 'nl-landing', NL_URI . '/assets/js/landing.js', array(), filemtime( NL_DIR . '/assets/js/landing.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
+
 	foreach ( array( 'wp-block-library', 'wp-block-library-theme', 'classic-theme-styles', 'global-styles' ) as $handle ) {
 		wp_dequeue_style( $handle );
 	}
@@ -46,7 +48,7 @@ add_action( 'wp_enqueue_scripts', function () {
  * Font della prima schermata in preload e CSS critico inline.
  */
 add_action( 'wp_head', function () {
-	foreach ( array( 'gilroy-400', 'gilroy-600' ) as $font ) {
+	foreach ( array( 'gilroy-400', 'gilroy-700' ) as $font ) {
 		printf(
 			'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
 			esc_url( NL_URI . '/assets/fonts/' . $font . '.woff2' )

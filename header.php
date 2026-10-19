@@ -26,7 +26,7 @@ defined( 'ABSPATH' ) || exit;
 				<?php nl_icona( 'telefono' ); ?>
 				<span class="testata__tel-numero"><?php echo esc_html( nl_tel_breve() ); ?></span>
 			</a>
-			<a class="pulsante pulsante--piccolo" href="#preventivo" data-cta="header">Preventivo gratuito</a>
+			<a class="pulsante pulsante--piccolo" href="#preventivo" data-cta="header">Preventivo gratis</a>
 		</div>
 	</div>
 </header>

@@ -1,4 +1,4 @@
-/* CSS critico, stampato inline nell'head: base, header, hero, footer. Mobile first (390 px). */
+/* CSS critico, stampato inline nell'head: base, header, hero, footer, barra CTA. Mobile first (390 px). */
 
 @font-face {
 	font-family: "Gilroy";
@@ -10,23 +10,24 @@
 
 @font-face {
 	font-family: "Gilroy";
-	src: url("../fonts/gilroy-600.woff2") format("woff2");
-	font-weight: 600;
+	src: url("../fonts/gilroy-700.woff2") format("woff2");
+	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
 }
 
 :root {
-	/* Palette (analisi.md, sezione 5) */
+	/* Palette (analisi.md, sezione 8): l'arancio è riservato alle CTA. */
 	--c-testo: #30302e;
 	--c-testo-2: #5c5c57;
+	--c-scuro: #1a1a19;
 	--c-fondo: #fff;
 	--c-fondo-alt: #f6f6f3;
 	--c-linea: #e3e3de;
 	--c-accento: #00ffd1;
+	--c-accento-chiaro: #b3fff0;
 	--c-accento-scuro: #00735f;
-	--c-offerta: #c4183f;
-	--c-offerta-fondo: #fdecef;
+	--c-cta: #ff5300;
 
 	/* Spaziature */
 	--s-1: 0.25rem;
@@ -40,7 +41,7 @@
 	--s-9: 6rem;
 	--margine: 1rem;
 	--larghezza: 75rem;
-	--sezione: clamp(3rem, 2rem + 4vw, 6rem);
+	--sezione: clamp(3.5rem, 2.5rem + 4vw, 7rem);
 
 	/* Forme e testo */
 	--raggio: 0.75rem;
@@ -48,9 +49,11 @@
 	--font: "Gilroy", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 	--t-piccolo: 0.875rem;
 	--t-base: 1.0625rem;
-	--t-grande: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
-	--t-h1: clamp(2.125rem, 1.45rem + 2.9vw, 3.75rem);
-	--t-h2: clamp(1.75rem, 1.35rem + 1.7vw, 2.75rem);
+	--t-grande: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+	--t-h1: clamp(2.6rem, 1.55rem + 4.4vw, 5rem);
+	--t-h2: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+	--t-prezzo: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+	--transizione: 0.2s ease;
 }
 
 @media (min-width: 48rem) {
@@ -68,10 +71,6 @@ html {
 	scroll-padding-top: 5rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-	html { scroll-behavior: auto; }
-}
-
 body {
 	margin: 0;
 	background: var(--c-fondo);
@@ -84,10 +83,10 @@ body {
 }
 
 h1, h2, h3, p, ul { margin: 0; }
-h1, h2, h3 { font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; text-wrap: balance; }
+h1, h2, h3 { font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; text-wrap: balance; color: var(--c-scuro); }
 p { text-wrap: pretty; }
 img, svg { display: block; max-width: 100%; height: auto; }
-strong { font-weight: 600; }
+strong { font-weight: 700; }
 a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 [role="list"] { list-style: none; padding: 0; }
 
@@ -95,6 +94,16 @@ a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 	outline: 3px solid var(--c-accento-scuro);
 	outline-offset: 3px;
 	border-radius: 4px;
+}
+
+/* Evidenziatore turchese pieno sulle parole chiave dei titoli */
+mark {
+	background: var(--c-accento);
+	color: var(--c-scuro);
+	padding: 0 0.12em;
+	border-radius: 0.12em;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
 }
 
 .contenitore {
@@ -110,7 +119,7 @@ a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 	top: -10rem;
 	z-index: 100;
 	padding: var(--s-3) var(--s-4);
-	background: var(--c-testo);
+	background: var(--c-scuro);
 	color: #fff;
 	border-radius: var(--raggio);
 }
@@ -118,39 +127,102 @@ a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 
 .icona { flex: none; width: 1.25rem; height: 1.25rem; }
 
-/* Pulsanti */
+/* Pulsanti: arancio solo per le azioni */
 .pulsante {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	gap: var(--s-2);
+	gap: var(--s-3);
 	min-height: 3.25rem;
 	padding: 0.8rem 1.5rem;
-	background: var(--c-accento);
-	color: var(--c-testo);
-	border: 2px solid var(--c-testo);
+	background: var(--c-cta);
+	color: var(--c-scuro);
+	border: 2px solid var(--c-scuro);
 	border-radius: var(--raggio);
+	box-shadow: 0 4px 0 var(--c-scuro);
 	font: inherit;
-	font-weight: 600;
+	font-weight: 700;
 	line-height: 1.2;
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
-	transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+	transition: background-color var(--transizione), color var(--transizione), transform var(--transizione), box-shadow var(--transizione);
 }
-.pulsante:hover { background: var(--c-testo); color: var(--c-accento); }
-.pulsante:active { transform: translateY(1px); }
-.pulsante .icona { transition: transform 0.15s ease; }
-.pulsante:hover .icona { transform: translateX(3px); }
+.pulsante .icona { transition: transform var(--transizione); stroke-width: 2.25; }
+
+.pulsante:hover,
+.pulsante:focus-visible {
+	background: var(--c-scuro);
+	color: #fff;
+	transform: translateY(-2px);
+	box-shadow: 0 6px 0 var(--c-cta);
+}
+.pulsante:hover .icona,
+.pulsante:focus-visible .icona { transform: translateX(4px); color: var(--c-cta); }
+.pulsante:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--c-scuro); }
+
+.pulsante--grande {
+	width: 100%;
+	min-height: 3.75rem;
+	padding-inline: 1.75rem;
+	font-size: 1.1875rem;
+}
 
 .pulsante--piccolo {
 	min-height: 2.75rem;
 	padding: 0.5rem 1rem;
+	box-shadow: 0 3px 0 var(--c-scuro);
 	font-size: var(--t-piccolo);
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.pulsante, .pulsante .icona { transition: none; }
+	html { scroll-behavior: auto; }
+	.pulsante, .pulsante .icona { transition: background-color var(--transizione), color var(--transizione); }
+	.pulsante:hover, .pulsante:focus-visible, .pulsante:active,
+	.pulsante:hover .icona, .pulsante:focus-visible .icona { transform: none; }
+}
+
+.cta { display: grid; gap: var(--s-3); justify-items: center; }
+.cta__rischio {
+	color: var(--c-testo-2);
+	font-size: var(--t-piccolo);
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	text-align: center;
+}
+
+@media (min-width: 40rem) {
+	.cta { justify-items: start; }
+	.cta__rischio { text-align: left; }
+	.pulsante--grande { width: auto; }
+}
+
+/* Spunte: elenchi brevi al posto dei paragrafi */
+.spunte { display: grid; gap: var(--s-2); }
+.spunte li { display: flex; align-items: flex-start; gap: var(--s-3); line-height: 1.4; }
+.spunte .icona {
+	width: 1.5rem;
+	height: 1.5rem;
+	padding: 0.2rem;
+	margin-top: -0.05rem;
+	background: var(--c-accento);
+	border-radius: 50%;
+	stroke-width: 3;
+	color: var(--c-scuro);
+}
+
+/* Etichette (es. "Più richiesto") */
+.etichetta {
+	display: inline-block;
+	padding: 0.15rem 0.55rem;
+	background: var(--c-accento);
+	color: var(--c-scuro);
+	border-radius: 999px;
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	vertical-align: 0.15em;
 }
 
 /* Header */
@@ -158,7 +230,7 @@ a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 	position: sticky;
 	top: 0;
 	z-index: 50;
-	background: rgb(255 255 255 / 0.94);
+	background: rgb(255 255 255 / 0.95);
 	border-bottom: 1px solid var(--c-linea);
 	backdrop-filter: saturate(1.4) blur(8px);
 }
@@ -174,7 +246,7 @@ a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 .testata__logo { display: block; flex: none; }
 .testata__logo img { width: 7.5rem; height: auto; }
 
-.testata__azioni { display: flex; align-items: center; gap: var(--s-2); }
+.testata__azioni { display: flex; align-items: center; gap: var(--s-3); }
 
 .testata__tel {
 	display: inline-flex;
@@ -183,8 +255,8 @@ a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 	gap: var(--s-2);
 	min-width: 2.75rem;
 	min-height: 2.75rem;
-	color: var(--c-testo);
-	font-weight: 600;
+	color: var(--c-scuro);
+	font-weight: 700;
 	font-size: var(--t-piccolo);
 	text-decoration: none;
 	border-radius: var(--raggio);
@@ -211,74 +283,37 @@ a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 	padding-block: var(--s-6) var(--sezione);
 }
 
-.hero__griglia {
-	display: grid;
-	gap: var(--s-7);
-}
+.hero__griglia { display: grid; gap: var(--s-7); }
 
 .occhiello {
-	display: inline-flex;
-	align-items: flex-start;
-	gap: var(--s-2);
+	display: inline-block;
 	margin-bottom: var(--s-4);
-	color: var(--c-testo-2);
-	font-size: var(--t-piccolo);
-	font-weight: 600;
-	letter-spacing: 0.06em;
+	padding: 0.3rem 0.8rem;
+	background: var(--c-accento-chiaro);
+	color: var(--c-scuro);
+	border-radius: 999px;
+	font-size: 0.8125rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
 	text-transform: uppercase;
-}
-.occhiello::before {
-	content: "";
-	flex: none;
-	margin-top: 0.3em;
-	width: 0.75rem;
-	height: 0.75rem;
-	background: var(--c-accento);
-	border: 2px solid var(--c-testo);
-	border-radius: 50%;
 }
 
 .hero__titolo {
-	max-width: 17ch;
+	max-width: 12ch;
 	font-size: var(--t-h1);
-	line-height: 1.06;
-	letter-spacing: -0.03em;
+	line-height: 1;
+	letter-spacing: -0.035em;
 }
-
-.variante-b .hero__titolo { max-width: 20ch; }
-
-.hero__titolo mark {
-	background: linear-gradient(transparent 58%, var(--c-accento) 58%, var(--c-accento) 90%, transparent 90%);
-	color: inherit;
-	padding-inline: 0.05em;
-	-webkit-box-decoration-break: clone;
-	box-decoration-break: clone;
-}
+.variante-b .hero__titolo { max-width: 14ch; }
 
 .hero__sottotitolo {
-	max-width: 36rem;
+	max-width: 32rem;
 	margin-top: var(--s-5);
-	color: var(--c-testo-2);
 	font-size: var(--t-grande);
-	line-height: 1.55;
+	line-height: 1.45;
 }
 
-.hero__azioni {
-	display: flex;
-	flex-direction: column;
-	gap: var(--s-3);
-	margin-top: var(--s-6);
-}
-.hero__azioni .pulsante { width: 100%; }
-
-.hero__tel {
-	align-self: center;
-	padding: var(--s-2);
-	color: var(--c-testo);
-	text-decoration-color: var(--c-linea);
-	text-decoration-thickness: 2px;
-}
-.hero__tel:hover { text-decoration-color: var(--c-accento-scuro); }
+.hero__benefici { margin-block: var(--s-5) var(--s-6); }
 
 .fiducia {
 	display: flex;
@@ -287,15 +322,19 @@ a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 	margin-top: var(--s-6);
 	padding-top: var(--s-5);
 	border-top: 1px solid var(--c-linea);
+	font-size: var(--t-piccolo);
+	line-height: 1.5;
 }
+.fiducia a { color: var(--c-scuro); font-weight: 700; }
 
 .nl-ritratto {
 	flex: none;
-	width: 4rem;
-	height: 4rem;
+	width: 3.75rem;
+	height: 3.75rem;
 	border-radius: 50%;
 	object-fit: cover;
-	border: 2px solid var(--c-testo);
+	border: 2px solid var(--c-scuro);
+	box-shadow: 3px 3px 0 var(--c-accento);
 }
 
 .nl-ritratto--vuoto {
@@ -303,32 +342,25 @@ a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 	place-items: center;
 	background: var(--c-fondo-alt);
 	color: var(--c-testo-2);
-	font-weight: 600;
-	letter-spacing: 0.04em;
+	font-weight: 700;
 }
-
-.fiducia__lista {
-	display: grid;
-	gap: var(--s-1);
-	font-size: var(--t-piccolo);
-	line-height: 1.4;
-}
-.fiducia__lista li { display: flex; gap: var(--s-2); align-items: flex-start; }
-.fiducia__lista .icona { width: 1rem; height: 1rem; margin-top: 0.1rem; color: var(--c-accento-scuro); stroke-width: 2.5; }
 
 /* Riquadro prezzi della hero */
 .prezzi-lampo {
-	position: relative;
 	padding: var(--s-5);
-	background: var(--c-fondo-alt);
-	border: 1px solid var(--c-linea);
+	background: var(--c-fondo);
+	border: 2px solid var(--c-scuro);
 	border-radius: var(--raggio-grande);
+	box-shadow: 5px 5px 0 var(--c-accento);
 }
 
 .prezzi-lampo__titolo {
-	font-weight: 600;
-	font-size: 1.125rem;
-	margin-bottom: var(--s-3);
+	margin-bottom: var(--s-2);
+	color: var(--c-testo-2);
+	font-size: 0.8125rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
 }
 
 .prezzi-lampo__lista li {
@@ -337,46 +369,63 @@ a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 	grid-template-areas: "nome prezzo" "tempi prezzo";
 	align-items: center;
 	column-gap: var(--s-4);
-	padding-block: var(--s-3);
+	padding-block: var(--s-4);
 	border-bottom: 1px solid var(--c-linea);
 }
 
-.prezzi-lampo__nome { grid-area: nome; font-weight: 600; }
-.prezzi-lampo__tempi { grid-area: tempi; color: var(--c-testo-2); font-size: var(--t-piccolo); }
-.prezzi-lampo__prezzo { grid-area: prezzo; font-weight: 600; font-size: 1.25rem; white-space: nowrap; }
-.prezzi-lampo__prezzo small { font-size: var(--t-piccolo); font-weight: 400; color: var(--c-testo-2); }
-
-.offerta {
-	margin-top: var(--s-4);
-	padding: var(--s-3) var(--s-4);
-	background: var(--c-offerta-fondo);
-	color: var(--c-offerta);
+.prezzi-lampo__lista li.in-evidenza {
+	margin-inline: calc(var(--s-3) * -1);
+	padding-inline: var(--s-3);
+	background: var(--c-fondo-alt);
 	border-radius: var(--raggio);
-	font-size: var(--t-piccolo);
-	line-height: 1.45;
+	border-bottom-color: transparent;
 }
 
-.prezzi-lampo__link {
-	display: inline-block;
-	margin-top: var(--s-4);
-	padding-block: var(--s-2);
-	font-size: var(--t-piccolo);
-	font-weight: 600;
+.prezzi-lampo__nome { grid-area: nome; font-weight: 700; color: var(--c-scuro); }
+.prezzi-lampo__nome .etichetta { margin-left: var(--s-1); }
+.prezzi-lampo__tempi { grid-area: tempi; color: var(--c-testo-2); font-size: var(--t-piccolo); }
+.prezzi-lampo__prezzo {
+	grid-area: prezzo;
+	color: var(--c-scuro);
+	font-size: var(--t-prezzo);
+	font-weight: 700;
+	letter-spacing: -0.03em;
+	white-space: nowrap;
 }
+.prezzi-lampo__prezzo small { color: var(--c-testo-2); font-size: var(--t-piccolo); font-weight: 400; letter-spacing: 0; }
 
-@media (min-width: 40rem) {
-	.hero__azioni { flex-direction: row; align-items: center; gap: var(--s-5); }
-	.hero__azioni .pulsante { width: auto; }
+/* Banda dello sconto: unica formulazione, letta dalle impostazioni */
+.sconto {
+	display: flex;
+	align-items: center;
+	gap: var(--s-4);
+	margin-top: var(--s-5);
+	padding: var(--s-4) var(--s-5);
+	background: var(--c-scuro);
+	color: #fff;
+	border-radius: var(--raggio);
 }
+.sconto__percentuale {
+	flex: none;
+	color: var(--c-accento);
+	font-size: 2.5rem;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: -0.04em;
+}
+.sconto__testo { font-size: var(--t-piccolo); line-height: 1.45; }
+.sconto__testo strong { color: var(--c-accento); }
 
 @media (min-width: 64rem) {
-	.hero { padding-block: var(--s-9) 7rem; }
+	.hero { padding-block: var(--s-8) var(--s-9); }
 
 	.hero__griglia {
-		grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+		grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.95fr);
 		align-items: center;
 		gap: var(--s-8);
 	}
+
+	.prezzi-lampo { padding: var(--s-6); box-shadow: 8px 8px 0 var(--c-accento); }
 
 	/* La barra del logo "nativo/studio" come segno grafico dietro ai prezzi. */
 	.hero::after {
@@ -384,18 +433,12 @@ a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 		position: absolute;
 		z-index: -1;
 		top: -10%;
-		right: 22%;
-		width: 2px;
+		right: 24%;
+		width: 3rem;
 		height: 130%;
-		background: var(--c-accento);
+		background: var(--c-accento-chiaro);
 		transform: rotate(24deg);
 		pointer-events: none;
-	}
-
-	.prezzi-lampo {
-		padding: var(--s-6);
-		background: var(--c-fondo);
-		box-shadow: 0 1px 0 var(--c-linea), 0 24px 48px -24px rgb(48 48 46 / 0.18);
 	}
 }
 
@@ -421,14 +464,57 @@ a { color: var(--c-accento-scuro); text-underline-offset: 0.18em; }
 	.piede__legale, .piede__link { grid-column: 1 / -1; }
 }
 
+/* Barra CTA fissa in basso, solo su mobile */
+.barra-cta {
+	position: fixed;
+	inset: auto 0 0;
+	z-index: 60;
+	display: flex;
+	gap: var(--s-2);
+	padding: var(--s-3) var(--margine) calc(var(--s-3) + env(safe-area-inset-bottom));
+	background: var(--c-fondo);
+	border-top: 1px solid var(--c-linea);
+	box-shadow: 0 -12px 24px -12px rgb(26 26 25 / 0.2);
+	transform: translateY(110%);
+	visibility: hidden;
+	transition: transform 0.25s ease, visibility 0s linear 0.25s;
+}
+.barra-cta.is-visibile {
+	transform: none;
+	visibility: visible;
+	transition: transform 0.25s ease;
+}
+.barra-cta__pulsante { flex: 1; min-height: 3.25rem; box-shadow: 0 3px 0 var(--c-scuro); }
+.barra-cta__tel {
+	display: grid;
+	place-items: center;
+	flex: none;
+	width: 3.25rem;
+	border: 2px solid var(--c-scuro);
+	border-radius: var(--raggio);
+	color: var(--c-scuro);
+}
+
+@media (max-width: 47.99rem) {
+	body { padding-bottom: 5rem; }
+}
+
+@media (min-width: 48rem) {
+	.barra-cta { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.barra-cta, .barra-cta.is-visibile { transition: none; }
+}
+
 /* Segnaposto visibili solo da loggati con permessi di amministrazione */
 .nl-segnaposto {
 	display: inline-block;
 	margin-top: var(--s-3);
 	padding: var(--s-1) var(--s-3);
-	border: 2px dashed var(--c-offerta);
+	border: 2px dashed var(--c-cta);
 	border-radius: var(--raggio);
-	color: var(--c-offerta);
+	color: var(--c-scuro);
 	font-size: var(--t-piccolo);
-	font-weight: 600;
+	font-weight: 700;
 }
