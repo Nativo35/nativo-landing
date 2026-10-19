@@ -565,6 +565,12 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Metodo: Come lavoriamo: **[5 passi]**, zero sorprese (chiamata, struttura, design e sviluppo, test, lancio e formazione)
 - CTA: **Parla con Matteo, è gratis** + riga anti-rischio
 
+**Territorio (cartina della Toscana)**
+- Titolo: Lavoriamo in **[tutta la Toscana]** · Sottotitolo: Lo studio è a Terricciola, in provincia di Pisa. Seguiamo attività in tutta la regione, e non solo.
+- Punti: Conosciamo il territorio (SEO locale) · Un solo referente, in qualunque provincia · Anche fuori regione
+- Cartina SVG in linea (confini openpolis/ISTAT) con i 10 capoluoghi e la sede a Terricciola, segnata da un'onda leggera (ferma con movimento ridotto).
+- CTA: **Voglio farmi trovare nella mia zona** + riga anti-rischio. Interruttore in Impostazioni landing.
+
 **Testimonianze**
 - Titolo: Cosa dicono **[i clienti]** · card con citazione, nome e attività · CTA: **Inizia anche tu: preventivo gratis**
 - Nascosta ai visitatori finché non c'è almeno una testimonianza in Impostazioni landing.

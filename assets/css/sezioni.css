@@ -695,3 +695,59 @@
 
 /* Avviso di sezione spenta, visibile solo da loggati */
 .sezione-spenta { padding-block: var(--s-5); }
+
+/* Territorio: cartina della Toscana */
+.territorio__griglia { display: grid; gap: var(--s-6); }
+
+/* Su mobile la CTA chiude la sezione, dopo la cartina. */
+.territorio__testo { display: contents; }
+.territorio__testo .sezione__titolo { order: 0; }
+.territorio__testo .sezione__sottotitolo { order: 1; margin-top: calc(var(--s-6) * -1 + var(--s-4)); }
+.territorio__punti { order: 2; }
+.cartina { order: 3; }
+.territorio__azione { order: 4; }
+
+.cartina { margin: 0; }
+.cartina__svg { width: 100%; height: auto; overflow: visible; }
+
+.cartina__regione { fill: var(--c-accento-chiaro); stroke: var(--c-scuro); stroke-width: 2.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.cartina__province { fill: none; stroke: var(--c-fondo); stroke-width: 2; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+
+.citta circle { fill: var(--c-scuro); transform-box: fill-box; transform-origin: center; transition: transform 0.2s ease; }
+.citta text {
+	fill: var(--c-scuro);
+	font-family: var(--font);
+	font-size: 20px;
+	font-weight: 700;
+	paint-order: stroke;
+	stroke: var(--c-accento-chiaro);
+	stroke-width: 5px;
+	stroke-linejoin: round;
+}
+
+.cartina__punto { fill: var(--c-accento); stroke: var(--c-scuro); stroke-width: 3; }
+.cartina__onda { fill: var(--c-accento-scuro); transform-box: fill-box; transform-origin: center; opacity: 0; }
+.cartina__sede rect { fill: var(--c-scuro); }
+.cartina__sede text { fill: #fff; font-family: var(--font); font-size: 19px; font-weight: 700; }
+.cartina__sede .cartina__sede-luogo { fill: var(--c-accento); font-size: 15px; }
+
+@media (hover: hover) {
+	.citta:hover circle { transform: scale(1.4); }
+}
+
+/* Onda leggera attorno alla sede: solo transform e opacity, ferma con movimento ridotto. */
+@media (prefers-reduced-motion: no-preference) {
+	.cartina__onda { animation: nl-onda 2.4s ease-out infinite; }
+}
+@keyframes nl-onda {
+	from { transform: scale(1); opacity: 0.7; }
+	to { transform: scale(3); opacity: 0; }
+}
+
+@media (min-width: 64rem) {
+	.territorio__griglia { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--s-8); align-items: center; }
+	.territorio__testo { display: block; }
+	.territorio__testo .sezione__sottotitolo { margin-top: var(--s-4); }
+	.territorio__punti { margin-top: var(--s-5); }
+	.territorio__azione { margin-top: var(--s-6); }
+}

@@ -25,6 +25,7 @@ function nl_default() {
 		),
 		'testimonianze'      => array(),
 		'progetti_attivi'    => 1,
+		'territorio_attivo'  => 1,
 		// Nomi e tipi dalla landing attuale; contesto e immagine da completare nel pannello.
 		'progetti'           => array(
 			array( 'nome' => 'Addon', 'tipo' => 'E-commerce', 'contesto' => '', 'immagine' => 0 ),
