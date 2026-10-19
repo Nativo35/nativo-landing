@@ -47,7 +47,7 @@ $nl_problemi = array(
 
 		<!-- DA VERIFICARE: cosa include l'analisi gratuita del sito e in quanto tempo arriva. -->
 		<div class="sezione__cta analisi" data-richiesta="analisi">
-			<p class="analisi__testo"><strong>Hai già un sito?</strong> Lascia l'indirizzo: Matteo lo analizza gratis e ti dice cosa lo frena.</p>
+			<p class="analisi__testo"><strong>Hai già un sito?</strong><br>Lascia l'indirizzo: Matteo lo analizza gratis e ti dice cosa lo frena.</p>
 			<?php nl_cta( 'Analizza gratis il mio sito', 'problemi-analisi', '#modulo' ); ?>
 		</div>
 
