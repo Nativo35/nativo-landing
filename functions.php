@@ -12,6 +12,7 @@ define( 'NL_URI', get_template_directory_uri() );
 require NL_DIR . '/inc/opzioni.php';
 require NL_DIR . '/inc/admin.php';
 require NL_DIR . '/inc/icone.php';
+require NL_DIR . '/inc/form.php';
 
 add_action( 'after_setup_theme', function () {
 	add_theme_support( 'title-tag' );

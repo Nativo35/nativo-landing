@@ -573,3 +573,122 @@
 	.faq__intestazione .sezione__sottotitolo { margin-top: var(--s-4); }
 	.faq__azione { margin-top: var(--s-6); }
 }
+
+/* Form di preventivo: banda scura, modulo bianco */
+.preventivo { background: var(--c-scuro); color: #fff; }
+.preventivo .sezione__titolo { color: #fff; }
+.preventivo .sezione__sottotitolo { color: #d4d4cf; }
+.preventivo a { color: var(--c-accento); font-weight: 700; }
+
+.preventivo__griglia { display: grid; gap: var(--s-6); }
+.preventivo__punti { margin-top: var(--s-5); }
+.preventivo__punti strong { color: #fff; }
+.preventivo__alternativa { margin-top: var(--s-6); padding-top: var(--s-5); border-top: 1px solid rgb(255 255 255 / 0.2); line-height: 1.5; }
+
+.preventivo__modulo {
+	padding: var(--s-5) var(--s-4);
+	background: var(--c-fondo);
+	color: var(--c-testo);
+	border-radius: var(--raggio-grande);
+	box-shadow: 8px 8px 0 var(--c-accento);
+}
+.preventivo__modulo .cta__rischio { margin-top: var(--s-3); }
+
+.modulo { display: grid; gap: var(--s-4); }
+.campo { display: grid; gap: var(--s-2); min-width: 0; margin: 0; padding: 0; border: 0; }
+.campo > label,
+.campo legend { padding: 0; color: var(--c-scuro); font-weight: 700; }
+.campo label span { color: var(--c-testo-2); font-weight: 400; }
+
+.modulo input[type="text"],
+.modulo input[type="email"],
+.modulo input[type="tel"],
+.modulo textarea {
+	width: 100%;
+	min-height: 3.25rem;
+	padding: 0.75rem 1rem;
+	background: var(--c-fondo);
+	color: var(--c-scuro);
+	border: 2px solid #8a8a84;
+	border-radius: var(--raggio);
+	font: inherit;
+	font-size: 1.0625rem; /* ≥16 px: niente zoom automatico su iOS */
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.modulo textarea { min-height: 6rem; resize: vertical; }
+.modulo input:focus,
+.modulo textarea:focus { outline: none; border-color: var(--c-scuro); box-shadow: 0 0 0 3px var(--c-accento); }
+
+/* Tipo di sito: scelte a piastrella, facili da toccare */
+.campo--scelta .wpcf7-radio { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-2); margin-top: var(--s-2); }
+.campo--scelta .wpcf7-list-item { margin: 0; }
+.campo--scelta label {
+	display: flex;
+	align-items: center;
+	gap: var(--s-2);
+	min-height: 3.25rem;
+	padding: 0.5rem 0.75rem;
+	border: 2px solid var(--c-linea);
+	border-radius: var(--raggio);
+	color: var(--c-scuro);
+	font-weight: 700;
+	font-size: 0.9375rem;
+	line-height: 1.2;
+	cursor: pointer;
+	transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.campo--scelta .wpcf7-list-item-label { font-weight: 700; }
+.campo--scelta input { flex: none; width: 1.125rem; height: 1.125rem; margin: 0; accent-color: var(--c-scuro); }
+.campo--scelta label:has(input:checked) { border-color: var(--c-scuro); background: var(--c-accento-chiaro); }
+.campo--scelta label:has(input:focus-visible) { box-shadow: 0 0 0 3px var(--c-accento); }
+
+.campo--consenso { font-size: var(--t-piccolo); line-height: 1.45; }
+.campo--consenso .wpcf7-list-item { margin: 0; }
+.campo--consenso label { display: flex; gap: var(--s-3); align-items: flex-start; cursor: pointer; }
+.campo--consenso input { flex: none; width: 1.25rem; height: 1.25rem; margin: 0.05rem 0 0; accent-color: var(--c-scuro); }
+.campo--consenso a { color: var(--c-accento-scuro); }
+
+.campo--invio { position: relative; margin-top: var(--s-2); }
+.campo--invio .pulsante { width: 100%; }
+.modulo .wpcf7-spinner { position: absolute; right: 1rem; top: 1.1rem; margin: 0; }
+
+/* Messaggi di Contact Form 7 */
+.modulo .wpcf7-not-valid { border-color: #b3261e !important; }
+.wpcf7-not-valid-tip { display: block; margin-top: var(--s-1); color: #b3261e; font-size: var(--t-piccolo); font-weight: 700; }
+.wpcf7-response-output { margin: 0; padding: var(--s-3) var(--s-4); border-radius: var(--raggio); font-size: var(--t-piccolo); font-weight: 700; }
+.wpcf7-response-output:empty { display: none; }
+.wpcf7 form.invalid .wpcf7-response-output,
+.wpcf7 form.failed .wpcf7-response-output,
+.wpcf7 form.spam .wpcf7-response-output { background: #fdecea; color: #8c1d18; }
+.wpcf7 form.sent .wpcf7-response-output { background: var(--c-accento-chiaro); color: var(--c-scuro); }
+.screen-reader-response { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.wpcf7 .hidden-fields-container { display: none; }
+
+@media (min-width: 40rem) {
+	.preventivo__modulo { padding: var(--s-6); }
+}
+
+@media (min-width: 64rem) {
+	.preventivo__griglia { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--s-8); align-items: start; }
+	.preventivo__testo { position: sticky; top: 7rem; }
+	.preventivo__modulo .cta__rischio { text-align: center; }
+}
+
+/* Pagina /grazie/ */
+.grazie__contenuto { display: grid; justify-items: start; gap: var(--s-5); max-width: 46rem; }
+.grazie__icona {
+	display: grid;
+	place-items: center;
+	width: 4rem;
+	height: 4rem;
+	background: var(--c-accento);
+	border: 2px solid var(--c-scuro);
+	border-radius: 50%;
+	color: var(--c-scuro);
+}
+.grazie__icona .icona { width: 2rem; height: 2rem; stroke-width: 3; }
+.grazie__titolo { font-size: var(--t-h2); }
+.grazie__azioni { display: grid; gap: var(--s-3); margin-top: var(--s-3); }
+.grazie__pulsanti { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-5); }
+.grazie__link { color: var(--c-scuro); font-weight: 700; }
+.grazie__torna a { color: var(--c-testo-2); }

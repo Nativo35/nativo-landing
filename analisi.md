@@ -573,6 +573,12 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Titolo: Hai dei dubbi? **[Ecco le risposte.]** · otto domande dell'analisi con risposte accorciate; prezzi e sconto letti dal pannello.
 - CTA: **Chiama Matteo: [telefono]** (senza riga anti-rischio, perché è una chiamata)
 
+**Form e CTA finale**
+- Banda scura. Titolo: Ricevi il tuo **[preventivo gratis]** · Sottotitolo: Bastano 30 secondi. Matteo ti risponde entro 24 ore con una prima valutazione.
+- Punti: Gratis e senza impegno · Risposta entro 24 ore · frase dello sconto dal pannello · alternativa telefono/WhatsApp
+- Campi: nome e cognome, email, telefono, che sito ti serve (4 scelte), messaggio facoltativo, consenso privacy; nascosti UTM, variante, pacchetto cliccato.
+- Pulsante: **Ricevi il preventivo gratis** + riga anti-rischio. Dopo l'invio: /grazie/.
+
 ### 8.3 Punti da confermare
 
 <!-- DA VERIFICARE: "Risposta entro 24 ore" è una promessa anche nel weekend. Le fonti dicono sia "entro 24 ore" sia "entro un giorno lavorativo". -->
