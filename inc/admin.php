@@ -102,6 +102,7 @@ function nl_admin_sanifica( $input ) {
 		$out[ $k ] = sanitize_text_field( $input[ $k ] ?? $def[ $k ] );
 	}
 	$out['email'] = sanitize_email( $input['email'] ?? $def['email'] );
+	$out['gtm_id'] = preg_replace( '/[^A-Z0-9-]/', '', strtoupper( (string) ( $input['gtm_id'] ?? '' ) ) );
 
 	return $out;
 }
@@ -195,6 +196,12 @@ function nl_admin_pagina() {
 			<div class="nl-riga">
 				<?php nl_admin_campo( 'sdi', 'Codice SDI' ); ?>
 			</div>
+
+			<h2>Tracciamento</h2>
+			<div class="nl-riga">
+				<?php nl_admin_campo( 'gtm_id', 'ID di Google Tag Manager', 'text', 'placeholder="GTM-XXXXXXX"' ); ?>
+			</div>
+			<p class="description">GTM parte solo dopo il consenso a statistiche o marketing nel banner di Complianz. Lascia vuoto per spegnerlo.</p>
 
 			<?php submit_button( 'Salva impostazioni' ); ?>
 		</form>
