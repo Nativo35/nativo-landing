@@ -24,6 +24,7 @@ function nl_default() {
 			array( 'valore' => '', 'suffisso' => '', 'etichetta' => 'Servizi integrati' ),
 		),
 		'testimonianze'      => array(),
+		'progetti_attivi'    => 1,
 		// Nomi e tipi dalla landing attuale; contesto e immagine da completare nel pannello.
 		'progetti'           => array(
 			array( 'nome' => 'Addon', 'tipo' => 'E-commerce', 'contesto' => '', 'immagine' => 0 ),

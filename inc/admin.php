@@ -80,6 +80,8 @@ function nl_admin_sanifica( $input ) {
 		}
 	}
 
+	$out['progetti_attivi'] = empty( $input['progetti_attivi'] ) ? 0 : 1;
+
 	$out['progetti'] = array();
 	foreach ( (array) ( $input['progetti'] ?? array() ) as $pr ) {
 		$pr = array(
@@ -163,6 +165,7 @@ function nl_admin_pagina() {
 			<?php nl_admin_ripetitore( 'testimonianze', 'nl_admin_testimonianza', 'Aggiungi testimonianza' ); ?>
 
 			<h2>Progetti realizzati</h2>
+			<p><label><input type="checkbox" name="<?php echo esc_attr( $n ); ?>[progetti_attivi]" value="1" <?php checked( nl_opt( 'progetti_attivi' ) ); ?>> Mostra la sezione "Progetti veri, per attività come la tua"</label></p>
 			<p class="description">Ai visitatori compaiono solo i progetti con un'immagine. Da loggato vedi anche gli altri, con i segnaposto. Immagine orizzontale, almeno 1200 × 750 px.</p>
 			<?php nl_admin_ripetitore( 'progetti', 'nl_admin_progetto', 'Aggiungi progetto' ); ?>
 

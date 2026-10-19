@@ -692,3 +692,6 @@
 .grazie__pulsanti { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-5); }
 .grazie__link { color: var(--c-scuro); font-weight: 700; }
 .grazie__torna a { color: var(--c-testo-2); }
+
+/* Avviso di sezione spenta, visibile solo da loggati */
+.sezione-spenta { padding-block: var(--s-5); }

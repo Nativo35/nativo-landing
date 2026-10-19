@@ -7,6 +7,15 @@
 defined( 'ABSPATH' ) || exit;
 
 $nl_admin    = current_user_can( 'manage_options' );
+
+// Sezione spenta da Impostazioni landing: nascosta a tutti, da loggato resta solo un avviso.
+if ( ! nl_opt( 'progetti_attivi' ) ) {
+	if ( $nl_admin ) {
+		echo '<div class="contenitore sezione-spenta">' . nl_segnaposto_admin( 'Sezione "Progetti" spenta: riattivala da Impostazioni landing' ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML già sanificato.
+	}
+	return;
+}
+
 $nl_progetti = array_filter(
 	(array) nl_opt( 'progetti' ),
 	function ( $pr ) use ( $nl_admin ) {
