@@ -60,12 +60,15 @@ $nl_passi = array(
 
 		<div class="metodo">
 			<h3 class="metodo__titolo">Come lavoriamo: <mark>5 passi</mark>, zero sorprese</h3>
-			<ol class="metodo__passi" role="list">
+			<?php // Percorso animato allo scorrimento: --k è la posizione del passo, --n il totale (vedi sezioni.css). ?>
+			<ol class="metodo__passi" role="list" style="--n: <?php echo count( $nl_passi ); ?>">
 				<?php foreach ( $nl_passi as $i => $passo ) : ?>
-					<li class="passo">
+					<li class="passo" style="--k: <?php echo (int) $i; ?>">
 						<span class="passo__numero" aria-hidden="true"><?php echo esc_html( sprintf( '%02d', $i + 1 ) ); ?></span>
-						<h4 class="passo__titolo"><?php echo esc_html( $passo[0] ); ?></h4>
-						<p class="passo__testo"><?php echo esc_html( $passo[1] ); ?></p>
+						<div class="passo__corpo">
+							<h4 class="passo__titolo"><?php echo esc_html( $passo[0] ); ?></h4>
+							<p class="passo__testo"><?php echo esc_html( $passo[1] ); ?></p>
+						</div>
 					</li>
 				<?php endforeach; ?>
 			</ol>

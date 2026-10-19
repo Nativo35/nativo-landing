@@ -563,6 +563,7 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Punti: Nessun passaggio di mano · Una rete quando serve · Esperienza vera (Milano, poi Toscana) · Settori diversi (vino, food, turismo rurale, servizi professionali)
 - Banda turchese con i 4 numeri dal pannello; un numero vuoto non compare ai visitatori.
 - Metodo: Come lavoriamo: **[5 passi]**, zero sorprese (chiamata, struttura, design e sviluppo, test, lancio e formazione)
+- Effetto: percorso a tappe animato allo scorrimento (solo CSS, animation-timeline). La linea turchese si riempie e ogni tappa si accende quando la raggiunge; verticale su mobile, orizzontale su desktop. Senza supporto o con movimento ridotto il percorso è già tutto acceso.
 - CTA: **Parla con Matteo, è gratis** + riga anti-rischio
 
 **Testimonianze**
