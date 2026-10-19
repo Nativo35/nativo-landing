@@ -5,21 +5,41 @@
 .sezione--alt { background: var(--c-fondo-alt); border-block: 1px solid var(--c-linea); }
 
 .sezione__intestazione {
-	max-width: 44rem;
+	max-width: 46rem;
 	margin-bottom: var(--s-6);
 }
 
 .sezione__titolo { font-size: var(--t-h2); }
 
 .sezione__sottotitolo {
+	max-width: 36rem;
 	margin-top: var(--s-4);
-	color: var(--c-testo-2);
 	font-size: var(--t-grande);
-	line-height: 1.55;
+	line-height: 1.45;
 }
+
+.sezione__cta { margin-top: var(--s-7); }
 
 @media (min-width: 64rem) {
 	.sezione__intestazione { margin-bottom: var(--s-7); }
+}
+
+/* Prezzo in grande */
+.prezzo-grande {
+	color: var(--c-scuro);
+	font-size: clamp(2.75rem, 2rem + 3vw, 4rem);
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: -0.04em;
+}
+.prezzo-grande small {
+	display: block;
+	margin-bottom: var(--s-1);
+	color: var(--c-testo-2);
+	font-size: var(--t-piccolo);
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
 }
 
 /* Problemi */
@@ -35,7 +55,7 @@
 	row-gap: var(--s-1);
 	padding: var(--s-5);
 	background: var(--c-fondo);
-	border: 1px solid var(--c-linea);
+	border: 2px solid var(--c-linea);
 	border-radius: var(--raggio-grande);
 }
 
@@ -45,23 +65,21 @@
 	place-items: center;
 	width: 3rem;
 	height: 3rem;
-	border: 2px solid var(--c-testo);
+	border: 2px solid var(--c-scuro);
 	border-radius: 50%;
 	background: var(--c-fondo);
+	color: var(--c-scuro);
 }
-.problema__icona .icona { width: 1.5rem; height: 1.5rem; }
+.problema__icona .icona { width: 1.5rem; height: 1.5rem; stroke-width: 2; }
 
 .problema__titolo {
 	align-self: end;
-	font-size: 1.1875rem;
-	line-height: 1.25;
-	letter-spacing: -0.01em;
+	font-size: 1.3125rem;
+	line-height: 1.15;
+	letter-spacing: -0.02em;
 }
 
-.problema__testo {
-	color: var(--c-testo-2);
-	line-height: 1.55;
-}
+.problema__testo { line-height: 1.45; }
 
 /* Hover solo con il mouse. Le card non sono cliccabili: niente cursore a manina né focus. */
 @media (hover: hover) {
@@ -73,7 +91,7 @@
 	.problema:hover {
 		transform: translateY(-4px);
 		border-color: var(--c-accento);
-		box-shadow: 0 0 0 1px var(--c-accento), 0 18px 36px -18px rgb(48 48 46 / 0.28);
+		box-shadow: 0 18px 36px -18px rgb(48 48 46 / 0.28);
 	}
 
 	.problema:hover .problema__icona {
@@ -92,29 +110,30 @@
 .problemi__nuovo {
 	margin-top: var(--s-5);
 	padding: var(--s-4) var(--s-5);
-	border-left: 4px solid var(--c-accento);
-	background: var(--c-fondo);
-	border-radius: 0 var(--raggio) var(--raggio) 0;
-	line-height: 1.5;
+	background: var(--c-accento-chiaro);
+	color: var(--c-scuro);
+	border-radius: var(--raggio);
+	font-size: var(--t-grande);
+	line-height: 1.4;
 }
 
 @media (min-width: 40rem) {
 	.problemi__griglia { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); }
 	.problema { grid-template-columns: 1fr; row-gap: var(--s-3); }
+	.problema__icona { grid-row: auto; }
+	.problema__titolo { align-self: start; }
 
 	/* Icone, titoli e testi allineati tra le card della stessa riga. */
 	@supports (grid-template-rows: subgrid) {
 		.problemi__griglia { row-gap: var(--s-4); }
 		.problema { grid-row: span 3; grid-template-rows: subgrid; }
 	}
-	.problema__icona { grid-row: auto; }
-	.problema__titolo { align-self: start; }
 }
 
 @media (min-width: 64rem) {
 	.problemi__griglia { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 	.problema { padding: var(--s-6) var(--s-5); }
-	.problemi__nuovo { margin-top: var(--s-6); font-size: var(--t-grande); }
+	.problemi__nuovo { margin-top: var(--s-6); }
 }
 
 /* Soluzione: cosa ottieni */
@@ -123,31 +142,20 @@
 	row-gap: var(--s-6);
 }
 
-/* Su mobile la CTA va dopo l'elenco: l'intestazione "si apre" nella griglia. */
+/* Su mobile prezzo e CTA vanno dopo l'elenco: l'intestazione "si apre" nella griglia. */
 .soluzione__intestazione { display: contents; }
 .soluzione__intestazione .sezione__titolo { order: 0; }
 .soluzione__intestazione .sezione__sottotitolo { order: 1; margin-top: calc(var(--s-6) * -1 + var(--s-4)); }
-.soluzione__elenco { order: 2; }
+.inclusi { order: 2; }
 .soluzione__azione { order: 3; }
 
 .soluzione__azione {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: var(--s-3);
-}
-.soluzione__azione .pulsante { width: 100%; }
-
-.soluzione__prezzo { color: var(--c-testo-2); font-size: var(--t-piccolo); }
-.soluzione__prezzo strong { color: var(--c-testo); }
-
-.soluzione__etichetta {
-	margin-bottom: var(--s-3);
-	color: var(--c-testo-2);
-	font-size: var(--t-piccolo);
-	font-weight: 700;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
+	display: grid;
+	gap: var(--s-5);
+	padding: var(--s-5) var(--s-4);
+	background: var(--c-accento-chiaro);
+	border-radius: var(--raggio-grande);
+	text-align: center;
 }
 
 .inclusi { display: grid; }
@@ -156,8 +164,8 @@
 	display: grid;
 	grid-template-columns: auto 1fr;
 	column-gap: var(--s-4);
-	row-gap: var(--s-1);
-	padding-block: var(--s-5);
+	row-gap: 0.125rem;
+	padding-block: var(--s-4);
 	border-top: 1px solid var(--c-linea);
 }
 
@@ -168,26 +176,26 @@
 	width: 2.25rem;
 	height: 2.25rem;
 	background: var(--c-accento);
-	border: 2px solid var(--c-testo);
 	border-radius: 50%;
+	color: var(--c-scuro);
 }
-.incluso__icona .icona { width: 1.125rem; height: 1.125rem; stroke-width: 2.5; }
+.incluso__icona .icona { width: 1.125rem; height: 1.125rem; stroke-width: 3; }
 
-.incluso__titolo { align-self: center; font-size: 1.1875rem; line-height: 1.25; letter-spacing: -0.01em; }
-.incluso__testo { color: var(--c-testo-2); line-height: 1.55; }
+.incluso__titolo { align-self: end; font-size: 1.25rem; line-height: 1.2; letter-spacing: -0.02em; }
+.incluso__testo { color: var(--c-testo-2); line-height: 1.45; }
 
 @media (min-width: 40rem) {
-	.soluzione__azione { flex-direction: row; gap: var(--s-5); align-items: center; }
-	.soluzione__azione .pulsante { width: auto; }
+	.soluzione__azione { padding-inline: var(--s-5); text-align: left; justify-items: start; }
 }
 
 @media (min-width: 48rem) {
 	.inclusi { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-6); }
+	.incluso:last-child { grid-column: 1 / -1; }
 }
 
 @media (min-width: 64rem) {
 	.soluzione__griglia {
-		grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+		grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.3fr);
 		column-gap: var(--s-8);
 		align-items: start;
 	}
@@ -196,14 +204,8 @@
 		display: block;
 		position: sticky;
 		top: 7rem;
-		margin-bottom: 0;
 	}
 	.soluzione__intestazione .sezione__sottotitolo { margin-top: var(--s-4); }
 
-	.soluzione__azione {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: var(--s-3);
-		margin-top: var(--s-6);
-	}
+	.soluzione__azione { margin-top: var(--s-6); padding: var(--s-6); }
 }

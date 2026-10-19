@@ -164,8 +164,13 @@ mark {
 .pulsante--grande {
 	width: 100%;
 	min-height: 3.75rem;
-	padding-inline: 1.75rem;
-	font-size: 1.1875rem;
+	padding-inline: 1rem;
+	gap: var(--s-2);
+	font-size: 1.0625rem;
+}
+
+@media (min-width: 40rem) {
+	.pulsante--grande { padding-inline: 1.75rem; gap: var(--s-3); font-size: 1.1875rem; }
 }
 
 .pulsante--piccolo {

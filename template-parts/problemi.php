@@ -9,30 +9,30 @@ $nl_problemi = array(
 	array(
 		'icona'  => 'lento',
 		'titolo' => 'È lento ad aprirsi.',
-		'testo'  => 'Chi non aspetta torna su Google e sceglie un altro. E Google tende a premiare i siti veloci.',
+		'testo'  => 'Chi aspetta se ne va. E sceglie un concorrente.',
 	),
 	array(
 		'icona'  => 'smartphone',
 		'titolo' => 'Sullo smartphone si vede male.',
-		'testo'  => 'Testi minuscoli, pulsanti difficili da toccare: proprio lì dove molti tuoi clienti ti cercano.',
+		'testo'  => 'Proprio lì dove i tuoi clienti ti cercano di più.',
 	),
 	array(
 		'icona'  => 'ricerca',
 		'titolo' => 'Su Google non ti trova nessuno.',
-		'testo'  => 'Se compari solo cercando il tuo nome, esisti solo per chi ti conosce già.',
+		'testo'  => 'Ti trova solo chi ti conosce già.',
 	),
 	array(
 		'icona'  => 'posta',
 		'titolo' => 'Riceve visite, ma nessuno scrive.',
-		'testo'  => 'Senza un percorso chiaro verso il contatto, i visitatori se ne vanno senza lasciare traccia.',
+		'testo'  => 'Le persone arrivano e se ne vanno senza contattarti.',
 	),
 );
 ?>
 <section id="problemi" class="sezione sezione--alt problemi" aria-labelledby="problemi-titolo">
 	<div class="contenitore">
 		<header class="sezione__intestazione">
-			<h2 id="problemi-titolo" class="sezione__titolo">Il tuo sito ti sta facendo perdere clienti?</h2>
-			<p class="sezione__sottotitolo">Se ti riconosci in almeno uno di questi segnali, è il momento di parlarne.</p>
+			<h2 id="problemi-titolo" class="sezione__titolo">Il tuo sito ti sta facendo <mark>perdere clienti?</mark></h2>
+			<p class="sezione__sottotitolo">Se ti riconosci in uno di questi segnali, è il momento di cambiare.</p>
 		</header>
 
 		<ul class="problemi__griglia" role="list">
@@ -47,7 +47,11 @@ $nl_problemi = array(
 
 		<p class="problemi__nuovo">
 			<strong>Non hai ancora un sito?</strong>
-			Partiamo da zero, con le idee chiare su cosa deve fare per te.
+			Partiamo da zero, con le idee chiare.
 		</p>
+
+		<div class="sezione__cta">
+			<?php nl_cta( 'Voglio un sito che mi porta clienti', 'problemi' ); ?>
+		</div>
 	</div>
 </section>

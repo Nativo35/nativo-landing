@@ -519,7 +519,28 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 
 **Pacchetti** (sezione 4.4, da applicare): per ogni pacchetto prezzo grande, tempi, 4–5 voci con spunta, CTA "Preventivo gratis per …". Card "Più richiesto" in evidenza (bordo antracite, etichetta turchese). Sotto, la banda dello sconto con la frase unica: "Sconto del [X]% se accetti il preventivo entro [N] giorni dal ricevimento."
 
-**Problemi e Cosa ottieni** (già realizzate, da riallineare): titoli con una parola evidenziata, testi delle card ridotti a una riga dove possibile, CTA di fine sezione.
+**Problemi** (approvato lo stile il 19/10/2026)
+- Titolo: Il tuo sito ti sta facendo **[perdere clienti?]**
+- Sottotitolo: Se ti riconosci in uno di questi segnali, è il momento di cambiare.
+- È lento ad aprirsi. → Chi aspetta se ne va. E sceglie un concorrente.
+- Sullo smartphone si vede male. → Proprio lì dove i tuoi clienti ti cercano di più.
+- Su Google non ti trova nessuno. → Ti trova solo chi ti conosce già.
+- Riceve visite, ma nessuno scrive. → Le persone arrivano e se ne vanno senza contattarti.
+- Riga: **Non hai ancora un sito?** Partiamo da zero, con le idee chiare.
+- CTA: **Voglio un sito che mi porta clienti** + riga anti-rischio
+
+**Cosa ottieni**
+- Titolo: Un sito costruito per **[farti contattare]**
+- Sottotitolo: Tutto quello che serve per trasformare le visite in clienti. Già incluso.
+- Su misura. → Niente template: il sito nasce dalla tua attività.
+- Perfetto su smartphone. → Dove i tuoi clienti ti cercano più spesso.
+- Pronto per Google. → SEO di base incluso, non è un extra.
+- Fatto per farti contattare. → Pulsanti e percorsi che portano dritti alla richiesta.
+- Lo aggiorni da solo. → WordPress e formazione inclusi: testi e foto li cambi tu.
+- Non resti solo dopo il lancio. → Aggiornamenti, correzioni e miglioramenti.
+- Vedi i risultati. → Sai quante persone arrivano e quante ti scrivono.
+- Prezzo in grande: "a partire da [prezzo minimo dal pannello]"
+- CTA: **Scopri quanto costa il tuo sito** (scorre ai pacchetti) + riga anti-rischio
 
 ### 8.3 Punti da confermare
 
