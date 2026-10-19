@@ -413,107 +413,33 @@
 .numero__etichetta { color: var(--c-scuro); font-weight: 700; line-height: 1.25; }
 .numero .nl-segnaposto { margin-top: 0; justify-self: start; background: var(--c-fondo); }
 
-/* Metodo: percorso a tappe.
-   Stato di base = tutto acceso (browser senza animazioni allo scorrimento o con movimento ridotto).
-   Con animation-timeline la linea turchese si riempie scorrendo e ogni tappa si accende quando la raggiunge. */
+/* Metodo */
 .metodo { margin-top: var(--s-8); }
 .metodo__titolo { font-size: clamp(1.625rem, 1.3rem + 1.4vw, 2.25rem); }
-
-.metodo__passi {
-	--pallino: 3rem;
-	--spazio: var(--s-4);
-	display: grid;
-	gap: var(--spazio);
-	margin-top: var(--s-6);
-	padding: 0;
-}
+.metodo__passi { display: grid; gap: var(--s-3); margin-top: var(--s-5); padding: 0; }
 
 .passo {
-	position: relative;
 	display: grid;
-	grid-template-columns: var(--pallino) 1fr;
+	grid-template-columns: auto 1fr;
+	align-content: start;
 	column-gap: var(--s-4);
-	align-items: start;
-}
-
-/* Tratto di linea dalla tappa alla successiva: binario grigio (::before) e riempimento turchese (::after). */
-.passo:not(:last-child)::before,
-.passo:not(:last-child)::after {
-	content: "";
-	position: absolute;
-	top: calc(var(--pallino) / 2);
-	left: calc(var(--pallino) / 2 - 2px);
-	width: 4px;
-	height: calc(100% + var(--spazio));
-	border-radius: 2px;
-}
-.passo:not(:last-child)::before { background: var(--c-linea); }
-.passo:not(:last-child)::after { background: var(--c-accento); transform-origin: top; }
-
-.passo__numero {
-	position: relative;
-	z-index: 1;
-	display: grid;
-	place-items: center;
-	width: var(--pallino);
-	height: var(--pallino);
-	background: var(--c-accento);
-	border: 2px solid var(--c-scuro);
-	border-radius: 50%;
-	color: var(--c-scuro);
-	font-size: 1rem;
-	font-weight: 700;
-	letter-spacing: -0.02em;
-}
-
-.passo__corpo {
-	display: grid;
-	gap: var(--s-1);
+	row-gap: var(--s-1);
 	padding: var(--s-4) var(--s-5);
 	background: var(--c-fondo);
-	border: 2px solid var(--c-scuro);
+	border: 2px solid var(--c-linea);
 	border-radius: var(--raggio-grande);
-	box-shadow: 5px 5px 0 var(--c-accento);
+}
+.passo__numero {
+	grid-row: span 2;
+	color: var(--c-scuro);
+	font-size: 2.25rem;
+	font-weight: 700;
+	line-height: 1;
+	letter-spacing: -0.04em;
+	text-shadow: 3px 3px 0 var(--c-accento);
 }
 .passo__titolo { font-size: 1.25rem; letter-spacing: -0.02em; line-height: 1.2; color: var(--c-scuro); }
 .passo__testo { color: var(--c-testo-2); line-height: 1.45; }
-
-@media (prefers-reduced-motion: no-preference) {
-	@supports (animation-timeline: view()) {
-		/* Linea di lettura al 60% dello schermo: la tappa k si accende quando il percorso è avanzato di k/n. */
-		.metodo__passi {
-			view-timeline: --metodo block;
-			view-timeline-inset: 60% 40%;
-		}
-
-		.passo:not(:last-child)::after {
-			animation: nl-riempi-y linear both;
-			animation-timeline: --metodo;
-			animation-range: cover calc(var(--k) / var(--n) * 100%) cover calc((var(--k) + 1) / var(--n) * 100%);
-		}
-
-		.passo__numero,
-		.passo__corpo {
-			animation: nl-accendi linear both;
-			animation-timeline: --metodo;
-			animation-range: cover calc(var(--k) / var(--n) * 100% - 4%) cover calc(var(--k) / var(--n) * 100% + 2%);
-		}
-		.passo__numero { animation-name: nl-accendi-pallino; }
-	}
-}
-
-@keyframes nl-riempi-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-@keyframes nl-riempi-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-
-@keyframes nl-accendi {
-	from { border-color: var(--c-linea); box-shadow: 0 0 0 transparent; }
-	to { border-color: var(--c-scuro); box-shadow: 5px 5px 0 var(--c-accento); }
-}
-
-@keyframes nl-accendi-pallino {
-	from { background-color: var(--c-fondo); border-color: var(--c-linea); color: var(--c-testo-2); transform: scale(0.85); }
-	to { background-color: var(--c-accento); border-color: var(--c-scuro); color: var(--c-scuro); transform: scale(1); }
-}
 
 @media (min-width: 48rem) {
 	.numeri { grid-template-columns: repeat(4, minmax(0, 1fr)); padding: var(--s-7) var(--s-6); }
@@ -523,27 +449,9 @@
 	.referente__griglia { grid-template-columns: auto minmax(0, 1fr); gap: var(--s-8); align-items: center; }
 	.referente__ritratto { width: 20rem; height: 20rem; }
 
-	/* Percorso orizzontale: la linea corre tra i pallini, sopra le card. */
-	.metodo__passi { --pallino: 3.5rem; --spazio: var(--s-4); grid-template-columns: repeat(var(--n), minmax(0, 1fr)); }
-	.passo { grid-template-columns: 1fr; grid-template-rows: var(--pallino) 1fr; row-gap: var(--s-4); }
-	.passo:not(:last-child)::before,
-	.passo:not(:last-child)::after {
-		top: calc(var(--pallino) / 2 - 2px);
-		left: calc(var(--pallino) / 2);
-		width: calc(100% + var(--spazio));
-		height: 4px;
-	}
-	.passo:not(:last-child)::after { transform-origin: left; }
-	.passo__numero { font-size: 1.125rem; }
-	.passo__corpo { height: 100%; padding: var(--s-5); }
-}
-
-@media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
-	@supports (animation-timeline: view()) {
-		/* Su desktop il percorso è una riga: la si percorre mentre attraversa la fascia 25%–65% dello schermo. */
-		.metodo__passi { view-timeline-inset: 35% 25%; }
-		.passo:not(:last-child)::after { animation-name: nl-riempi-x; }
-	}
+	.metodo__passi { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-4); }
+	.passo { grid-template-columns: 1fr; row-gap: var(--s-2); padding: var(--s-5); }
+	.passo__numero { grid-row: auto; margin-bottom: var(--s-2); font-size: 3rem; }
 }
 
 /* Testimonianze */
