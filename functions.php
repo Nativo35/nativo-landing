@@ -18,6 +18,7 @@ add_action( 'after_setup_theme', function () {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'html5', array( 'script', 'style', 'gallery', 'caption' ) );
 	add_image_size( 'nl-ritratto', 160, 160, true );
+	add_image_size( 'nl-ritratto-grande', 640, 640, true );
 	add_image_size( 'nl-progetto', 800, 500, true );
 	add_image_size( 'nl-progetto-2x', 1200, 750, true );
 } );

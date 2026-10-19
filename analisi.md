@@ -558,6 +558,13 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Ai visitatori compaiono solo i progetti con immagine; senza immagini la sezione è nascosta.
 - CTA: **Voglio un sito così** + riga anti-rischio
 
+**Referente, numeri e metodo**
+- Titolo: Un solo referente. **[Dall'inizio alla fine.]** · Sottotitolo: Parli sempre con chi progetta il tuo sito: Matteo.
+- Punti: Nessun passaggio di mano · Una rete quando serve · Esperienza vera (Milano, poi Toscana) · Settori diversi (vino, food, turismo rurale, servizi professionali)
+- Banda turchese con i 4 numeri dal pannello; un numero vuoto non compare ai visitatori.
+- Metodo: Come lavoriamo: **[5 passi]**, zero sorprese (chiamata, struttura, design e sviluppo, test, lancio e formazione)
+- CTA: **Parla con Matteo, è gratis** + riga anti-rischio
+
 ### 8.3 Punti da confermare
 
 <!-- DA VERIFICARE: "Risposta entro 24 ore" è una promessa anche nel weekend. Le fonti dicono sia "entro 24 ore" sia "entro un giorno lavorativo". -->

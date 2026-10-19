@@ -136,19 +136,19 @@ function nl_segnaposto_admin( $testo ) {
 /**
  * Ritratto di Matteo, oppure un segnaposto neutro finché non viene caricato.
  */
-function nl_ritratto( $classe = 'nl-ritratto' ) {
+function nl_ritratto( $classe = 'nl-ritratto', $dimensione = 'nl-ritratto', $sizes = '80px', $loading = 'eager' ) {
 	$id = (int) nl_opt( 'foto_id' );
 	if ( $id && wp_attachment_is_image( $id ) ) {
 		return wp_get_attachment_image(
 			$id,
-			'nl-ritratto',
+			$dimensione,
 			false,
 			array(
 				'class'         => $classe,
 				'alt'           => 'Matteo Pugi, fondatore di Nativo Studio',
-				'loading'       => 'eager',
+				'loading'       => $loading,
 				'fetchpriority' => 'low',
-				'sizes'         => '80px',
+				'sizes'         => $sizes,
 			)
 		);
 	}
