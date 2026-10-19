@@ -569,6 +569,10 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Titolo: Cosa dicono **[i clienti]** · card con citazione, nome e attività · CTA: **Inizia anche tu: preventivo gratis**
 - Nascosta ai visitatori finché non c'è almeno una testimonianza in Impostazioni landing.
 
+**FAQ**
+- Titolo: Hai dei dubbi? **[Ecco le risposte.]** · otto domande dell'analisi con risposte accorciate; prezzi e sconto letti dal pannello.
+- CTA: **Chiama Matteo: [telefono]** (senza riga anti-rischio, perché è una chiamata)
+
 ### 8.3 Punti da confermare
 
 <!-- DA VERIFICARE: "Risposta entro 24 ore" è una promessa anche nel weekend. Le fonti dicono sia "entro 24 ore" sia "entro un giorno lavorativo". -->

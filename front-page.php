@@ -14,5 +14,6 @@ get_template_part( 'template-parts/pacchetti' );
 get_template_part( 'template-parts/progetti' );
 get_template_part( 'template-parts/referente' );
 get_template_part( 'template-parts/testimonianze' );
+get_template_part( 'template-parts/faq' );
 
 get_footer();

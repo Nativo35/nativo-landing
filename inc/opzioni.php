@@ -166,10 +166,10 @@ function nl_rischio_testo() {
  * CTA principale: pulsante arancio con freccia e riga anti-rischio.
  * $posizione finisce in data-cta, per distinguere le CTA nel tracciamento.
  */
-function nl_cta( $testo, $posizione, $href = '#preventivo', $rischio = true ) {
+function nl_cta( $testo, $posizione, $href = '#preventivo', $rischio = true, $evento = '' ) {
 	?>
 	<div class="cta">
-		<a class="pulsante pulsante--grande" href="<?php echo esc_url( $href ); ?>" data-cta="<?php echo esc_attr( $posizione ); ?>">
+		<a class="pulsante pulsante--grande" href="<?php echo esc_url( $href ); ?>" data-cta="<?php echo esc_attr( $posizione ); ?>"<?php echo $evento ? ' data-evento="' . esc_attr( $evento ) . '"' : ''; ?>>
 			<span><?php echo esc_html( $testo ); ?></span>
 			<?php nl_icona( 'freccia' ); ?>
 		</a>
