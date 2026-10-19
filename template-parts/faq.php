@@ -1,6 +1,6 @@
 <?php
 /**
- * Domande frequenti: obiezioni reali, risposte brevi. Accordion nativo <details>, senza JavaScript.
+ * Domande frequenti: obiezioni reali, risposte brevi. Accordion nativo <details>, una domanda aperta alla volta, senza JavaScript.
  * Prezzi e sconto sono letti da Impostazioni landing.
  */
 
@@ -64,7 +64,8 @@ $nl_faq = array(
 		<!-- DA VERIFICARE: tempi di consegna, revisioni incluse, servizio di assistenza e tempo di risposta ("entro 24 ore"). -->
 		<div class="faq__elenco">
 			<?php foreach ( $nl_faq as $i => $voce ) : ?>
-				<details class="domanda"<?php echo 0 === $i ? ' open' : ''; ?>>
+				<?php // name condiviso: aprendo una domanda il browser chiude le altre (accordion esclusivo nativo). ?>
+				<details class="domanda" name="faq"<?php echo 0 === $i ? ' open' : ''; ?>>
 					<summary class="domanda__titolo">
 						<span><?php echo esc_html( $voce[0] ); ?></span>
 						<span class="domanda__segno" aria-hidden="true"></span>
