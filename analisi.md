@@ -527,7 +527,8 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Su Google non ti trova nessuno. → Ti trova solo chi ti conosce già.
 - Riceve visite, ma nessuno scrive. → Le persone arrivano e se ne vanno senza contattarti.
 - Riga: **Non hai ancora un sito?** Partiamo da zero, con le idee chiare.
-- CTA: **Voglio un sito che mi porta clienti** + riga anti-rischio
+- CTA (dal 19/10/2026): blocco "**Hai già un sito?** Lascia l'indirizzo: Matteo lo analizza gratis e ti dice cosa lo frena." con **Analizza gratis il mio sito** + riga anti-rischio. Porta all'inizio del modulo, evidenzia il campo del sito e segna la richiesta come "Analisi gratuita del sito".
+- Riga "Non hai ancora un sito?" con link testuale **Richiedi il preventivo gratis**.
 
 **Cosa ottieni**
 - Titolo: Un sito costruito per **[farti contattare]**
@@ -582,7 +583,8 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 **Form e CTA finale**
 - Banda scura. Titolo: Ricevi il tuo **[preventivo gratis]** · Sottotitolo: Bastano 30 secondi. Matteo ti risponde entro 24 ore con una prima valutazione.
 - Punti: Gratis e senza impegno · Risposta entro 24 ore · frase dello sconto dal pannello · alternativa telefono/WhatsApp
-- Campi: nome e cognome, email, telefono, che sito ti serve (4 scelte), messaggio facoltativo, consenso privacy; nascosti UTM, variante, pacchetto cliccato.
+- Campi: nome e cognome, email, telefono, **il tuo sito attuale (facoltativo, "Se ce l'hai, Matteo lo analizza gratis prima di risponderti")**, che sito ti serve (4 scelte), messaggio facoltativo, consenso privacy; nascosti UTM, variante, pacchetto cliccato, tipo di richiesta.
+- Barra fissa su mobile: Preventivo gratis + WhatsApp (messaggio già scritto) + telefono.
 - Pulsante: **Ricevi il preventivo gratis** + riga anti-rischio. Dopo l'invio: /grazie/.
 
 ### 8.3 Punti da confermare

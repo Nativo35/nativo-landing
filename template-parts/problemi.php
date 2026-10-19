@@ -45,13 +45,16 @@ $nl_problemi = array(
 			<?php endforeach; ?>
 		</ul>
 
+		<!-- DA VERIFICARE: cosa include l'analisi gratuita del sito e in quanto tempo arriva. -->
+		<div class="sezione__cta analisi" data-richiesta="analisi">
+			<p class="analisi__testo"><strong>Hai già un sito?</strong> Lascia l'indirizzo: Matteo lo analizza gratis e ti dice cosa lo frena.</p>
+			<?php nl_cta( 'Analizza gratis il mio sito', 'problemi-analisi', '#modulo' ); ?>
+		</div>
+
 		<p class="problemi__nuovo">
 			<strong>Non hai ancora un sito?</strong>
 			Partiamo da zero, con le idee chiare.
+			<a href="#preventivo" data-cta="problemi-nuovo">Richiedi il preventivo gratis</a>
 		</p>
-
-		<div class="sezione__cta">
-			<?php nl_cta( 'Voglio un sito che mi porta clienti', 'problemi' ); ?>
-		</div>
 	</div>
 </section>

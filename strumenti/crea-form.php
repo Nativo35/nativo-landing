@@ -19,6 +19,11 @@ $markup = <<<'FORM'
 	<label for="nl-telefono">Telefono</label>
 	[tel* telefono id:nl-telefono autocomplete:tel]
 </div>
+<div class="campo campo--sito" id="campo-sito">
+	<label for="nl-sito">Il tuo sito attuale <span>(facoltativo)</span></label>
+	[text sito_attuale id:nl-sito autocomplete:url placeholder "Es. www.tuosito.it"]
+	<p class="campo__aiuto">Se ce l'hai, Matteo lo analizza gratis prima di risponderti.</p>
+</div>
 <fieldset class="campo campo--scelta">
 	<legend>Che sito ti serve?</legend>
 	[radio tipo use_label_element "Sito vetrina" "Sito + Blog" "E-commerce" "Non lo so ancora"]
@@ -30,7 +35,7 @@ $markup = <<<'FORM'
 <div class="campo campo--consenso">
 	[acceptance privacy] Ho letto l'<a href="/privacy-policy/" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei dati per ricevere una risposta. [/acceptance]
 </div>
-[hidden utm_source] [hidden utm_medium] [hidden utm_campaign] [hidden utm_term] [hidden utm_content] [hidden variante] [hidden pacchetto_cliccato]
+[hidden utm_source] [hidden utm_medium] [hidden utm_campaign] [hidden utm_term] [hidden utm_content] [hidden variante] [hidden pacchetto_cliccato] [hidden richiesta]
 <div class="campo campo--invio">
 	[submit class:pulsante class:pulsante--grande "Ricevi il preventivo gratis"]
 </div>
@@ -41,7 +46,7 @@ $mail = array(
 	'subject'            => 'Nuova richiesta di preventivo: [tipo] – [nome]',
 	'sender'             => 'Landing Nativo Studio <wordpress@nativo.studio>',
 	'recipient'          => 'info@nativo.studio',
-	'body'               => "Nuova richiesta dalla landing.\n\nNome: [nome]\nEmail: [email]\nTelefono: [telefono]\nTipo di sito: [tipo]\n\nMessaggio:\n[messaggio]\n\n--\nCampagna\nutm_source: [utm_source]\nutm_medium: [utm_medium]\nutm_campaign: [utm_campaign]\nutm_term: [utm_term]\nutm_content: [utm_content]\nVariante A/B: [variante]\nPacchetto cliccato: [pacchetto_cliccato]\n\nInviato il [_date] alle [_time] da [_url]",
+	'body'               => "Nuova richiesta dalla landing.\n\nNome: [nome]\nEmail: [email]\nTelefono: [telefono]\nTipo di sito: [tipo]\nSito attuale: [sito_attuale]\nRichiesta: [richiesta]\n\nMessaggio:\n[messaggio]\n\n--\nCampagna\nutm_source: [utm_source]\nutm_medium: [utm_medium]\nutm_campaign: [utm_campaign]\nutm_term: [utm_term]\nutm_content: [utm_content]\nVariante A/B: [variante]\nPacchetto cliccato: [pacchetto_cliccato]\n\nInviato il [_date] alle [_time] da [_url]",
 	'additional_headers' => 'Reply-To: [nome] <[email]>',
 	'attachments'        => '',
 	'use_html'           => false,

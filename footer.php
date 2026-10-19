@@ -43,10 +43,13 @@ $nl_privacy = get_privacy_policy_url();
 
 <div class="barra-cta" id="barra-cta" aria-hidden="true" inert>
 	<a class="pulsante barra-cta__pulsante" href="<?php echo esc_url( is_front_page() ? "#preventivo" : home_url( "/#preventivo" ) ); ?>" data-cta="barra-mobile">
-		<span>Ricevi il preventivo gratis</span>
+		<span>Preventivo gratis</span>
 		<?php nl_icona( 'freccia' ); ?>
 	</a>
-	<a class="barra-cta__tel" href="<?php echo esc_attr( nl_tel_href() ); ?>" data-evento="clic_telefono" aria-label="Chiama Nativo Studio">
+	<a class="barra-cta__icona barra-cta__icona--whatsapp" href="<?php echo esc_url( nl_whatsapp_href() ); ?>" data-evento="clic_whatsapp" target="_blank" rel="noopener" aria-label="Scrivi a Nativo Studio su WhatsApp">
+		<?php nl_icona( 'whatsapp' ); ?>
+	</a>
+	<a class="barra-cta__icona" href="<?php echo esc_attr( nl_tel_href() ); ?>" data-evento="clic_telefono" aria-label="Chiama Nativo Studio">
 		<?php nl_icona( 'telefono' ); ?>
 	</a>
 </div>

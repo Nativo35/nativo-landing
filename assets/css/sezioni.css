@@ -107,8 +107,29 @@
 	.problema:hover .problema__icona { transform: none; }
 }
 
+/* Analisi gratuita del sito: CTA principale della sezione Problemi */
+.analisi {
+	display: grid;
+	gap: var(--s-4);
+	margin-top: var(--s-6);
+	padding: var(--s-5);
+	background: var(--c-fondo);
+	border: 2px solid var(--c-scuro);
+	border-radius: var(--raggio-grande);
+	box-shadow: 6px 6px 0 var(--c-accento);
+}
+.analisi__testo { color: var(--c-scuro); font-size: var(--t-grande); line-height: 1.4; }
+
+@media (min-width: 64rem) {
+	.analisi { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--s-6); padding: var(--s-6); }
+	.analisi .cta { justify-items: end; }
+	.analisi .cta__rischio { text-align: right; }
+}
+
+.problemi__nuovo a { margin-left: var(--s-1); color: var(--c-scuro); font-weight: 700; white-space: nowrap; }
+
 .problemi__nuovo {
-	margin-top: var(--s-5);
+	margin-top: var(--s-4);
 	padding: var(--s-4) var(--s-5);
 	background: var(--c-accento-chiaro);
 	color: var(--c-scuro);
@@ -641,6 +662,12 @@
 .campo--scelta input { flex: none; width: 1.125rem; height: 1.125rem; margin: 0; accent-color: var(--c-scuro); }
 .campo--scelta label:has(input:checked) { border-color: var(--c-scuro); background: var(--c-accento-chiaro); }
 .campo--scelta label:has(input:focus-visible) { box-shadow: 0 0 0 3px var(--c-accento); }
+
+.campo__aiuto { margin: 0; color: var(--c-testo-2); font-size: var(--t-piccolo); line-height: 1.4; }
+
+/* Evidenziato per qualche secondo quando si arriva dalla CTA "Analizza gratis il mio sito" */
+.campo--sito { border-radius: var(--raggio); transition: background-color 0.4s ease, box-shadow 0.4s ease; }
+.campo--sito.is-evidenziato { background: var(--c-accento-chiaro); box-shadow: 0 0 0 10px var(--c-accento-chiaro); }
 
 .campo--consenso { font-size: var(--t-piccolo); line-height: 1.45; }
 .campo--consenso .wpcf7-list-item { margin: 0; }

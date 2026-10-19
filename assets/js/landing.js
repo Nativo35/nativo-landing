@@ -65,6 +65,7 @@
 	if ( form ) {
 		CHIAVI_UTM.forEach( ( k ) => imposta( k, utm[ k ] ) );
 		imposta( 'variante', variante );
+		imposta( 'richiesta', 'Preventivo' );
 	}
 
 	const posizione = ( el ) => {
@@ -89,6 +90,16 @@
 			window.dataLayer.push( { event: link.dataset.evento, posizione: posizione( link ), variante } );
 		}
 
+		// CTA "Analizza gratis il mio sito": segna la richiesta ed evidenzia il campo del sito.
+		if ( link.closest( '[data-richiesta="analisi"]' ) && link.matches( '[data-cta]' ) && form ) {
+			imposta( 'richiesta', 'Analisi gratuita del sito' );
+			const campoSito = form.querySelector( '.campo--sito' );
+			if ( campoSito ) {
+				setTimeout( () => campoSito.classList.add( 'is-evidenziato' ), 500 );
+				setTimeout( () => campoSito.classList.remove( 'is-evidenziato' ), 3500 );
+			}
+		}
+
 		// CTA di un pacchetto: preseleziona il tipo di sito nel form.
 		const pacchetto = link.closest( '[data-pacchetto]' );
 		if ( pacchetto && form ) {
@@ -107,6 +118,8 @@
 		window.dataLayer.push( {
 			event: 'invio_form',
 			tipo_sito: dati.tipo || '',
+			richiesta: dati.richiesta || '',
+			ha_sito: dati.sito_attuale ? 'sì' : 'no',
 			variante,
 			...utm,
 		} );

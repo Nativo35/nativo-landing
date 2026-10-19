@@ -490,7 +490,7 @@ mark {
 	transition: transform 0.25s ease;
 }
 .barra-cta__pulsante { flex: 1; min-height: 3.25rem; box-shadow: 0 3px 0 var(--c-scuro); }
-.barra-cta__tel {
+.barra-cta__icona {
 	display: grid;
 	place-items: center;
 	flex: none;
@@ -499,6 +499,8 @@ mark {
 	border-radius: var(--raggio);
 	color: var(--c-scuro);
 }
+.barra-cta__icona--whatsapp { background: var(--c-accento-chiaro); }
+.barra-cta__icona .icona { width: 1.5rem; height: 1.5rem; }
 
 @media (max-width: 47.99rem) {
 	body { padding-bottom: 5rem; }

@@ -37,7 +37,7 @@ if ( $nl_form && function_exists( 'wpcf7_enqueue_scripts' ) ) {
 			</div>
 		</div>
 
-		<div class="preventivo__modulo">
+		<div class="preventivo__modulo" id="modulo">
 			<?php if ( $nl_form ) : ?>
 				<?php echo $nl_form->form_html( array( 'html_class' => 'modulo' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- HTML generato da Contact Form 7. ?>
 				<p class="cta__rischio"><?php echo esc_html( nl_rischio_testo() ); ?></p>

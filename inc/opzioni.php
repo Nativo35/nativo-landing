@@ -110,8 +110,11 @@ function nl_tel_breve() {
 	return trim( preg_replace( '/^\+39\s*/', '', (string) nl_opt( 'telefono' ) ) );
 }
 
-function nl_whatsapp_href() {
-	return 'https://wa.me/' . preg_replace( '/\D/', '', nl_opt( 'whatsapp' ) );
+/**
+ * Link a WhatsApp con un messaggio già scritto, che chi scrive può modificare.
+ */
+function nl_whatsapp_href( $messaggio = 'Ciao Matteo, vorrei qualche informazione per un sito web.' ) {
+	return 'https://wa.me/' . preg_replace( '/\D/', '', nl_opt( 'whatsapp' ) ) . ( $messaggio ? '?text=' . rawurlencode( $messaggio ) : '' );
 }
 
 /**
