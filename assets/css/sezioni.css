@@ -10,6 +10,27 @@
 .sezione--rosa .sezione__sottotitolo,
 .sezione--rosa .cta__rischio { color: #000; }
 
+/* Pulsanti su rosa: neri a riposo (l'arancio sul rosa ha contrasto 1,24:1), arancioni al passaggio del mouse. */
+.sezione--rosa .pulsante {
+	background: #000;
+	color: #fff;
+	border-color: #000;
+	box-shadow: 0 4px 0 var(--c-fondo);
+}
+.sezione--rosa .pulsante .icona { color: var(--c-cta); }
+
+.sezione--rosa .pulsante:hover,
+.sezione--rosa .pulsante:focus-visible {
+	background: var(--c-cta);
+	color: var(--c-scuro);
+	border-color: var(--c-scuro);
+	box-shadow: 0 6px 0 var(--c-scuro);
+}
+.sezione--rosa .pulsante:hover .icona,
+.sezione--rosa .pulsante:focus-visible .icona { color: var(--c-scuro); }
+
+.sezione--rosa .pulsante:active { box-shadow: 0 2px 0 var(--c-scuro); }
+
 .sezione__intestazione {
 	max-width: 46rem;
 	margin-bottom: var(--s-6);

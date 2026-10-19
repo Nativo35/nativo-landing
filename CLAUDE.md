@@ -22,6 +22,7 @@
 - Script di Contact Form 7 caricati solo dove serve.
 - Google Tag Manager (GTM-WHFCL32F) caricato solo dopo il consenso cookie.
 - Contrasto conforme WCAG AA. Icone SVG leggere; niente slider, animazioni pesanti o effetti decorativi superflui.
+- Palette: arancio `#FF5300` solo per le CTA; turchese `#00FFD1` per parole chiave e bande; rosa `#F2295B` per bande di sezione. Sul rosa: testo nero `#000`, contenuti lunghi su card bianche, pulsanti neri a riposo e arancioni al passaggio del mouse.
 - Obiettivo prestazioni: PageSpeed mobile ≥ 90, LCP < 2,5 s, CLS < 0,1. Misura e riporta i valori.
 
 ## Form e conversioni

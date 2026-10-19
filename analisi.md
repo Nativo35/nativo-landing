@@ -475,7 +475,7 @@ Obiettivo: una pagina più energica, con le CTA che si trovano subito, frasi bre
 | CTA | `#FF5300` arancio (dal CSS di nativo.studio) | **Solo** pulsanti di azione | testo `#1A1A19` su arancio 5,4:1 ✅; pulsante su bianco 3,2:1 ✅ (soglia 3:1 per i componenti) |
 | Parole chiave e bande | `#00FFD1` turchese | Evidenziatore pieno nei titoli, spunte, bande colorate | testo antracite su turchese 10,2:1 ✅ |
 | Testo e bande scure | `#30302E` antracite | Testo, banda dell'offerta, banda del form | 13,2:1 su bianco ✅ |
-| Bande di sezione (aggiunto il 19/10/2026) | `#F2295B` rosa del brand | Sfondo della sezione Problemi e della banda dei numeri | testo nero `#000` su rosa 5,2:1 ✅; bianco 4,0:1 e antracite 4,35:1 solo per testi grandi; contenuti lunghi su card bianche |
+| Bande di sezione (aggiunto il 19/10/2026) | `#F2295B` rosa del brand | Sfondo della sezione Problemi e della banda dei numeri | testo nero `#000` su rosa 5,2:1 ✅; bianco 4,0:1 e antracite 4,35:1 solo per testi grandi; contenuti lunghi su card bianche; **pulsanti neri a riposo e arancioni al passaggio del mouse** (l'arancio sul rosa ha contrasto 1,24:1) |
 | Sfondi | `#FFFFFF` / `#F6F6F3` | Alternanza delle sezioni | |
 
 Il rosa dell'offerta viene tolto: lo sconto vive in una banda antracite con la percentuale in turchese grande. Così l'arancio resta l'unico colore "da cliccare".
