@@ -1,50 +1,62 @@
-/* Pagina "Impostazioni landing": testimonianze ripetibili e scelta della foto. */
+/* Pagina "Impostazioni landing": elenchi ripetibili e campi immagine. */
 ( function () {
-	const lista = document.getElementById( 'nl-testimonianze' );
-	const modello = document.getElementById( 'nl-testimonianza-modello' );
+	// Elenchi ripetibili (testimonianze, progetti).
+	document.querySelectorAll( '[data-aggiungi]' ).forEach( ( pulsante ) => {
+		const chiave = pulsante.dataset.aggiungi;
+		const lista = document.querySelector( `[data-ripetitore="${ chiave }"]` );
+		const modello = document.querySelector( `[data-modello="${ chiave }"]` );
 
-	document.getElementById( 'nl-aggiungi-testimonianza' ).addEventListener( 'click', () => {
-		// Indice univoco: l'ordine viene ricompattato al salvataggio.
-		const html = modello.innerHTML.replaceAll( '__i__', String( Date.now() ) );
-		lista.insertAdjacentHTML( 'beforeend', html );
-		lista.lastElementChild.querySelector( 'input' ).focus();
+		pulsante.addEventListener( 'click', () => {
+			// Indice univoco: l'ordine viene ricompattato al salvataggio.
+			lista.insertAdjacentHTML( 'beforeend', modello.innerHTML.replaceAll( '__i__', String( Date.now() ) ) );
+			lista.lastElementChild.querySelector( 'input' ).focus();
+		} );
 	} );
 
-	lista.addEventListener( 'click', ( e ) => {
-		if ( e.target.classList.contains( 'nl-rimuovi-testimonianza' ) ) {
-			e.target.closest( '.nl-testimonianza' ).remove();
+	document.addEventListener( 'click', ( e ) => {
+		if ( e.target.classList.contains( 'nl-rimuovi-voce' ) ) {
+			e.target.closest( '.nl-voce' ).remove();
 		}
 	} );
 
-	const campo = document.getElementById( 'nl-foto-id' );
-	const anteprima = document.getElementById( 'nl-foto-anteprima' );
-	const rimuovi = document.getElementById( 'nl-foto-rimuovi' );
+	// Campi immagine: delega sul documento, così funzionano anche nelle voci aggiunte.
 	let frame;
+	let campoAttivo;
 
-	document.getElementById( 'nl-foto-scegli' ).addEventListener( 'click', () => {
+	document.addEventListener( 'click', ( e ) => {
+		const campo = e.target.closest( '.nl-media' );
+		if ( ! campo ) {
+			return;
+		}
+
+		if ( e.target.classList.contains( 'nl-media__rimuovi' ) ) {
+			campo.querySelector( '.nl-media__id' ).value = '';
+			campo.querySelector( '.nl-media__anteprima' ).innerHTML = '';
+			e.target.hidden = true;
+			return;
+		}
+
+		if ( ! e.target.classList.contains( 'nl-media__scegli' ) ) {
+			return;
+		}
+
+		campoAttivo = campo;
 		frame = frame || wp.media( {
-			title: 'Foto di Matteo',
-			button: { text: 'Usa questa foto' },
+			title: 'Scegli un\'immagine',
+			button: { text: 'Usa questa immagine' },
 			library: { type: 'image' },
 			multiple: false,
 		} );
 		frame.off( 'select' ).on( 'select', () => {
-			const foto = frame.state().get( 'selection' ).first().toJSON();
-			const url = ( foto.sizes && ( foto.sizes.medium || foto.sizes.thumbnail ) || foto ).url;
-			campo.value = foto.id;
-			anteprima.innerHTML = '';
-			const img = document.createElement( 'img' );
-			img.src = url;
-			img.alt = '';
-			anteprima.appendChild( img );
-			rimuovi.hidden = false;
+			const img = frame.state().get( 'selection' ).first().toJSON();
+			const url = ( img.sizes && ( img.sizes.medium || img.sizes.thumbnail ) || img ).url;
+			const anteprima = document.createElement( 'img' );
+			anteprima.src = url;
+			anteprima.alt = '';
+			campoAttivo.querySelector( '.nl-media__id' ).value = img.id;
+			campoAttivo.querySelector( '.nl-media__anteprima' ).replaceChildren( anteprima );
+			campoAttivo.querySelector( '.nl-media__rimuovi' ).hidden = false;
 		} );
 		frame.open();
-	} );
-
-	rimuovi.addEventListener( 'click', () => {
-		campo.value = '';
-		anteprima.innerHTML = '';
-		rimuovi.hidden = true;
 	} );
 }() );

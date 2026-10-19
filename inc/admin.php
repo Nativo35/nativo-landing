@@ -34,12 +34,13 @@ add_action( 'admin_enqueue_scripts', function ( $hook ) {
 		return;
 	}
 	wp_enqueue_media();
-	wp_enqueue_script( 'nl-admin', NL_URI . '/assets/js/admin.js', array(), NL_VERSION, true );
+	wp_enqueue_script( 'nl-admin', NL_URI . '/assets/js/admin.js', array(), filemtime( NL_DIR . '/assets/js/admin.js' ), true );
 	wp_add_inline_style( 'common', '
 		.nl-admin .nl-riga{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:760px;margin-bottom:12px}
-		.nl-admin .nl-testimonianza{background:#fff;border:1px solid #dcdcde;padding:12px 16px;margin-bottom:12px;max-width:760px}
-		.nl-admin .nl-testimonianza textarea{width:100%}
-		.nl-admin .nl-foto img{display:block;width:120px;height:120px;object-fit:cover;border-radius:50%;margin-bottom:8px}
+		.nl-admin .nl-voce{background:#fff;border:1px solid #dcdcde;padding:12px 16px;margin-bottom:12px;max-width:760px}
+		.nl-admin .nl-voce textarea{width:100%}
+		.nl-admin .nl-media__anteprima img{display:block;width:160px;height:auto;margin-bottom:8px;border:1px solid #dcdcde}
+		.nl-admin .nl-media--ritratto .nl-media__anteprima img{width:120px;height:120px;object-fit:cover;border-radius:50%}
 		.nl-admin label span{display:block;font-weight:600;margin-bottom:4px}
 	' );
 } );
@@ -76,6 +77,19 @@ function nl_admin_sanifica( $input ) {
 		);
 		if ( '' !== $t['nome'] && '' !== $t['testo'] ) {
 			$out['testimonianze'][] = $t;
+		}
+	}
+
+	$out['progetti'] = array();
+	foreach ( (array) ( $input['progetti'] ?? array() ) as $pr ) {
+		$pr = array(
+			'nome'     => sanitize_text_field( $pr['nome'] ?? '' ),
+			'tipo'     => sanitize_text_field( $pr['tipo'] ?? '' ),
+			'contesto' => sanitize_textarea_field( $pr['contesto'] ?? '' ),
+			'immagine' => absint( $pr['immagine'] ?? 0 ),
+		);
+		if ( '' !== $pr['nome'] ) {
+			$out['progetti'][] = $pr;
 		}
 	}
 
@@ -146,22 +160,15 @@ function nl_admin_pagina() {
 
 			<h2>Testimonianze</h2>
 			<p class="description">La sezione compare ai visitatori solo quando c'è almeno una testimonianza con nome e testo.</p>
-			<div id="nl-testimonianze" data-nome="<?php echo esc_attr( $n ); ?>">
-				<?php foreach ( nl_opt( 'testimonianze' ) as $i => $t ) : ?>
-					<?php nl_admin_testimonianza( $i, $t ); ?>
-				<?php endforeach; ?>
-			</div>
-			<template id="nl-testimonianza-modello"><?php nl_admin_testimonianza( '__i__', array() ); ?></template>
-			<p><button type="button" class="button" id="nl-aggiungi-testimonianza">Aggiungi testimonianza</button></p>
+			<?php nl_admin_ripetitore( 'testimonianze', 'nl_admin_testimonianza', 'Aggiungi testimonianza' ); ?>
+
+			<h2>Progetti realizzati</h2>
+			<p class="description">Ai visitatori compaiono solo i progetti con un'immagine. Da loggato vedi anche gli altri, con i segnaposto. Immagine orizzontale, almeno 1200 × 750 px.</p>
+			<?php nl_admin_ripetitore( 'progetti', 'nl_admin_progetto', 'Aggiungi progetto' ); ?>
 
 			<h2>Foto di Matteo</h2>
-			<div class="nl-foto">
-				<div id="nl-foto-anteprima"><?php echo $foto_id ? wp_get_attachment_image( $foto_id, 'nl-ritratto' ) : ''; ?></div>
-				<input type="hidden" id="nl-foto-id" name="<?php echo esc_attr( $n ); ?>[foto_id]" value="<?php echo esc_attr( $foto_id ?: '' ); ?>">
-				<button type="button" class="button" id="nl-foto-scegli">Scegli foto</button>
-				<button type="button" class="button-link-delete" id="nl-foto-rimuovi" <?php echo $foto_id ? '' : 'hidden'; ?>>Rimuovi</button>
-				<p class="description">Ritratto quadrato, almeno 320 × 320 px.</p>
-			</div>
+			<?php nl_admin_media( "{$n}[foto_id]", $foto_id, 'Scegli foto', 'nl-ritratto', 'nl-media--ritratto' ); ?>
+			<p class="description">Ritratto quadrato, almeno 320 × 320 px.</p>
 
 			<h2>Contatti e dati aziendali</h2>
 			<div class="nl-riga">
@@ -188,16 +195,61 @@ function nl_admin_pagina() {
 	<?php
 }
 
+/**
+ * Elenco ripetibile: voci esistenti, modello per le nuove e pulsante "Aggiungi".
+ */
+function nl_admin_ripetitore( $chiave, $render, $etichetta ) {
+	?>
+	<div data-ripetitore="<?php echo esc_attr( $chiave ); ?>">
+		<?php foreach ( (array) nl_opt( $chiave ) as $i => $voce ) : ?>
+			<?php $render( $i, $voce ); ?>
+		<?php endforeach; ?>
+	</div>
+	<template data-modello="<?php echo esc_attr( $chiave ); ?>"><?php $render( '__i__', array() ); ?></template>
+	<p><button type="button" class="button" data-aggiungi="<?php echo esc_attr( $chiave ); ?>"><?php echo esc_html( $etichetta ); ?></button></p>
+	<?php
+}
+
+/**
+ * Campo immagine dalla libreria media (salva l'ID dell'allegato).
+ */
+function nl_admin_media( $nome, $id, $etichetta, $dimensione = 'medium', $classe = '' ) {
+	$id = (int) $id;
+	?>
+	<div class="nl-media <?php echo esc_attr( $classe ); ?>">
+		<div class="nl-media__anteprima"><?php echo $id ? wp_get_attachment_image( $id, $dimensione ) : ''; ?></div>
+		<input type="hidden" class="nl-media__id" name="<?php echo esc_attr( $nome ); ?>" value="<?php echo esc_attr( $id ?: '' ); ?>">
+		<button type="button" class="button nl-media__scegli"><?php echo esc_html( $etichetta ); ?></button>
+		<button type="button" class="button-link-delete nl-media__rimuovi" <?php echo $id ? '' : 'hidden'; ?>>Rimuovi</button>
+	</div>
+	<?php
+}
+
 function nl_admin_testimonianza( $i, $t ) {
 	$base = NL_OPZIONE . "[testimonianze][{$i}]";
 	?>
-	<div class="nl-testimonianza">
+	<div class="nl-voce">
 		<div class="nl-riga">
 			<label><span>Nome e cognome</span><input type="text" name="<?php echo esc_attr( $base . '[nome]' ); ?>" value="<?php echo esc_attr( $t['nome'] ?? '' ); ?>"></label>
 			<label><span>Attività</span><input type="text" name="<?php echo esc_attr( $base . '[attivita]' ); ?>" value="<?php echo esc_attr( $t['attivita'] ?? '' ); ?>"></label>
 		</div>
 		<label><span>Testo</span><textarea rows="3" name="<?php echo esc_attr( $base . '[testo]' ); ?>"><?php echo esc_textarea( $t['testo'] ?? '' ); ?></textarea></label>
-		<p><button type="button" class="button-link-delete nl-rimuovi-testimonianza">Rimuovi testimonianza</button></p>
+		<p><button type="button" class="button-link-delete nl-rimuovi-voce">Rimuovi testimonianza</button></p>
+	</div>
+	<?php
+}
+
+function nl_admin_progetto( $i, $pr ) {
+	$base = NL_OPZIONE . "[progetti][{$i}]";
+	?>
+	<div class="nl-voce">
+		<div class="nl-riga">
+			<label><span>Nome</span><input type="text" name="<?php echo esc_attr( $base . '[nome]' ); ?>" value="<?php echo esc_attr( $pr['nome'] ?? '' ); ?>"></label>
+			<label><span>Tipo di sito</span><input type="text" name="<?php echo esc_attr( $base . '[tipo]' ); ?>" value="<?php echo esc_attr( $pr['tipo'] ?? '' ); ?>" placeholder="Es. Sito vetrina"></label>
+		</div>
+		<label><span>Contesto (una frase: settore, città, obiettivo)</span><textarea rows="2" name="<?php echo esc_attr( $base . '[contesto]' ); ?>"><?php echo esc_textarea( $pr['contesto'] ?? '' ); ?></textarea></label>
+		<p><?php nl_admin_media( $base . '[immagine]', $pr['immagine'] ?? 0, 'Scegli immagine' ); ?></p>
+		<p><button type="button" class="button-link-delete nl-rimuovi-voce">Rimuovi progetto</button></p>
 	</div>
 	<?php
 }

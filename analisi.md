@@ -551,6 +551,13 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Banda scura dello sconto: −[X]% grande + la frase unica dal pannello
 - Nota: Prezzi IVA esclusa. Hosting e dominio a parte: possiamo gestirli noi o usare quelli che hai già.
 
+**Progetti**
+- Titolo: Progetti veri, per attività **[come la tua]**
+- Sottotitolo: Alcuni dei siti che abbiamo progettato e realizzato.
+- Card: immagine, tipo di sito (etichetta), nome, contesto in una frase. Tutto gestito da Impostazioni landing → Progetti realizzati.
+- Ai visitatori compaiono solo i progetti con immagine; senza immagini la sezione è nascosta.
+- CTA: **Voglio un sito così** + riga anti-rischio
+
 ### 8.3 Punti da confermare
 
 <!-- DA VERIFICARE: "Risposta entro 24 ore" è una promessa anche nel weekend. Le fonti dicono sia "entro 24 ore" sia "entro un giorno lavorativo". -->

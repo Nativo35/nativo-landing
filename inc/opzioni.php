@@ -24,6 +24,15 @@ function nl_default() {
 			array( 'valore' => '', 'suffisso' => '', 'etichetta' => 'Servizi integrati' ),
 		),
 		'testimonianze'      => array(),
+		// Nomi e tipi dalla landing attuale; contesto e immagine da completare nel pannello.
+		'progetti'           => array(
+			array( 'nome' => 'Addon', 'tipo' => 'E-commerce', 'contesto' => '', 'immagine' => 0 ),
+			array( 'nome' => 'B&GB Bergamo', 'tipo' => 'Sito vetrina + area riservata', 'contesto' => '', 'immagine' => 0 ),
+			array( 'nome' => 'Jambo Tour', 'tipo' => 'Sito vetrina + e-commerce', 'contesto' => '', 'immagine' => 0 ),
+			array( 'nome' => 'Igor Meloni', 'tipo' => 'Sito vetrina', 'contesto' => '', 'immagine' => 0 ),
+			array( 'nome' => 'Zaini SpA', 'tipo' => 'Sito vetrina', 'contesto' => '', 'immagine' => 0 ),
+			array( 'nome' => 'Ambrosiano', 'tipo' => 'Sito vetrina', 'contesto' => '', 'immagine' => 0 ),
+		),
 		'foto_id'            => 0,
 		'telefono'           => '+39 334 703 5703',
 		'whatsapp'           => '+39 334 703 5703',
