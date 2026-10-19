@@ -565,6 +565,10 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Metodo: Come lavoriamo: **[5 passi]**, zero sorprese (chiamata, struttura, design e sviluppo, test, lancio e formazione)
 - CTA: **Parla con Matteo, è gratis** + riga anti-rischio
 
+**Testimonianze**
+- Titolo: Cosa dicono **[i clienti]** · card con citazione, nome e attività · CTA: **Inizia anche tu: preventivo gratis**
+- Nascosta ai visitatori finché non c'è almeno una testimonianza in Impostazioni landing.
+
 ### 8.3 Punti da confermare
 
 <!-- DA VERIFICARE: "Risposta entro 24 ore" è una promessa anche nel weekend. Le fonti dicono sia "entro 24 ore" sia "entro un giorno lavorativo". -->
