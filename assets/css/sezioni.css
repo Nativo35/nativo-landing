@@ -4,33 +4,6 @@
 .sezione { padding-block: var(--sezione); }
 .sezione--alt { background: var(--c-fondo-alt); border-block: 1px solid var(--c-linea); }
 
-/* Banda rosa del brand: testi in nero pieno per il contrasto AA, contenuti su card bianche. */
-.sezione--rosa { background: var(--c-rosa); color: #000; border-block: 2px solid var(--c-scuro); }
-.sezione--rosa .sezione__titolo,
-.sezione--rosa .sezione__sottotitolo,
-.sezione--rosa .cta__rischio { color: #000; }
-
-/* Pulsanti su rosa: neri a riposo (l'arancio sul rosa ha contrasto 1,24:1), arancioni al passaggio del mouse. */
-.sezione--rosa .pulsante {
-	background: #000;
-	color: #fff;
-	border-color: #000;
-	box-shadow: 0 4px 0 var(--c-fondo);
-}
-.sezione--rosa .pulsante .icona { color: var(--c-cta); }
-
-.sezione--rosa .pulsante:hover,
-.sezione--rosa .pulsante:focus-visible {
-	background: var(--c-cta);
-	color: var(--c-scuro);
-	border-color: var(--c-scuro);
-	box-shadow: 0 6px 0 var(--c-scuro);
-}
-.sezione--rosa .pulsante:hover .icona,
-.sezione--rosa .pulsante:focus-visible .icona { color: var(--c-scuro); }
-
-.sezione--rosa .pulsante:active { box-shadow: 0 2px 0 var(--c-scuro); }
-
 .sezione__intestazione {
 	max-width: 46rem;
 	margin-bottom: var(--s-6);
@@ -418,26 +391,26 @@
 
 .referente__punti { margin-top: var(--s-5); gap: var(--s-3); }
 
-/* Banda rosa dei numeri */
+/* Banda turchese dei numeri */
 .numeri {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: var(--s-5) var(--s-4);
 	margin-top: var(--s-7);
 	padding: var(--s-6) var(--s-5);
-	background: var(--c-rosa);
+	background: var(--c-accento);
 	border: 2px solid var(--c-scuro);
 	border-radius: var(--raggio-grande);
 }
 .numero { display: grid; align-content: start; gap: var(--s-1); }
 .numero__valore {
-	color: #000;
+	color: var(--c-scuro);
 	font-size: clamp(2.75rem, 2rem + 3.5vw, 4.5rem);
 	font-weight: 700;
 	line-height: 1;
 	letter-spacing: -0.04em;
 }
-.numero__etichetta { color: #000; font-weight: 700; line-height: 1.25; }
+.numero__etichetta { color: var(--c-scuro); font-weight: 700; line-height: 1.25; }
 .numero .nl-segnaposto { margin-top: 0; justify-self: start; background: var(--c-fondo); }
 
 /* Metodo */

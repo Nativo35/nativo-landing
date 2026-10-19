@@ -28,7 +28,7 @@ $nl_problemi = array(
 	),
 );
 ?>
-<section id="problemi" class="sezione sezione--rosa problemi" aria-labelledby="problemi-titolo">
+<section id="problemi" class="sezione sezione--alt problemi" aria-labelledby="problemi-titolo">
 	<div class="contenitore">
 		<header class="sezione__intestazione">
 			<h2 id="problemi-titolo" class="sezione__titolo">Il tuo sito ti sta facendo <mark>perdere clienti?</mark></h2>
