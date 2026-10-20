@@ -576,7 +576,7 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Titolo: Cosa dicono **[i clienti]** · card con virgolette turchesi, testo, nome in evidenza, ruolo e azienda più piccoli, foto o logo (oppure cerchio con le iniziali nei colori della palette) · CTA: **Inizia anche tu: preventivo gratis**
 - Carosello (dal 20/10/2026): 3 card visibili su desktop, 2 su tablet, 1 su mobile; avanza di una card ogni 6 secondi, con frecce, pallini e pulsante pausa. Si ferma con mouse sopra, focus, tocco, sezione fuori schermo o scheda nascosta; mai automatico con movimento ridotto. Base in CSS (scroll-snap) che funziona anche senza JavaScript.
 - Ai visitatori solo le testimonianze con "Pubblicata" attivo; nessuna pubblicata = sezione nascosta. Da loggato anche le altre, con l'etichetta "In attesa di approvazione".
-- Inserite il 20/10/2026, tutte non pubblicate: Alessandro Luraghi (Unique Srl), Alessandro Fleri (Jambo Tour), Sergio Pinto (Geofelix), Emilio Picasso (Rappresentanze Industriali), Laura Viglietta (Cantine Cenéra).
+- Inserite il 20/10/2026, tutte non pubblicate: Alessandro Luraghi (Unique Srl), Alessandro Fleri (Jambo Tour), Sergio Pinto (Geofelix), Emilio Picasso (Rappresentanze Industriali), Laura Viglietta (Cantine Cenéra). Testi completi in `contenuti/testimonianze.md` (copia del pannello).
 
 **FAQ**
 - Titolo: Hai dei dubbi? **[Ecco le risposte.]** · otto domande dell'analisi con risposte accorciate; prezzi e sconto letti dal pannello.
