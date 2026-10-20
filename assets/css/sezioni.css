@@ -475,14 +475,32 @@
 	.passo__numero { grid-row: auto; margin-bottom: var(--s-2); font-size: 3rem; }
 }
 
-/* Testimonianze */
-.testimonianze__griglia { display: grid; gap: var(--s-5); }
+/* Testimonianze: scorrimento orizzontale su mobile, griglia su desktop */
+.testimonianze__contenitore { padding-inline: 0; }
+
+.testimonianze__elenco {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 85%;
+	gap: var(--s-4);
+	margin: 0;
+	padding: var(--s-5) var(--margine) var(--s-5); /* spazio per l'etichetta "In attesa" e l'ombra */
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	scroll-snap-type: x mandatory;
+	scroll-padding-inline: var(--margine);
+	scrollbar-width: thin;
+	scrollbar-color: var(--c-scuro) var(--c-linea);
+}
+.testimonianze__elenco:focus-visible { outline-offset: -3px; }
+.testimonianze__voce { display: flex; scroll-snap-align: start; }
 
 .testimonianza {
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	gap: var(--s-5);
-	height: 100%;
+	gap: var(--s-4);
+	width: 100%;
 	margin: 0;
 	padding: var(--s-6) var(--s-5) var(--s-5);
 	background: var(--c-fondo);
@@ -491,28 +509,67 @@
 	box-shadow: 6px 6px 0 var(--c-accento);
 }
 
-.testimonianza__testo { position: relative; margin: 0; }
-.testimonianza__testo::before {
-	content: "“";
-	display: block;
-	height: 2.25rem;
-	color: var(--c-accento-scuro);
-	font-size: 4.5rem;
+/* Visibile solo da loggati: testimonianza non ancora pubblicata */
+.testimonianza--attesa { border-style: dashed; box-shadow: none; }
+.testimonianza__attesa {
+	position: absolute;
+	top: 0;
+	left: var(--s-5);
+	transform: translateY(-50%);
+	padding: 0.2rem 0.65rem;
+	background: var(--c-fondo);
+	border: 2px dashed var(--c-cta);
+	border-radius: 999px;
+	color: var(--c-scuro);
+	font-size: 0.75rem;
 	font-weight: 700;
-	line-height: 1;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
 }
-.testimonianza__testo p { color: var(--c-scuro); font-size: var(--t-grande); line-height: 1.45; }
 
-.testimonianza__autore { margin-top: auto; padding-top: var(--s-4); border-top: 1px solid var(--c-linea); line-height: 1.35; }
-.testimonianza__autore strong { display: block; color: var(--c-scuro); }
-.testimonianza__autore span { color: var(--c-testo-2); font-size: var(--t-piccolo); }
+.testimonianza__testo { margin: 0; }
+.testimonianza__virgolette { width: 3.125rem; height: auto; fill: var(--c-accento); stroke: var(--c-scuro); stroke-width: 2; stroke-linejoin: round; }
+.testimonianza__testo p { color: var(--c-scuro); font-size: 1.0625rem; line-height: 1.5; }
+
+.testimonianza__autore {
+	display: flex;
+	align-items: center;
+	gap: var(--s-3);
+	margin-top: auto;
+	padding-top: var(--s-4);
+	border-top: 1px solid var(--c-linea);
+	line-height: 1.3;
+}
+.testimonianza__foto,
+.testimonianza__iniziali {
+	flex: none;
+	width: 3.5rem;
+	height: 3.5rem;
+	border: 2px solid var(--c-scuro);
+	border-radius: 50%;
+}
+.testimonianza__foto { object-fit: contain; background: var(--c-fondo); }
+.testimonianza__iniziali { display: grid; place-items: center; font-weight: 700; font-size: 1.125rem; letter-spacing: 0.02em; }
+.testimonianza__iniziali--0 { background: var(--c-accento); color: var(--c-scuro); }
+.testimonianza__iniziali--1 { background: var(--c-scuro); color: var(--c-accento); }
+.testimonianza__iniziali--2 { background: var(--c-accento-chiaro); color: var(--c-scuro); }
+
+.testimonianza__chi strong { display: block; color: var(--c-scuro); font-size: 1.0625rem; }
+.testimonianza__chi span { color: var(--c-testo-2); font-size: var(--t-piccolo); }
 
 @media (min-width: 48rem) {
-	.testimonianze__griglia { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.testimonianze__elenco { grid-auto-columns: 46%; }
 }
 
 @media (min-width: 64rem) {
-	.testimonianze__griglia { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-6); }
+	.testimonianze__contenitore { padding-inline: var(--margine); }
+	.testimonianze__elenco {
+		grid-auto-flow: row;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--s-7) var(--s-6);
+		padding: var(--s-3) 0 0;
+		overflow: visible;
+	}
 }
 
 /* FAQ */

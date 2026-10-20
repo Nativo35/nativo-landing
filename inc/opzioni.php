@@ -201,3 +201,12 @@ function nl_sconto_banda( $classe = '' ) {
 	</div>
 	<?php
 }
+
+/**
+ * Iniziali di un nome ("Laura Viglietta" → "LV"), per il cerchio al posto della foto.
+ */
+function nl_iniziali( $nome ) {
+	$parole = preg_split( '/\s+/u', trim( (string) $nome ), -1, PREG_SPLIT_NO_EMPTY );
+	$prime  = array_map( fn( $p ) => mb_strtoupper( mb_substr( $p, 0, 1 ) ), array_slice( $parole, 0, 2 ) );
+	return implode( '', $prime );
+}

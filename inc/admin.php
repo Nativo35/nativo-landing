@@ -71,9 +71,12 @@ function nl_admin_sanifica( $input ) {
 	$out['testimonianze'] = array();
 	foreach ( (array) ( $input['testimonianze'] ?? array() ) as $t ) {
 		$t = array(
-			'nome'     => sanitize_text_field( $t['nome'] ?? '' ),
-			'attivita' => sanitize_text_field( $t['attivita'] ?? '' ),
-			'testo'    => sanitize_textarea_field( $t['testo'] ?? '' ),
+			'nome'       => sanitize_text_field( $t['nome'] ?? '' ),
+			'ruolo'      => sanitize_text_field( $t['ruolo'] ?? '' ),
+			'azienda'    => sanitize_text_field( $t['azienda'] ?? ( $t['attivita'] ?? '' ) ),
+			'testo'      => sanitize_textarea_field( $t['testo'] ?? '' ),
+			'immagine'   => absint( $t['immagine'] ?? 0 ),
+			'pubblicata' => empty( $t['pubblicata'] ) ? 0 : 1,
 		);
 		if ( '' !== $t['nome'] && '' !== $t['testo'] ) {
 			$out['testimonianze'][] = $t;
@@ -163,7 +166,7 @@ function nl_admin_pagina() {
 			<?php endforeach; ?>
 
 			<h2>Testimonianze</h2>
-			<p class="description">La sezione compare ai visitatori solo quando c'è almeno una testimonianza con nome e testo.</p>
+			<p class="description">Ai visitatori compaiono solo le testimonianze con "Pubblicata" attivo; se non ce n'è nessuna la sezione resta nascosta. Da loggato vedi anche le altre, con l'etichetta "In attesa di approvazione". Senza foto o logo compare un cerchio con le iniziali.</p>
 			<?php nl_admin_ripetitore( 'testimonianze', 'nl_admin_testimonianza', 'Aggiungi testimonianza' ); ?>
 
 			<h2>Progetti realizzati</h2>
@@ -243,11 +246,14 @@ function nl_admin_testimonianza( $i, $t ) {
 	$base = NL_OPZIONE . "[testimonianze][{$i}]";
 	?>
 	<div class="nl-voce">
+		<p><label><input type="checkbox" name="<?php echo esc_attr( $base . '[pubblicata]' ); ?>" value="1" <?php checked( ! empty( $t['pubblicata'] ) ); ?>> <strong>Pubblicata</strong> (visibile ai visitatori)</label></p>
 		<div class="nl-riga">
 			<label><span>Nome e cognome</span><input type="text" name="<?php echo esc_attr( $base . '[nome]' ); ?>" value="<?php echo esc_attr( $t['nome'] ?? '' ); ?>"></label>
-			<label><span>Attività</span><input type="text" name="<?php echo esc_attr( $base . '[attivita]' ); ?>" value="<?php echo esc_attr( $t['attivita'] ?? '' ); ?>"></label>
+			<label><span>Ruolo</span><input type="text" name="<?php echo esc_attr( $base . '[ruolo]' ); ?>" value="<?php echo esc_attr( $t['ruolo'] ?? '' ); ?>" placeholder="Es. Co-Founder"></label>
+			<label><span>Azienda</span><input type="text" name="<?php echo esc_attr( $base . '[azienda]' ); ?>" value="<?php echo esc_attr( $t['azienda'] ?? '' ); ?>"></label>
 		</div>
-		<label><span>Testo</span><textarea rows="3" name="<?php echo esc_attr( $base . '[testo]' ); ?>"><?php echo esc_textarea( $t['testo'] ?? '' ); ?></textarea></label>
+		<label><span>Testo</span><textarea rows="4" name="<?php echo esc_attr( $base . '[testo]' ); ?>"><?php echo esc_textarea( $t['testo'] ?? '' ); ?></textarea></label>
+		<p><?php nl_admin_media( $base . '[immagine]', $t['immagine'] ?? 0, 'Scegli foto o logo (facoltativo)', 'nl-ritratto', 'nl-media--ritratto' ); ?></p>
 		<p><button type="button" class="button-link-delete nl-rimuovi-voce">Rimuovi testimonianza</button></p>
 	</div>
 	<?php
