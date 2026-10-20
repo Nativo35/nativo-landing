@@ -3,7 +3,7 @@
  * Testimonianze da Impostazioni landing.
  * Visitatori: solo quelle pubblicate; se non ce n'è nessuna la sezione è nascosta.
  * Da loggato: anche quelle non pubblicate, con l'etichetta "In attesa di approvazione".
- * Desktop: griglia. Mobile: scorrimento orizzontale in CSS (scroll-snap), senza librerie.
+ * Carosello: scorrimento orizzontale in CSS (scroll-snap); il JavaScript aggiunge frecce, pallini, pausa e avanzamento automatico.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -31,7 +31,7 @@ if ( ! $nl_testimonianze ) {
 	</div>
 
 	<div class="contenitore testimonianze__contenitore">
-		<ul class="testimonianze__elenco" role="list" tabindex="0" aria-label="Testimonianze dei clienti: scorri per leggerle tutte">
+		<ul class="testimonianze__elenco" id="carosello-testimonianze" role="list" tabindex="0" aria-label="Testimonianze dei clienti: scorri per leggerle tutte">
 			<?php foreach ( $nl_testimonianze as $i => $t ) : ?>
 				<?php
 				$nl_firma = implode( ', ', array_filter( array( $t['ruolo'] ?? '', $t['azienda'] ?? '' ) ) );
@@ -63,6 +63,17 @@ if ( ! $nl_testimonianze ) {
 				</li>
 			<?php endforeach; ?>
 		</ul>
+
+		<?php // Comandi del carosello: compaiono solo se il JavaScript è attivo (assets/js/landing.js). ?>
+		<div class="carosello__comandi" hidden>
+			<button type="button" class="carosello__pulsante" data-carosello="indietro" aria-controls="carosello-testimonianze" aria-label="Testimonianza precedente"><?php nl_icona( 'indietro' ); ?></button>
+			<div class="carosello__pallini" role="group" aria-label="Scegli la testimonianza"></div>
+			<button type="button" class="carosello__pulsante" data-carosello="avanti" aria-controls="carosello-testimonianze" aria-label="Testimonianza successiva"><?php nl_icona( 'freccia' ); ?></button>
+			<button type="button" class="carosello__pulsante carosello__pausa" data-carosello="pausa" aria-controls="carosello-testimonianze" aria-label="Metti in pausa lo scorrimento automatico">
+				<span class="carosello__icona-pausa"><?php nl_icona( 'pausa' ); ?></span>
+				<span class="carosello__icona-play"><?php nl_icona( 'play' ); ?></span>
+			</button>
+		</div>
 	</div>
 
 	<div class="contenitore">

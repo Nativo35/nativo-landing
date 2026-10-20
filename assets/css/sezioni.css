@@ -558,18 +558,84 @@
 .testimonianza__chi span { color: var(--c-testo-2); font-size: var(--t-piccolo); }
 
 @media (min-width: 48rem) {
-	.testimonianze__elenco { grid-auto-columns: 46%; }
+	.testimonianze__elenco { grid-auto-columns: calc((100% - 2 * var(--margine) - var(--s-4)) / 2); }
 }
 
 @media (min-width: 64rem) {
+	/* Tre card visibili: il carosello scorre di una alla volta. */
 	.testimonianze__contenitore { padding-inline: var(--margine); }
 	.testimonianze__elenco {
-		grid-auto-flow: row;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: var(--s-7) var(--s-6);
-		padding: var(--s-3) 0 0;
-		overflow: visible;
+		grid-auto-columns: calc((100% - 2 * var(--s-6) - 8px) / 3);
+		gap: var(--s-6);
+		padding-inline: 0 8px; /* spazio per l'ombra dell'ultima card visibile */
+		scroll-padding-inline: 0;
 	}
+}
+
+/* Comandi del carosello (attivati dal JavaScript) */
+.testimonianze.is-carosello .testimonianze__elenco { scrollbar-width: none; }
+.testimonianze.is-carosello .testimonianze__elenco::-webkit-scrollbar { display: none; }
+
+.carosello__comandi {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--s-3);
+	padding-inline: var(--margine);
+}
+.carosello__comandi[hidden] { display: none; }
+
+.carosello__pulsante {
+	display: grid;
+	place-items: center;
+	flex: none;
+	width: 2.75rem;
+	height: 2.75rem;
+	padding: 0;
+	background: var(--c-fondo);
+	border: 2px solid var(--c-scuro);
+	border-radius: 50%;
+	color: var(--c-scuro);
+	cursor: pointer;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+.carosello__pulsante .icona { width: 1.25rem; height: 1.25rem; stroke-width: 2.25; }
+.carosello__pulsante:hover { background: var(--c-scuro); color: var(--c-accento); }
+
+.carosello__pausa { margin-left: var(--s-2); }
+.carosello__pausa .carosello__icona-play,
+.carosello__pausa.is-ferma .carosello__icona-pausa { display: none; }
+.carosello__pausa.is-ferma .carosello__icona-play { display: grid; }
+.carosello__icona-play .icona { fill: currentColor; }
+
+.carosello__pallini { display: flex; gap: var(--s-1); }
+.carosello__pallino {
+	display: grid;
+	place-items: center;
+	width: 1.75rem;
+	height: 2.75rem;
+	padding: 0;
+	background: none;
+	border: 0;
+	cursor: pointer;
+}
+.carosello__pallino::before {
+	content: "";
+	width: 0.75rem;
+	height: 0.75rem;
+	background: var(--c-linea);
+	border: 2px solid var(--c-scuro);
+	border-radius: 999px;
+	transition: width 0.2s ease, background-color 0.2s ease;
+}
+.carosello__pallino[aria-current="true"]::before { width: 1.75rem; background: var(--c-scuro); }
+
+@media (min-width: 64rem) {
+	.carosello__comandi { justify-content: flex-start; margin-top: var(--s-4); padding-inline: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.carosello__pulsante, .carosello__pallino::before { transition: none; }
 }
 
 /* FAQ */
