@@ -85,6 +85,7 @@ function nl_admin_sanifica( $input ) {
 
 	$out['progetti_attivi'] = empty( $input['progetti_attivi'] ) ? 0 : 1;
 	$out['territorio_attivo'] = empty( $input['territorio_attivo'] ) ? 0 : 1;
+	$out['stile_testimonianze'] = in_array( $input['stile_testimonianze'] ?? '', array( 'card', 'evidenza' ), true ) ? $input['stile_testimonianze'] : 'card';
 
 	$out['progetti'] = array();
 	foreach ( (array) ( $input['progetti'] ?? array() ) as $pr ) {
@@ -167,6 +168,12 @@ function nl_admin_pagina() {
 
 			<h2>Testimonianze</h2>
 			<p class="description">Ai visitatori compaiono solo le testimonianze con "Pubblicata" attivo; se non ce n'è nessuna la sezione resta nascosta. Da loggato vedi anche le altre, con l'etichetta "In attesa di approvazione". Senza foto o logo compare un cerchio con le iniziali.</p>
+			<p><strong>Versione grafica</strong></p>
+			<p>
+				<label><input type="radio" name="<?php echo esc_attr( $n ); ?>[stile_testimonianze]" value="card" <?php checked( nl_opt( 'stile_testimonianze' ), 'card' ); ?>> Card a carosello</label><br>
+				<label><input type="radio" name="<?php echo esc_attr( $n ); ?>[stile_testimonianze]" value="evidenza" <?php checked( nl_opt( 'stile_testimonianze' ), 'evidenza' ); ?>> Citazione in evidenza (una alla volta, su banda scura)</label>
+			</p>
+			<p class="description">Per confrontarle senza salvare, da loggato apri la landing con <code>?testimonianze=card</code> oppure <code>?testimonianze=evidenza</code>.</p>
 			<?php nl_admin_ripetitore( 'testimonianze', 'nl_admin_testimonianza', 'Aggiungi testimonianza' ); ?>
 
 			<h2>Progetti realizzati</h2>

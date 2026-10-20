@@ -638,6 +638,174 @@
 	.carosello__pulsante, .carosello__pallino::before { transition: none; }
 }
 
+/* Testimonianze, versione B: citazione in evidenza su banda scura */
+.testimonianze-evidenza { background: var(--c-scuro); color: #fff; }
+.testimonianze-evidenza .sezione__titolo { color: #fff; }
+.testimonianze-evidenza :focus-visible { outline-color: var(--c-accento); }
+.testimonianze-evidenza .pulsante { border-color: var(--c-cta); box-shadow: 0 4px 0 var(--c-accento); }
+.testimonianze-evidenza .pulsante:hover,
+.testimonianze-evidenza .pulsante:focus-visible { background: #fff; color: var(--c-scuro); box-shadow: 0 6px 0 var(--c-cta); }
+.testimonianze-evidenza .cta__rischio { color: #d4d4cf; }
+
+.evidenza__griglia { display: grid; gap: var(--s-6); }
+
+/* Su mobile: titolo, citazione, poi le persone e la pausa. */
+.evidenza__lato { display: contents; }
+.evidenza__lato .sezione__titolo { order: 0; }
+.evidenza__citazioni { order: 1; display: grid; gap: var(--s-5); }
+.evidenza__comandi { order: 2; display: flex; align-items: center; gap: var(--s-3); min-width: 0; }
+
+.evidenza__citazione {
+	position: relative;
+	display: grid;
+	gap: var(--s-5);
+	margin: 0;
+	padding: var(--s-6) var(--s-5) var(--s-5);
+	background: rgb(255 255 255 / 0.04);
+	border: 2px solid rgb(255 255 255 / 0.18);
+	border-radius: var(--raggio-grande);
+}
+.evidenza__citazione:focus-visible { outline-offset: 4px; }
+.evidenza__virgolette { width: 3.5rem; height: auto; fill: var(--c-accento); }
+.evidenza__testo { margin: 0; }
+.evidenza__testo p { color: #fff; font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem); line-height: 1.4; letter-spacing: -0.01em; }
+
+.evidenza__autore { display: flex; align-items: center; gap: var(--s-3); line-height: 1.3; }
+.evidenza__autore strong { display: block; color: #fff; font-size: 1.125rem; }
+.evidenza__autore span span { color: #d4d4cf; font-size: var(--t-piccolo); }
+
+.evidenza__foto,
+.evidenza__iniziali {
+	flex: none;
+	width: 3.5rem;
+	height: 3.5rem;
+	border: 2px solid #fff;
+	border-radius: 50%;
+}
+.evidenza__foto { object-fit: contain; background: #fff; }
+.evidenza__iniziali { display: grid; place-items: center; font-weight: 700; font-size: 1.125rem; }
+.evidenza__iniziali--0 { background: var(--c-accento); color: var(--c-scuro); }
+.evidenza__iniziali--1 { background: var(--c-scuro); color: var(--c-accento); }
+.evidenza__iniziali--2 { background: var(--c-accento-chiaro); color: var(--c-scuro); }
+
+/* Visibile solo da loggati: testimonianza non ancora pubblicata */
+.evidenza__attesa {
+	position: absolute;
+	top: 0;
+	left: var(--s-5);
+	transform: translateY(-50%);
+	padding: 0.2rem 0.65rem;
+	background: var(--c-scuro);
+	border: 2px dashed var(--c-cta);
+	border-radius: 999px;
+	color: #fff;
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+.evidenza__attesa-punto {
+	position: absolute;
+	top: 0.25rem;
+	right: 0.25rem;
+	width: 0.75rem;
+	height: 0.75rem;
+	background: var(--c-cta);
+	border: 2px solid var(--c-scuro);
+	border-radius: 50%;
+}
+
+/* Persone (schede): su mobile una riga di cerchi, su desktop un elenco con i nomi */
+.evidenza__persone { display: flex; flex: 1; min-width: 0; gap: 0.625rem; overflow-x: auto; padding: 0.6rem; margin: -0.6rem; scrollbar-width: none; }
+.evidenza__persone[hidden] { display: none; }
+.evidenza__persona {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: var(--s-3);
+	flex: none;
+	padding: 0;
+	background: none;
+	border: 0;
+	border-radius: 50%;
+	color: #fff;
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+}
+.evidenza__persona .evidenza__iniziali,
+.evidenza__persona .evidenza__foto { width: 2.75rem; height: 2.75rem; font-size: 1rem; transition: box-shadow 0.2s ease, transform 0.2s ease; }
+.evidenza__persona[aria-selected="true"] .evidenza__iniziali,
+.evidenza__persona[aria-selected="true"] .evidenza__foto { box-shadow: 0 0 0 4px var(--c-scuro), 0 0 0 7px var(--c-accento); }
+.evidenza__persona-testo {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+.evidenza__persona-testo strong { display: block; }
+.evidenza__persona-testo span { color: #d4d4cf; font-size: var(--t-piccolo); }
+
+/* Barra che si riempie durante l'avanzamento automatico */
+.evidenza__avanzamento {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -0.6rem;
+	height: 3px;
+	background: var(--c-accento);
+	border-radius: 2px;
+	transform: scaleX(0);
+	transform-origin: left;
+}
+.testimonianze-evidenza.is-in-corsa .evidenza__persona[aria-selected="true"] .evidenza__avanzamento { animation: nl-avanza var(--durata, 8s) linear forwards; }
+.testimonianze-evidenza.is-sospesa .evidenza__avanzamento { animation-play-state: paused !important; }
+@keyframes nl-avanza { to { transform: scaleX(1); } }
+
+/* Con il JavaScript attivo: una citazione alla volta, con dissolvenza */
+.testimonianze-evidenza.is-schede .evidenza__citazione[hidden] { display: none; }
+.testimonianze-evidenza.is-schede .evidenza__citazione { animation: nl-compari 0.4s ease both; }
+@keyframes nl-compari { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.evidenza__pausa { flex: none; }
+.evidenza__pausa[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+	.testimonianze-evidenza.is-schede .evidenza__citazione,
+	.evidenza__persona .evidenza__iniziali,
+	.evidenza__persona .evidenza__foto { animation: none; transition: none; }
+}
+
+@media (min-width: 64rem) {
+	.evidenza__griglia { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: var(--s-8); align-items: start; }
+	.evidenza__lato { display: flex; flex-direction: column; gap: var(--s-6); position: sticky; top: 7rem; }
+
+	.evidenza__comandi { flex-direction: column; align-items: stretch; gap: var(--s-5); }
+	.evidenza__pausa { align-self: flex-start; }
+	.evidenza__persone { flex-direction: column; gap: var(--s-2); overflow: visible; padding: 0; margin: 0; }
+	.evidenza__persona {
+		width: 100%;
+		padding: var(--s-3) var(--s-4);
+		border: 2px solid rgb(255 255 255 / 0.12);
+		border-radius: var(--raggio);
+		transition: border-color 0.2s ease, background-color 0.2s ease;
+	}
+	.evidenza__persona:hover { border-color: rgb(255 255 255 / 0.35); }
+	.evidenza__persona[aria-selected="true"] { border-color: var(--c-accento); background: rgb(255 255 255 / 0.06); }
+	.evidenza__persona[aria-selected="true"] .evidenza__iniziali,
+	.evidenza__persona[aria-selected="true"] .evidenza__foto { box-shadow: none; }
+	.evidenza__persona .evidenza__iniziali,
+	.evidenza__persona .evidenza__foto { width: 2.75rem; height: 2.75rem; font-size: 1rem; }
+	.evidenza__persona-testo { position: static; width: auto; height: auto; overflow: visible; clip: auto; white-space: normal; line-height: 1.3; }
+	.evidenza__avanzamento { left: var(--s-4); right: var(--s-4); bottom: 0.35rem; }
+	.evidenza__attesa-punto { top: 50%; right: var(--s-4); transform: translateY(-50%); }
+
+	.evidenza__citazione { padding: var(--s-7) var(--s-7) var(--s-6); }
+	.evidenza__attesa { left: var(--s-7); }
+}
+
 /* FAQ */
 .faq__griglia { display: grid; gap: var(--s-6); }
 

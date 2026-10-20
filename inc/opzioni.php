@@ -44,6 +44,7 @@ function nl_default() {
 		'rea'                => 'MI 2788398',
 		'sdi'                => 'W7YVJK9',
 		'gtm_id'             => 'GTM-WHFCL32F',
+		'stile_testimonianze' => 'card',
 	);
 }
 
@@ -209,4 +210,27 @@ function nl_iniziali( $nome ) {
 	$parole = preg_split( '/\s+/u', trim( (string) $nome ), -1, PREG_SPLIT_NO_EMPTY );
 	$prime  = array_map( fn( $p ) => mb_strtoupper( mb_substr( $p, 0, 1 ) ), array_slice( $parole, 0, 2 ) );
 	return implode( '', $prime );
+}
+
+/**
+ * Ruolo e azienda di una testimonianza: "Co-Founder, Unique Srl".
+ */
+function nl_testimonianza_firma( $t ) {
+	return implode( ', ', array_filter( array( $t['ruolo'] ?? '', $t['azienda'] ?? '' ) ) );
+}
+
+/**
+ * Foto o logo della testimonianza, oppure cerchio con le iniziali (colori della palette a rotazione).
+ */
+function nl_testimonianza_avatar( $t, $i, $classe = 'testimonianza' ) {
+	$img = ! empty( $t['immagine'] ) && wp_attachment_is_image( $t['immagine'] ) ? (int) $t['immagine'] : 0;
+	if ( $img ) {
+		return wp_get_attachment_image( $img, 'nl-ritratto', false, array( 'class' => $classe . '__foto', 'alt' => '', 'loading' => 'lazy', 'sizes' => '56px' ) );
+	}
+	return sprintf(
+		'<span class="%1$s__iniziali %1$s__iniziali--%2$d" aria-hidden="true">%3$s</span>',
+		esc_attr( $classe ),
+		(int) ( $i % 3 ),
+		esc_html( nl_iniziali( $t['nome'] ?? '' ) )
+	);
 }

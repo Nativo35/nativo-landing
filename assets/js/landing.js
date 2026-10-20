@@ -288,3 +288,127 @@
 		window.addEventListener( 'load', avvia );
 	}
 }() );
+
+/* Testimonianze, versione B: schede (tab) con una citazione alla volta e avanzamento automatico ogni 8 secondi.
+   Stesse pause del carosello: mouse sopra, focus, sezione fuori schermo, scheda nascosta; mai automatico con movimento ridotto. */
+( function () {
+	const sezione = document.querySelector( '.testimonianze-evidenza' );
+	if ( ! sezione ) {
+		return;
+	}
+	const elenco = sezione.querySelector( '.evidenza__persone' );
+	const schede = Array.from( sezione.querySelectorAll( '.evidenza__persona' ) );
+	const pannelli = Array.from( sezione.querySelectorAll( '.evidenza__citazione' ) );
+	const pausa = sezione.querySelector( '.evidenza__pausa' );
+	if ( schede.length < 2 ) {
+		return;
+	}
+
+	const ridotto = window.matchMedia( '(prefers-reduced-motion: reduce)' );
+	const DURATA = 8000;
+	let attiva = 0;
+	let fermataManuale = ridotto.matches;
+	let sospesa = false;
+	let visibile = false;
+	let timer = null;
+
+	sezione.style.setProperty( '--durata', DURATA + 'ms' );
+
+	const mostra = ( i, focus ) => {
+		attiva = ( i + schede.length ) % schede.length;
+		schede.forEach( ( s, n ) => {
+			const sel = n === attiva;
+			s.setAttribute( 'aria-selected', String( sel ) );
+			s.tabIndex = sel ? 0 : -1;
+			pannelli[ n ].hidden = ! sel;
+		} );
+		// Riavvia la barra di avanzamento della scheda attiva.
+		const barra = schede[ attiva ].querySelector( '.evidenza__avanzamento' );
+		barra.style.animation = 'none';
+		void barra.offsetWidth;
+		barra.style.animation = '';
+		// Su mobile la scheda attiva resta visibile nella riga dei cerchi.
+		if ( elenco.scrollWidth > elenco.clientWidth ) {
+			elenco.scrollTo( { left: schede[ attiva ].offsetLeft - elenco.offsetLeft - 8, behavior: ridotto.matches ? 'auto' : 'smooth' } );
+		}
+		if ( focus ) {
+			schede[ attiva ].focus();
+		}
+		pianifica();
+	};
+
+	const pianifica = () => {
+		clearTimeout( timer );
+		const inCorsa = ! fermataManuale && visibile && ! document.hidden;
+		sezione.classList.toggle( 'is-in-corsa', inCorsa );
+		sezione.classList.toggle( 'is-sospesa', sospesa );
+		if ( inCorsa && ! sospesa ) {
+			timer = setTimeout( () => mostra( attiva + 1 ), DURATA );
+		}
+	};
+
+	const aggiornaPausa = () => {
+		pausa.classList.toggle( 'is-ferma', fermataManuale );
+		pausa.setAttribute( 'aria-label', fermataManuale ? 'Avvia lo scorrimento automatico' : 'Metti in pausa lo scorrimento automatico' );
+		pianifica();
+	};
+
+	schede.forEach( ( s, n ) => {
+		s.addEventListener( 'click', () => {
+			fermataManuale = true; // chi sceglie una persona vuole leggerla con calma
+			aggiornaPausa();
+			mostra( n );
+		} );
+		s.addEventListener( 'keydown', ( e ) => {
+			const tasti = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+			if ( e.key in tasti || e.key === 'Home' || e.key === 'End' ) {
+				e.preventDefault();
+				fermataManuale = true;
+				aggiornaPausa();
+				mostra( e.key === 'Home' ? 0 : e.key === 'End' ? schede.length - 1 : attiva + tasti[ e.key ], true );
+			}
+		} );
+	} );
+
+	pausa.addEventListener( 'click', () => {
+		fermataManuale = ! fermataManuale;
+		aggiornaPausa();
+	} );
+
+	const sospendi = ( stato ) => () => {
+		sospesa = stato;
+		if ( ! stato ) {
+			// Alla ripresa riparte il conto per la citazione attuale.
+			mostra( attiva );
+		} else {
+			pianifica();
+		}
+	};
+	sezione.addEventListener( 'mouseenter', sospendi( true ) );
+	sezione.addEventListener( 'mouseleave', sospendi( false ) );
+	sezione.addEventListener( 'focusin', sospendi( true ) );
+	sezione.addEventListener( 'focusout', ( e ) => {
+		if ( ! sezione.contains( e.relatedTarget ) ) {
+			sospendi( false )();
+		}
+	} );
+
+	new IntersectionObserver( ( [ voce ] ) => {
+		visibile = voce.isIntersecting;
+		pianifica();
+	}, { threshold: 0.3 } ).observe( sezione );
+	document.addEventListener( 'visibilitychange', pianifica );
+	ridotto.addEventListener( 'change', () => {
+		if ( ridotto.matches ) {
+			fermataManuale = true;
+			aggiornaPausa();
+		}
+	} );
+
+	// Attivazione: schede e pausa visibili, una citazione alla volta.
+	elenco.hidden = false;
+	pausa.hidden = false;
+	sezione.classList.add( 'is-schede' );
+	aggiornaPausa();
+	mostra( 0 );
+}() );

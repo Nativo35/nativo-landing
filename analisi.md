@@ -577,6 +577,9 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Carosello (dal 20/10/2026): 3 card visibili su desktop, 2 su tablet, 1 su mobile; avanza di una card ogni 6 secondi, con frecce, pallini e pulsante pausa. Si ferma con mouse sopra, focus, tocco, sezione fuori schermo o scheda nascosta; mai automatico con movimento ridotto. Base in CSS (scroll-snap) che funziona anche senza JavaScript.
 - Ai visitatori solo le testimonianze con "Pubblicata" attivo; nessuna pubblicata = sezione nascosta. Da loggato anche le altre, con l'etichetta "In attesa di approvazione".
 - Inserite il 20/10/2026, tutte non pubblicate: Alessandro Luraghi (Unique Srl), Alessandro Fleri (Jambo Tour), Sergio Pinto (Geofelix), Emilio Picasso (Rappresentanze Industriali), Laura Viglietta (Cantine Cenéra). Testi completi in `contenuti/testimonianze.md` (copia del pannello).
+- **Due versioni grafiche**, scelte in Impostazioni landing → Testimonianze → Versione grafica (anteprima da loggato con `?testimonianze=card` o `?testimonianze=evidenza`):
+  - **A – Card a carosello** (predefinita): quella descritta sopra.
+  - **B – Citazione in evidenza**: banda scura, una citazione grande alla volta con virgolette turchesi; elenco delle persone come schede (tab), con nomi su desktop e cerchi con le iniziali su mobile; avanza ogni 8 secondi con una barra di avanzamento, pausa, navigazione con le frecce della tastiera. Senza JavaScript le citazioni compaiono tutte una sotto l'altra.
 
 **FAQ**
 - Titolo: Hai dei dubbi? **[Ecco le risposte.]** · otto domande dell'analisi con risposte accorciate; prezzi e sconto letti dal pannello.
