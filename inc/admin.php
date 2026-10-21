@@ -108,6 +108,8 @@ function nl_admin_sanifica( $input ) {
 	$out['email'] = sanitize_email( $input['email'] ?? $def['email'] );
 	$out['sito_web'] = esc_url_raw( $input['sito_web'] ?? $def['sito_web'] );
 	$out['gtm_id'] = preg_replace( '/[^A-Z0-9-]/', '', strtoupper( (string) ( $input['gtm_id'] ?? '' ) ) );
+	$out['openai_pixel_id'] = preg_replace( '/[^A-Za-z0-9_-]/', '', (string) ( $input['openai_pixel_id'] ?? '' ) );
+	$out['openai_debug']    = empty( $input['openai_debug'] ) ? 0 : 1;
 
 	return $out;
 }
@@ -219,11 +221,33 @@ function nl_admin_pagina() {
 				<?php nl_admin_campo( 'sdi', 'Codice SDI' ); ?>
 			</div>
 
-			<h2>Tracciamento</h2>
+			<h2 id="tracciamento">Tracciamento</h2>
 			<div class="nl-riga">
 				<?php nl_admin_campo( 'gtm_id', 'ID di Google Tag Manager', 'text', 'placeholder="GTM-XXXXXXX"' ); ?>
 			</div>
 			<p class="description">GTM parte solo dopo il consenso a statistiche o marketing nel banner di Complianz. Lascia vuoto per spegnerlo.</p>
+			<div class="nl-riga">
+				<?php nl_admin_campo( 'openai_pixel_id', 'Pixel ID di OpenAI (ChatGPT Ads)' ); ?>
+			</div>
+			<p><label><input type="checkbox" name="<?php echo esc_attr( $n ); ?>[openai_debug]" value="1" <?php checked( nl_opt( 'openai_debug' ) ); ?>> Modalità debug: il pixel scrive nella console del browser e qui sotto compare l'ultima risposta della Conversions API</label></p>
+			<p class="description">Il pixel parte solo dopo il consenso marketing. Il lead viene inviato anche dal server (Conversions API) con lo stesso ID evento, solo se il visitatore ha dato il consenso marketing. La chiave API sta nella costante <code>NATIVO_OPENAI_CAPI_KEY</code> in wp-config.php: <?php echo defined( 'NATIVO_OPENAI_CAPI_KEY' ) ? '<strong>presente</strong>' : '<strong>non definita, invio dal server spento</strong>'; ?>.</p>
+			<p>
+				<strong>Invio dal server (Conversions API):</strong>
+				<?php if ( get_option( 'nl_openai_capi_verificata' ) ) : ?>
+					attivo, verificato il <?php echo esc_html( get_option( 'nl_openai_capi_verificata' ) ); ?>.
+				<?php else : ?>
+					<strong>in attesa di verifica</strong>: i lead non vengono inviati finché la verifica con <code>validate_only</code> non riesce.
+				<?php endif; ?>
+				<?php $nl_esito = get_transient( 'nl_openai_esito_verifica' ); ?>
+				<?php if ( $nl_esito ) : ?>
+					<br>Ultima verifica: codice <?php echo esc_html( $nl_esito['codice'] ?? '–' ); ?><?php echo isset( $nl_esito['corpo']['error']['message'] ) ? ' – ' . esc_html( $nl_esito['corpo']['error']['message'] ) : ''; ?><?php echo isset( $nl_esito['errore'] ) ? ' – ' . esc_html( $nl_esito['errore'] ) : ''; ?>
+				<?php endif; ?>
+			</p>
+			<p><a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=nl_openai_verifica' ), 'nl_openai_verifica' ) ); ?>">Verifica di nuovo</a></p>
+			<?php if ( nl_opt( 'openai_debug' ) && get_option( 'nl_openai_ultima_risposta' ) ) : ?>
+				<p class="description">Ultima risposta della Conversions API:</p>
+				<pre style="max-width:760px;white-space:pre-wrap;background:#fff;border:1px solid #dcdcde;padding:8px"><?php echo esc_html( wp_json_encode( get_option( 'nl_openai_ultima_risposta' ), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) ); ?></pre>
+			<?php endif; ?>
 
 			<?php submit_button( 'Salva impostazioni' ); ?>
 		</form>

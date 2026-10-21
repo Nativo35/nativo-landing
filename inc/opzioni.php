@@ -48,6 +48,8 @@ function nl_default() {
 		'rea'                => 'MI 2788398',
 		'sdi'                => 'W7YVJK9',
 		'gtm_id'             => 'GTM-WHFCL32F',
+		'openai_pixel_id'    => '',
+		'openai_debug'       => 0,
 		'stile_testimonianze' => 'card',
 	);
 }

@@ -66,10 +66,21 @@
 		}
 	};
 
+	// OpenAI Ads: lo stesso event_id va al pixel (browser) e alla Conversions API (server), così il lead conta una volta.
+	const eventId = ( window.crypto && crypto.randomUUID ) ? crypto.randomUUID() : 'lead-' + Date.now() + '-' + Math.random().toString( 36 ).slice( 2 );
+	// oppref: dal parametro dell'URL dell'annuncio, oppure dal cookie __oppref salvato dal pixel.
+	const cookieOppref = ( document.cookie.match( /(?:^|;\s*)__oppref=([^;]*)/ ) || [] )[ 1 ];
+	const oppref = parametri.get( 'oppref' ) || ( cookieOppref ? decodeURIComponent( cookieOppref ) : '' );
+
 	if ( form ) {
 		CHIAVI_UTM.forEach( ( k ) => imposta( k, utm[ k ] ) );
 		imposta( 'variante', variante );
 		imposta( 'richiesta', 'Preventivo' );
+		imposta( 'event_id', eventId );
+		imposta( 'oppref', oppref );
+		// Il server invia il lead a OpenAI solo se qui c'è "1" (consenso marketing nel banner).
+		imposta( 'consenso_marketing', window.nlConsensoMarketing ? '1' : '0' );
+		document.addEventListener( 'nl_consenso', ( e ) => imposta( 'consenso_marketing', e.detail.marketing ? '1' : '0' ) );
 	}
 
 	const posizione = ( el ) => {
@@ -127,6 +138,9 @@
 			variante,
 			...utm,
 		} );
+		if ( window.oaiq && window.nlConsensoMarketing ) {
+			window.oaiq( 'measure', 'lead_created', { type: 'customer_action' }, { event_id: eventId } );
+		}
 		if ( grazie ) {
 			setTimeout( () => {
 				location.href = grazie;

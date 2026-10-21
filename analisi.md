@@ -601,6 +601,14 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Eventi dataLayer: `salva_contatto` e `whatsapp` (conversioni secondarie). La barra fissa del preventivo si nasconde in questa sezione.
 - Nota: questa sezione riprende il "salva contatto" che l'analisi iniziale aveva tolto: ora è separato dal preventivo e non gli fa concorrenza.
 
+**OpenAI Ads (ChatGPT Ads): pixel e Conversions API (aggiunti il 21/10/2026)**
+- Pixel ID e modalità debug in Impostazioni landing → Tracciamento. Il pixel (`oaiq`) parte solo con il consenso marketing di Complianz.
+- Ogni visita genera un `event_id`: lo usano sia il pixel (`lead_created` nel browser) sia il server, così OpenAI conta il lead una volta sola.
+- `oppref` letto dal parametro dell'URL dell'annuncio o dal cookie `__oppref`, passato in un campo nascosto del form.
+- Dal server (`inc/openai.php`), all'invio riuscito di Contact Form 7: `lead_created` con `id` = event_id, `oppref`, `action_source: "web"`, `source_url`, `timestamp_ms`, `data.type: "customer_action"`. Nessun dato personale.
+- Condizioni: chiave nella costante `NATIVO_OPENAI_CAPI_KEY` in wp-config.php (mai nel tema), Pixel ID impostato, consenso marketing del visitatore, verifica `validate_only` riuscita.
+- Verifica del 21/10/2026: **401**, alla chiave manca il permesso `ads.third_party_events.write`. Invio reale in attesa finché la verifica non riesce (pulsante "Verifica di nuovo" nel pannello).
+
 ### 8.3 Punti da confermare
 
 <!-- DA VERIFICARE: "Risposta entro 24 ore" è una promessa anche nel weekend. Le fonti dicono sia "entro 24 ore" sia "entro un giorno lavorativo". -->

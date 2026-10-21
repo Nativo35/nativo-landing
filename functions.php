@@ -15,6 +15,7 @@ require NL_DIR . '/inc/icone.php';
 require NL_DIR . '/inc/form.php';
 require NL_DIR . '/inc/consenso.php';
 require NL_DIR . '/inc/vcard.php';
+require NL_DIR . '/inc/openai.php';
 
 add_action( 'after_setup_theme', function () {
 	add_theme_support( 'title-tag' );
