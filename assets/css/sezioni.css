@@ -779,8 +779,20 @@
 }
 
 @media (min-width: 64rem) {
-	.evidenza__griglia { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: var(--s-8); align-items: start; }
-	.evidenza__lato { display: flex; flex-direction: column; gap: var(--s-6); position: sticky; top: 7rem; }
+	/* Titolo sopra entrambe le colonne: schede e citazione partono alla stessa altezza.
+	   La citazione si allunga fino al fondo dell'elenco quando è più corta. */
+	.evidenza__griglia {
+		grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+		grid-template-areas: "titolo titolo" "comandi citazioni";
+		column-gap: var(--s-8);
+		row-gap: var(--s-7);
+		align-items: stretch;
+	}
+	.evidenza__lato .sezione__titolo { grid-area: titolo; }
+	.evidenza__comandi { grid-area: comandi; align-self: start; }
+	.evidenza__citazioni { grid-area: citazioni; }
+	.testimonianze-evidenza.is-schede .evidenza__citazione { height: 100%; align-content: start; }
+	.evidenza__autore { margin-top: auto; }
 
 	.evidenza__comandi { flex-direction: column; align-items: stretch; gap: var(--s-5); }
 	.evidenza__pausa { align-self: flex-start; }
