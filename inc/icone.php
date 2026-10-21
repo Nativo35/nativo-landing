@@ -11,6 +11,7 @@ function nl_icona( $nome, $classe = 'icona' ) {
 		'spunta'   => '<path d="m5 12 5 5L20 7"/>',
 		'freccia'  => '<path d="M5 12h14M13 6l6 6-6 6"/>',
 		'indietro' => '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+		'contatto' => '<circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.9 3.1-7 7-7s7 3.1 7 7M19 8v6M16 11h6"/>',
 		'pausa'    => '<path d="M9 5v14M15 5v14"/>',
 		'play'     => '<path d="M8 5v14l11-7z"/>',
 		'whatsapp' => '<path d="M3.5 20.5 4.9 16.4A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 8.6c0 3.4 2.9 6.4 6.3 6.4l1-1.6-2-1-1 .9a4.6 4.6 0 0 1-2.6-2.6l.9-1-1-2z"/>',

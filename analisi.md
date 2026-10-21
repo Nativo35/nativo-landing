@@ -592,6 +592,15 @@ Regole: frasi brevi, "tu", il risultato prima della caratteristica (più contatt
 - Barra fissa su mobile: Preventivo gratis + WhatsApp (messaggio già scritto) + telefono.
 - Pulsante: **Ricevi il preventivo gratis** + riga anti-rischio. Dopo l'invio: /grazie/.
 
+**Non è ancora il momento? (ultima sezione, dopo il form; aggiunta il 21/10/2026)**
+- Etichetta: Non è ancora il momento? · Titolo: Nessuna fretta. Tieni il mio numero a portata di mano.
+- Testo: Magari il sito ti servirà tra qualche mese, o hai ancora bisogno di pensarci. Va benissimo. Salva i miei contatti sul telefono: quando sarai pronto, li ritroverai in un attimo.
+- Pulsanti calmi (niente arancio): **Salva il contatto** (vCard 3.0 generata da Impostazioni landing, `?nl_vcard=1`) e **Scrivimi su WhatsApp** (messaggio: "Ciao Matteo, ho visto la tua pagina e vorrei salvare il tuo contatto per un progetto futuro.").
+- Sotto: Nessuna newsletter, nessuna chiamata a sorpresa. Mi senti solo se mi scrivi tu.
+- Da computer: QR statico (`assets/img/qr-contatto.svg`, rigenerabile con `strumenti/genera-qr.py`) con "Sei al computer? Inquadra il codice con il telefono e salva il contatto". Nascosto su mobile.
+- Eventi dataLayer: `salva_contatto` e `whatsapp` (conversioni secondarie). La barra fissa del preventivo si nasconde in questa sezione.
+- Nota: questa sezione riprende il "salva contatto" che l'analisi iniziale aveva tolto: ora è separato dal preventivo e non gli fa concorrenza.
+
 ### 8.3 Punti da confermare
 
 <!-- DA VERIFICARE: "Risposta entro 24 ore" è una promessa anche nel weekend. Le fonti dicono sia "entro 24 ore" sia "entro un giorno lavorativo". -->

@@ -32,7 +32,7 @@ if ( $nl_form && function_exists( 'wpcf7_enqueue_scripts' ) ) {
 				<p><strong>Preferisci parlarne a voce?</strong></p>
 				<p>
 					Chiama il <a href="<?php echo esc_attr( nl_tel_href() ); ?>" data-evento="clic_telefono"><?php echo esc_html( nl_tel_breve() ); ?></a>
-					o scrivi su <a href="<?php echo esc_url( nl_whatsapp_href() ); ?>" data-evento="clic_whatsapp" rel="noopener" target="_blank">WhatsApp</a>.
+					o scrivi su <a href="<?php echo esc_url( nl_whatsapp_href() ); ?>" data-evento="whatsapp" rel="noopener" target="_blank">WhatsApp</a>.
 				</p>
 			</div>
 		</div>

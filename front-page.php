@@ -17,5 +17,6 @@ get_template_part( 'template-parts/territorio' );
 get_template_part( 'template-parts/testimonianze' );
 get_template_part( 'template-parts/faq' );
 get_template_part( 'template-parts/preventivo' );
+get_template_part( 'template-parts/contatto' );
 
 get_footer();

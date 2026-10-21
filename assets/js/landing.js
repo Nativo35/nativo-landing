@@ -23,12 +23,16 @@
 		aggiorna();
 	}, { rootMargin: `-${ altezzaHeader }px 0px 0px 0px` } ).observe( hero );
 
-	const form = document.getElementById( 'preventivo' );
-	if ( form ) {
-		new IntersectionObserver( ( [ voce ] ) => {
-			formVisibile = voce.isIntersecting;
+	// Nascosta anche nella sezione "Non è ancora il momento?", che deve restare senza pressione.
+	const zoneSenzaBarra = [ 'preventivo', 'contatto' ].map( ( id ) => document.getElementById( id ) ).filter( Boolean );
+	const zoneVisibili = new Set();
+	if ( zoneSenzaBarra.length ) {
+		const osservatore = new IntersectionObserver( ( voci ) => {
+			voci.forEach( ( v ) => ( v.isIntersecting ? zoneVisibili.add( v.target ) : zoneVisibili.delete( v.target ) ) );
+			formVisibile = zoneVisibili.size > 0;
 			aggiorna();
-		} ).observe( form );
+		} );
+		zoneSenzaBarra.forEach( ( z ) => osservatore.observe( z ) );
 	}
 }() );
 

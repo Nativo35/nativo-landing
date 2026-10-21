@@ -1081,3 +1081,85 @@
 	.territorio__punti { margin-top: var(--s-5); }
 	.territorio__azione { margin-top: var(--s-6); }
 }
+
+/* Ultima sezione "Non è ancora il momento?": tono calmo, nessun arancio, pulsanti leggeri */
+.contatto { background: var(--c-fondo); }
+.contatto__griglia { display: grid; gap: var(--s-6); }
+.contatto__testo { max-width: 40rem; }
+
+.contatto__intestazione { display: flex; align-items: center; gap: var(--s-3); }
+.contatto__foto {
+	flex: none;
+	width: 4rem;
+	height: 4rem;
+	border: 2px solid var(--c-scuro);
+	border-radius: 50%;
+	object-fit: cover;
+}
+.contatto__etichetta {
+	padding: 0.25rem 0.75rem;
+	background: var(--c-fondo-alt);
+	border: 1px solid var(--c-linea);
+	border-radius: 999px;
+	color: var(--c-testo);
+	font-size: var(--t-piccolo);
+	font-weight: 700;
+}
+
+.contatto__titolo { margin-top: var(--s-5); font-size: clamp(1.75rem, 1.35rem + 1.8vw, 2.5rem); line-height: 1.15; }
+.contatto__descrizione { margin-top: var(--s-4); color: var(--c-testo); font-size: var(--t-grande); line-height: 1.5; }
+
+.contatto__azioni { display: grid; gap: var(--s-3); margin-top: var(--s-6); }
+
+.pulsante-calmo {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--s-2);
+	min-height: 3.25rem;
+	padding: 0.75rem 1.25rem;
+	background: var(--c-fondo);
+	border: 2px solid var(--c-scuro);
+	border-radius: var(--raggio);
+	color: var(--c-scuro);
+	font-weight: 700;
+	line-height: 1.2;
+	text-decoration: none;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+.pulsante-calmo .icona { width: 1.25rem; height: 1.25rem; }
+.pulsante-calmo--pieno { background: var(--c-accento-chiaro); }
+.pulsante-calmo:hover,
+.pulsante-calmo:focus-visible { background: var(--c-scuro); color: #fff; }
+
+.contatto__nota { margin-top: var(--s-4); color: var(--c-testo-2); font-size: var(--t-piccolo); line-height: 1.45; }
+
+/* QR solo da computer: su mobile non serve */
+.contatto__qr { display: none; }
+
+@media (min-width: 40rem) {
+	.contatto__azioni { display: flex; flex-wrap: wrap; }
+}
+
+@media (min-width: 64rem) {
+	.contatto__griglia { grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-8); align-items: center; }
+	.contatto__qr {
+		display: grid;
+		justify-items: center;
+		gap: var(--s-3);
+		width: 15rem;
+		margin: 0;
+		padding: var(--s-5);
+		background: var(--c-fondo-alt);
+		border: 1px solid var(--c-linea);
+		border-radius: var(--raggio-grande);
+		text-align: center;
+	}
+	.contatto__qr img { width: 11rem; height: 11rem; border-radius: var(--raggio); }
+	.contatto__qr figcaption { color: var(--c-testo-2); font-size: var(--t-piccolo); line-height: 1.4; }
+	.contatto__qr strong { display: block; color: var(--c-scuro); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pulsante-calmo { transition: none; }
+}

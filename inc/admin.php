@@ -102,10 +102,11 @@ function nl_admin_sanifica( $input ) {
 
 	$out['foto_id'] = absint( $input['foto_id'] ?? 0 );
 
-	foreach ( array( 'telefono', 'whatsapp', 'indirizzo', 'piva', 'rea', 'sdi' ) as $k ) {
+	foreach ( array( 'telefono', 'whatsapp', 'indirizzo', 'piva', 'rea', 'sdi', 'referente_nome', 'referente_ruolo', 'azienda_nome' ) as $k ) {
 		$out[ $k ] = sanitize_text_field( $input[ $k ] ?? $def[ $k ] );
 	}
 	$out['email'] = sanitize_email( $input['email'] ?? $def['email'] );
+	$out['sito_web'] = esc_url_raw( $input['sito_web'] ?? $def['sito_web'] );
 	$out['gtm_id'] = preg_replace( '/[^A-Z0-9-]/', '', strtoupper( (string) ( $input['gtm_id'] ?? '' ) ) );
 
 	return $out;
@@ -189,6 +190,17 @@ function nl_admin_pagina() {
 			<p class="description">Ritratto quadrato, almeno 320 × 320 px.</p>
 
 			<h2>Contatti e dati aziendali</h2>
+			<p class="description">Questi dati compongono anche il file "Salva il contatto" (vCard): se cambi un recapito, il file si aggiorna da solo.</p>
+			<div class="nl-riga">
+				<?php
+				nl_admin_campo( 'referente_nome', 'Nome del referente' );
+				nl_admin_campo( 'referente_ruolo', 'Ruolo' );
+				nl_admin_campo( 'azienda_nome', 'Azienda' );
+				?>
+			</div>
+			<div class="nl-riga">
+				<?php nl_admin_campo( 'sito_web', 'Sito web', 'url' ); ?>
+			</div>
 			<div class="nl-riga">
 				<?php
 				nl_admin_campo( 'telefono', 'Telefono' );

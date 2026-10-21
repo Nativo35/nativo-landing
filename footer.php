@@ -19,7 +19,7 @@ $nl_privacy = get_privacy_policy_url();
 		<ul class="piede__contatti" role="list">
 			<li><a href="mailto:<?php echo esc_attr( nl_opt( 'email' ) ); ?>"><?php echo esc_html( nl_opt( 'email' ) ); ?></a></li>
 			<li><a href="<?php echo esc_attr( nl_tel_href() ); ?>" data-evento="clic_telefono"><?php echo esc_html( nl_opt( 'telefono' ) ); ?></a></li>
-			<li><a href="<?php echo esc_url( nl_whatsapp_href() ); ?>" data-evento="clic_whatsapp" rel="noopener">WhatsApp</a></li>
+			<li><a href="<?php echo esc_url( nl_whatsapp_href() ); ?>" data-evento="whatsapp" rel="noopener">WhatsApp</a></li>
 		</ul>
 
 		<!-- DA VERIFICARE: indirizzo (Terricciola o Milano) e REA (PI o MI), modificabili da Impostazioni landing. -->
@@ -46,7 +46,7 @@ $nl_privacy = get_privacy_policy_url();
 		<span>Preventivo gratis</span>
 		<?php nl_icona( 'freccia' ); ?>
 	</a>
-	<a class="barra-cta__icona barra-cta__icona--whatsapp" href="<?php echo esc_url( nl_whatsapp_href() ); ?>" data-evento="clic_whatsapp" target="_blank" rel="noopener" aria-label="Scrivi a Nativo Studio su WhatsApp">
+	<a class="barra-cta__icona barra-cta__icona--whatsapp" href="<?php echo esc_url( nl_whatsapp_href() ); ?>" data-evento="whatsapp" target="_blank" rel="noopener" aria-label="Scrivi a Nativo Studio su WhatsApp">
 		<?php nl_icona( 'whatsapp' ); ?>
 	</a>
 	<a class="barra-cta__icona" href="<?php echo esc_attr( nl_tel_href() ); ?>" data-evento="clic_telefono" aria-label="Chiama Nativo Studio">

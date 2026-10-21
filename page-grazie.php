@@ -18,7 +18,7 @@ get_header();
 			<p><strong>Hai fretta?</strong></p>
 			<div class="grazie__pulsanti">
 				<a class="pulsante" href="<?php echo esc_attr( nl_tel_href() ); ?>" data-evento="clic_telefono"><?php nl_icona( 'telefono' ); ?><span>Chiama il <?php echo esc_html( nl_tel_breve() ); ?></span></a>
-				<a class="grazie__link" href="<?php echo esc_url( nl_whatsapp_href() ); ?>" data-evento="clic_whatsapp" rel="noopener" target="_blank">Scrivi su WhatsApp</a>
+				<a class="grazie__link" href="<?php echo esc_url( nl_whatsapp_href() ); ?>" data-evento="whatsapp" rel="noopener" target="_blank">Scrivi su WhatsApp</a>
 			</div>
 		</div>
 
