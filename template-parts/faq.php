@@ -14,6 +14,15 @@ $nl_prezzi = array_filter(
 	)
 );
 
+// Tempi di realizzazione dalle impostazioni: un pacchetto senza tempi non viene citato.
+$nl_tempi = array_filter(
+	array(
+		nl_tempi( 'vetrina' ) ? 'sito vetrina ' . nl_tempi( 'vetrina' ) : '',
+		nl_tempi( 'blog' ) ? 'sito con blog ' . nl_tempi( 'blog' ) : '',
+		nl_tempi( 'ecommerce' ) ? 'e-commerce ' . nl_tempi( 'ecommerce' ) : '',
+	)
+);
+
 // Hosting: cita il servizio "Hosting, manutenzione e backup" con i prezzi delle impostazioni.
 $nl_hosting = '';
 if ( nl_opt( 'servizi_attivi' ) && nl_euro( nl_opt( 'hosting_mese' ) ) ) {
@@ -31,7 +40,7 @@ $nl_faq = array(
 	),
 	array(
 		'Quanto tempo ci vuole?',
-		'<p>Sito vetrina 3–4 settimane, con blog 4–6, e-commerce 5–7. Tempi concordati all\'inizio e rispettati. Conta anche quanto velocemente arrivano testi e foto.</p>',
+		'<p>' . ( $nl_tempi ? esc_html( ucfirst( implode( ', ', $nl_tempi ) ) ) . '. ' : '' ) . 'Tempi concordati all\'inizio e rispettati. Conta anche quanto velocemente arrivano testi e foto.</p>',
 	),
 	array(
 		'Potrò modificare il sito da solo?',

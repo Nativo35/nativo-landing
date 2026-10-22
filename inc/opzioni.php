@@ -14,6 +14,9 @@ function nl_default() {
 		'prezzo_vetrina'     => 1100,
 		'prezzo_blog'        => 1600,
 		'prezzo_ecommerce'   => 2700,
+		'tempi_vetrina'      => '3–4 settimane',
+		'tempi_blog'         => '4–6 settimane',
+		'tempi_ecommerce'    => '5–7 settimane',
 		'iva_dicitura'       => '+ IVA',
 		'ecommerce_prodotti' => 'Fino a 30 prodotti inclusi',
 		// Servizi aggiuntivi (sezione "Completa il tuo sito"): prezzi in euro, IVA esclusa.
@@ -102,6 +105,13 @@ function nl_euro( $valore ) {
  */
 function nl_prezzo( $pacchetto ) {
 	return nl_euro( nl_opt( 'prezzo_' . $pacchetto ) );
+}
+
+/**
+ * Tempi di realizzazione di un pacchetto ("3–4 settimane"). Stringa vuota se mancano.
+ */
+function nl_tempi( $pacchetto ) {
+	return trim( (string) nl_opt( 'tempi_' . $pacchetto ) );
 }
 
 /**

@@ -52,6 +52,9 @@ function nl_admin_sanifica( $input ) {
 	foreach ( array( 'prezzo_vetrina', 'prezzo_blog', 'prezzo_ecommerce' ) as $k ) {
 		$out[ $k ] = isset( $input[ $k ] ) && '' !== $input[ $k ] ? absint( $input[ $k ] ) : 0;
 	}
+	foreach ( array( 'tempi_vetrina', 'tempi_blog', 'tempi_ecommerce' ) as $k ) {
+		$out[ $k ] = sanitize_text_field( $input[ $k ] ?? $def[ $k ] );
+	}
 
 	$out['iva_dicitura']       = sanitize_text_field( $input['iva_dicitura'] ?? $def['iva_dicitura'] );
 	$out['ecommerce_prodotti'] = sanitize_text_field( $input['ecommerce_prodotti'] ?? $def['ecommerce_prodotti'] );
@@ -158,14 +161,19 @@ function nl_admin_pagina() {
 		<form method="post" action="options.php">
 			<?php settings_fields( 'nl_impostazioni_gruppo' ); ?>
 
-			<h2>Prezzi "a partire da" (€)</h2>
-			<div class="nl-riga">
-				<?php
-				nl_admin_campo( 'prezzo_vetrina', 'Sito Vetrina', 'number', 'min="0" step="1"' );
-				nl_admin_campo( 'prezzo_blog', 'Sito + Blog', 'number', 'min="0" step="1"' );
-				nl_admin_campo( 'prezzo_ecommerce', 'E-commerce', 'number', 'min="0" step="1"' );
-				?>
-			</div>
+			<h2>Pacchetti: prezzi e tempi</h2>
+			<p class="description">Prezzo "a partire da" in euro, IVA esclusa (a 0 il pacchetto non compare). I tempi compaiono come "Online in …" nella hero e nelle card, e nella FAQ sui tempi; lasciali vuoti per nasconderli.</p>
+			<?php foreach ( array( 'vetrina' => 'Sito Vetrina', 'blog' => 'Sito + Blog', 'ecommerce' => 'E-commerce' ) as $nl_chiave => $nl_nome ) : ?>
+				<div class="nl-voce">
+					<p><strong><?php echo esc_html( $nl_nome ); ?></strong></p>
+					<div class="nl-riga">
+						<?php
+						nl_admin_campo( 'prezzo_' . $nl_chiave, 'Prezzo da (€)', 'number', 'min="0" step="1"' );
+						nl_admin_campo( 'tempi_' . $nl_chiave, 'Tempi di realizzazione', 'text', 'placeholder="Es. 3–4 settimane"' );
+						?>
+					</div>
+				</div>
+			<?php endforeach; ?>
 			<div class="nl-riga">
 				<?php
 				nl_admin_campo( 'iva_dicitura', 'Dicitura IVA', 'text', 'placeholder="+ IVA"' );

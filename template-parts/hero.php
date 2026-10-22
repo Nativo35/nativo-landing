@@ -8,9 +8,9 @@ defined( 'ABSPATH' ) || exit;
 $nl_b = 'b' === nl_variante();
 
 $nl_pacchetti = array(
-	array( 'nome' => 'Sito Vetrina', 'chiave' => 'vetrina', 'tempi' => '3–4 settimane' ),
-	array( 'nome' => 'Sito + Blog', 'chiave' => 'blog', 'tempi' => '4–6 settimane', 'evidenza' => true ),
-	array( 'nome' => 'E-commerce', 'chiave' => 'ecommerce', 'tempi' => '5–7 settimane' ),
+	array( 'nome' => 'Sito Vetrina', 'chiave' => 'vetrina', 'tempi' => nl_tempi( 'vetrina' ) ),
+	array( 'nome' => 'Sito + Blog', 'chiave' => 'blog', 'tempi' => nl_tempi( 'blog' ), 'evidenza' => true ),
+	array( 'nome' => 'E-commerce', 'chiave' => 'ecommerce', 'tempi' => nl_tempi( 'ecommerce' ) ),
 );
 ?>
 <section class="hero" aria-labelledby="hero-titolo">
@@ -52,7 +52,7 @@ $nl_pacchetti = array(
 
 		<aside class="prezzi-lampo" aria-labelledby="prezzi-lampo-titolo">
 			<p id="prezzi-lampo-titolo" class="prezzi-lampo__titolo">Prezzi chiari, subito</p>
-			<!-- DA VERIFICARE: tempi di consegna (3–4 / 4–6 / 5–7 settimane oppure 4–8 settimane). -->
+			<!-- DA VERIFICARE: tempi di consegna (si modificano in Impostazioni landing; le fonti dicono anche 4–8 settimane). -->
 			<!-- DA VERIFICARE: etichetta "Più richiesto" su Sito + Blog, da mostrare solo se corrisponde ai dati reali. -->
 			<ul class="prezzi-lampo__lista" role="list">
 				<?php foreach ( $nl_pacchetti as $p ) : ?>
@@ -68,7 +68,9 @@ $nl_pacchetti = array(
 								<span class="etichetta">Più richiesto</span>
 							<?php endif; ?>
 						</span>
-						<span class="prezzi-lampo__tempi">Online in <?php echo esc_html( $p['tempi'] ); ?></span>
+						<?php if ( $p['tempi'] ) : ?>
+							<span class="prezzi-lampo__tempi">Online in <?php echo esc_html( $p['tempi'] ); ?></span>
+						<?php endif; ?>
 						<span class="prezzi-lampo__prezzo"><small>da</small>&nbsp;<?php echo esc_html( nl_prezzo( $p['chiave'] ) ); ?><?php echo nl_iva_html(); // phpcs:ignore WordPress.Security.EscapeOutput -- HTML già sanificato. ?></span>
 					</li>
 				<?php endforeach; ?>

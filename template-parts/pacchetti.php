@@ -11,7 +11,7 @@ $nl_pacchetti = array(
 		'chiave'   => 'vetrina',
 		'nome'     => 'Sito Vetrina',
 		'per'      => 'Per presentare la tua attività e ricevere richieste.',
-		'tempi'    => '3–4 settimane',
+		'tempi'    => nl_tempi( 'vetrina' ),
 		'voci'     => array( 'Design su misura', 'Perfetto su smartphone', 'SEO di base per Google', 'Form e pulsanti per farti scrivere', 'Lo aggiorni da solo' ),
 		'cta'      => 'Voglio il Sito Vetrina',
 		'evidenza' => false,
@@ -20,7 +20,7 @@ $nl_pacchetti = array(
 		'chiave'   => 'blog',
 		'nome'     => 'Sito + Blog',
 		'per'      => 'Per farti trovare su Google, articolo dopo articolo.',
-		'tempi'    => '4–6 settimane',
+		'tempi'    => nl_tempi( 'blog' ),
 		'voci'     => array( 'Tutto del Sito Vetrina', 'Blog che porta visite da Google', 'Parole chiave studiate per te', 'Newsletter integrata', 'Articoli pronti per Google e per le risposte AI' ),
 		'cta'      => 'Voglio Sito + Blog',
 		'evidenza' => true,
@@ -29,7 +29,7 @@ $nl_pacchetti = array(
 		'chiave'   => 'ecommerce',
 		'nome'     => 'E-commerce',
 		'per'      => 'Per vendere online, 24 ore su 24.',
-		'tempi'    => '5–7 settimane',
+		'tempi'    => nl_tempi( 'ecommerce' ),
 		'voci'     => array( nl_opt( 'ecommerce_prodotti' ), 'Pagamenti con carta e PayPal', 'Ordini e spedizioni da un pannello semplice', 'Coupon e promozioni', 'SEO per e-commerce' ),
 		'cta'      => 'Voglio l\'E-commerce',
 		'evidenza' => false,
@@ -43,7 +43,7 @@ $nl_pacchetti = array(
 			<p class="sezione__sottotitolo">Scegli il punto di partenza. Il preventivo finale dipende da quello che ti serve davvero.</p>
 		</header>
 
-		<!-- DA VERIFICARE: tempi di consegna (3–4 / 4–6 / 5–7 settimane oppure 4–8 settimane). -->
+		<!-- DA VERIFICARE: tempi di consegna (si modificano in Impostazioni landing; le fonti dicono anche 4–8 settimane). -->
 		<!-- DA VERIFICARE: etichetta "Più richiesto" su Sito + Blog, da mostrare solo se corrisponde ai dati reali. -->
 		<ul class="pacchetti__griglia" role="list">
 			<?php foreach ( $nl_pacchetti as $p ) : ?>
@@ -60,7 +60,9 @@ $nl_pacchetti = array(
 					<p class="pacchetto__per"><?php echo esc_html( $p['per'] ); ?></p>
 
 					<p class="pacchetto__prezzo"><small>da</small>&nbsp;<?php echo esc_html( nl_prezzo( $p['chiave'] ) ); ?><?php echo nl_iva_html(); // phpcs:ignore WordPress.Security.EscapeOutput -- HTML già sanificato. ?></p>
-					<p class="pacchetto__tempi">Online in <?php echo esc_html( $p['tempi'] ); ?></p>
+					<?php if ( $p['tempi'] ) : ?>
+						<p class="pacchetto__tempi">Online in <?php echo esc_html( $p['tempi'] ); ?></p>
+					<?php endif; ?>
 
 					<ul class="spunte pacchetto__voci" role="list">
 						<?php foreach ( $p['voci'] as $voce ) : ?>
