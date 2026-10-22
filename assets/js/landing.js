@@ -40,7 +40,7 @@
 ( function () {
 	window.dataLayer = window.dataLayer || [];
 	const variante = document.body.classList.contains( 'variante-b' ) ? 'b' : 'a';
-	const CHIAVI_UTM = [ 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content' ];
+	const CHIAVI_UTM = [ 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id' ];
 
 	// UTM: dall'URL, ricordati per la sessione se il visitatore ricarica senza parametri.
 	const parametri = new URLSearchParams( location.search );

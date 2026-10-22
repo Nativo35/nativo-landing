@@ -39,7 +39,7 @@ $markup = <<<'FORM'
 <div class="campo campo--consenso">
 	[acceptance privacy] Ho letto l'<a href="/privacy-policy/" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei dati per ricevere una risposta. [/acceptance]
 </div>
-[hidden utm_source] [hidden utm_medium] [hidden utm_campaign] [hidden utm_term] [hidden utm_content] [hidden variante] [hidden pacchetto_cliccato] [hidden richiesta] [hidden event_id] [hidden oppref] [hidden consenso_marketing]
+[hidden utm_source] [hidden utm_medium] [hidden utm_campaign] [hidden utm_term] [hidden utm_content] [hidden utm_id] [hidden variante] [hidden pacchetto_cliccato] [hidden richiesta] [hidden event_id] [hidden oppref] [hidden consenso_marketing]
 <div class="campo campo--invio">
 	[submit class:pulsante class:pulsante--grande "Ricevi il preventivo gratis"]
 </div>
@@ -50,7 +50,7 @@ $mail = array(
 	'subject'            => 'Nuova richiesta di preventivo: [tipo] – [nome]',
 	'sender'             => 'Landing Nativo Studio <wordpress@nativo.studio>',
 	'recipient'          => 'info@nativo.studio',
-	'body'               => "Nuova richiesta dalla landing.\n\nNome: [nome]\nEmail: [email]\nTelefono: [telefono]\nTipo di sito: [tipo]\nTi interessano anche: [interessi]\nSito attuale: [sito_attuale]\nRichiesta: [richiesta]\n\nMessaggio:\n[messaggio]\n\n--\nCampagna\nutm_source: [utm_source]\nutm_medium: [utm_medium]\nutm_campaign: [utm_campaign]\nutm_term: [utm_term]\nutm_content: [utm_content]\nVariante A/B: [variante]\nPacchetto cliccato: [pacchetto_cliccato]\nOpenAI Ads: event_id [event_id], oppref [oppref], consenso marketing [consenso_marketing]\n\nInviato il [_date] alle [_time] da [_url]",
+	'body'               => "Nuova richiesta dalla landing.\n\nNome: [nome]\nEmail: [email]\nTelefono: [telefono]\nTipo di sito: [tipo]\nTi interessano anche: [interessi]\nSito attuale: [sito_attuale]\nRichiesta: [richiesta]\n\nMessaggio:\n[messaggio]\n\n--\nCampagna\nutm_source: [utm_source]\nutm_medium: [utm_medium]\nutm_campaign: [utm_campaign]\nutm_term: [utm_term]\nutm_content: [utm_content]\nutm_id: [utm_id]\nVariante A/B: [variante]\nPacchetto cliccato: [pacchetto_cliccato]\nOpenAI Ads: event_id [event_id], oppref [oppref], consenso marketing [consenso_marketing]\n\nInviato il [_date] alle [_time] da [_url]",
 	'additional_headers' => 'Reply-To: [nome] <[email]>',
 	'attachments'        => '',
 	'use_html'           => false,
