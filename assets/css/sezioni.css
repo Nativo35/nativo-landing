@@ -311,6 +311,11 @@
 }
 
 /* Servizi aggiuntivi: completano i pacchetti, con una grafica più leggera (bordo sottile, prezzi più piccoli). */
+/* Sottotitolo su una riga da tablet in su (su mobile non ci sta e va a capo). */
+@media (min-width: 48rem) {
+	.servizi .sezione__sottotitolo { max-width: none; white-space: nowrap; }
+}
+
 .servizi__griglia { display: grid; gap: var(--s-4); }
 
 .servizio {
