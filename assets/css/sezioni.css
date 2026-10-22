@@ -32,7 +32,8 @@
 	line-height: 1;
 	letter-spacing: -0.04em;
 }
-.prezzo-grande small {
+.prezzo-grande .iva { margin-left: 0.5rem; font-size: 1rem; }
+.prezzo-grande small:not(.iva) {
 	display: block;
 	margin-bottom: var(--s-1);
 	color: var(--c-testo-2);
@@ -261,6 +262,7 @@
 	white-space: nowrap;
 }
 .pacchetto__prezzo small { color: var(--c-testo-2); font-size: 1.125rem; font-weight: 400; letter-spacing: 0; }
+.pacchetto__prezzo .iva { margin-left: 0.5rem; font-size: 1rem; font-weight: 700; }
 
 .pacchetto__tempi {
 	display: inline-block;
@@ -306,6 +308,106 @@
 	transform: translateY(-50%);
 	padding: 0.3rem 0.8rem;
 	font-size: 0.8125rem;
+}
+
+/* Servizi aggiuntivi: completano i pacchetti, con una grafica più leggera (bordo sottile, prezzi più piccoli). */
+.servizi__griglia { display: grid; gap: var(--s-4); }
+
+.servizio {
+	display: flex;
+	flex-direction: column;
+	padding: var(--s-5);
+	background: var(--c-fondo-alt);
+	border: 1px solid var(--c-linea);
+	border-radius: var(--raggio-grande);
+}
+.servizio--principale { background: var(--c-fondo); border-color: var(--c-scuro); }
+
+.servizio__icona {
+	display: grid;
+	place-items: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	margin-bottom: var(--s-3);
+	border: 2px solid var(--c-scuro);
+	border-radius: 50%;
+	background: var(--c-fondo);
+	color: var(--c-scuro);
+}
+.servizio__icona .icona { width: 1.25rem; height: 1.25rem; stroke-width: 2; }
+
+.servizio__nome { font-size: 1.25rem; line-height: 1.2; letter-spacing: -0.02em; }
+.servizio__testo { margin-top: var(--s-2); color: var(--c-testo-2); line-height: 1.45; }
+
+.servizio__prezzo {
+	color: var(--c-scuro);
+	font-size: 1.75rem;
+	font-weight: 700;
+	line-height: 1.1;
+	letter-spacing: -0.03em;
+	white-space: nowrap;
+}
+.servizio__prezzo small:not(.iva) { color: var(--c-testo-2); font-size: 1rem; font-weight: 400; letter-spacing: 0; }
+.servizio__prezzo--solo { margin-top: auto; padding-top: var(--s-4); }
+
+/* Due opzioni a piastrella (mensile / annuale): una sotto l'altra su mobile, affiancate da tablet. */
+.servizio__opzioni { display: grid; gap: var(--s-3); margin-top: auto; padding-top: var(--s-5); }
+.opzione {
+	display: flex;
+	flex-direction: column;
+	gap: var(--s-1);
+	padding: var(--s-3) var(--s-4);
+	border: 1px solid var(--c-linea);
+	border-radius: var(--raggio);
+}
+.opzione--anno { background: var(--c-accento-chiaro); border-color: var(--c-accento-chiaro); }
+.opzione__nome { font-weight: 700; color: var(--c-scuro); }
+.opzione__nome .etichetta { margin-left: var(--s-1); }
+
+/* Altre voci: elenco compatto, una per riga su mobile e in linea da tablet */
+.servizi__altre {
+	margin-top: var(--s-4);
+	padding: var(--s-2) var(--s-5);
+	border: 1px dashed var(--c-linea);
+	border-radius: var(--raggio);
+	color: var(--c-testo-2);
+	line-height: 1.4;
+}
+.servizi__altre li { padding-block: var(--s-2); }
+.servizi__altre li + li { border-top: 1px solid var(--c-linea); }
+.servizi__altre strong { color: var(--c-scuro); }
+
+/* Hover come le card dei problemi, solo con il mouse */
+@media (hover: hover) {
+	.servizio,
+	.servizio__icona { transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease; }
+	.servizio:hover {
+		transform: translateY(-4px);
+		border-color: var(--c-accento);
+		box-shadow: 0 18px 36px -18px rgb(48 48 46 / 0.28);
+	}
+	.servizio:hover .servizio__icona { background: var(--c-accento); transform: translateY(-2px); }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+	.servizio,
+	.servizio__icona { transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; }
+	.servizio:hover,
+	.servizio:hover .servizio__icona { transform: none; }
+}
+
+@media (min-width: 48rem) {
+	.servizio__opzioni { grid-template-columns: 1fr 1fr; }
+	.servizi__altre { display: flex; flex-wrap: wrap; justify-content: center; column-gap: var(--s-3); padding-block: var(--s-3); }
+	.servizi__altre li { padding-block: 0; }
+	.servizi__altre li + li { border-top: 0; }
+	.servizi__altre li + li::before { content: "·"; margin-right: var(--s-3); color: var(--c-testo-2); }
+}
+
+@media (min-width: 64rem) {
+	.servizi__griglia { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--s-5); }
+	.servizio { padding: var(--s-6); }
+	.opzione { padding: var(--s-4); }
 }
 
 /* Banda grande dello sconto */
@@ -944,7 +1046,10 @@
 .modulo textarea:focus { outline: none; border-color: var(--c-scuro); box-shadow: 0 0 0 3px var(--c-accento); }
 
 /* Tipo di sito: scelte a piastrella, facili da toccare */
-.campo--scelta .wpcf7-radio { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-2); margin-top: var(--s-2); }
+.campo legend span { color: var(--c-testo-2); font-weight: 400; }
+
+.campo--scelta .wpcf7-radio,
+.campo--scelta .wpcf7-checkbox { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-2); margin-top: var(--s-2); }
 .campo--scelta .wpcf7-list-item { margin: 0; }
 .campo--scelta label {
 	display: flex;

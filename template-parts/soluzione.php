@@ -23,7 +23,7 @@ $nl_inclusi = array(
 
 			<div class="soluzione__azione">
 				<?php if ( nl_prezzo_minimo() ) : ?>
-					<p class="prezzo-grande"><small>a partire da</small> <?php echo esc_html( nl_prezzo_minimo() ); ?></p>
+					<p class="prezzo-grande"><small>a partire da</small> <?php echo esc_html( nl_prezzo_minimo() ); ?><?php echo nl_iva_html(); // phpcs:ignore WordPress.Security.EscapeOutput -- HTML già sanificato. ?></p>
 				<?php endif; ?>
 				<?php nl_cta( 'Scopri quanto costa il tuo sito', 'soluzione', '#pacchetti' ); ?>
 			</div>

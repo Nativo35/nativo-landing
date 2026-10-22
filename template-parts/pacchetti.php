@@ -30,7 +30,7 @@ $nl_pacchetti = array(
 		'nome'     => 'E-commerce',
 		'per'      => 'Per vendere online, 24 ore su 24.',
 		'tempi'    => '5–7 settimane',
-		'voci'     => array( 'Prodotti illimitati', 'Pagamenti con carta e PayPal', 'Ordini e spedizioni da un pannello semplice', 'Coupon e promozioni', 'SEO per e-commerce' ),
+		'voci'     => array( nl_opt( 'ecommerce_prodotti' ), 'Pagamenti con carta e PayPal', 'Ordini e spedizioni da un pannello semplice', 'Coupon e promozioni', 'SEO per e-commerce' ),
 		'cta'      => 'Voglio l\'E-commerce',
 		'evidenza' => false,
 	),
@@ -59,7 +59,7 @@ $nl_pacchetti = array(
 					<h3 class="pacchetto__nome"><?php echo esc_html( $p['nome'] ); ?></h3>
 					<p class="pacchetto__per"><?php echo esc_html( $p['per'] ); ?></p>
 
-					<p class="pacchetto__prezzo"><small>da</small>&nbsp;<?php echo esc_html( nl_prezzo( $p['chiave'] ) ); ?></p>
+					<p class="pacchetto__prezzo"><small>da</small>&nbsp;<?php echo esc_html( nl_prezzo( $p['chiave'] ) ); ?><?php echo nl_iva_html(); // phpcs:ignore WordPress.Security.EscapeOutput -- HTML già sanificato. ?></p>
 					<p class="pacchetto__tempi">Online in <?php echo esc_html( $p['tempi'] ); ?></p>
 
 					<ul class="spunte pacchetto__voci" role="list">
@@ -77,7 +77,7 @@ $nl_pacchetti = array(
 
 		<?php nl_sconto_banda( 'sconto--grande' ); ?>
 
-		<!-- DA VERIFICARE: prezzi IVA esclusa o inclusa; hosting e dominio esclusi dal prezzo. -->
-		<p class="pacchetti__nota">Prezzi IVA esclusa. Hosting e dominio a parte: possiamo gestirli noi o usare quelli che hai già.</p>
+		<!-- DA VERIFICARE: hosting e dominio esclusi dal prezzo del sito. -->
+		<p class="pacchetti__nota">Hosting e dominio non sono compresi nel prezzo: puoi usare quelli che hai già oppure affidarli a noi<?php echo nl_opt( 'servizi_attivi' ) ? ' con il servizio qui sotto' : ''; ?>.</p>
 	</div>
 </section>

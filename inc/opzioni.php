@@ -14,6 +14,26 @@ function nl_default() {
 		'prezzo_vetrina'     => 1100,
 		'prezzo_blog'        => 1600,
 		'prezzo_ecommerce'   => 2700,
+		'iva_dicitura'       => '+ IVA',
+		'ecommerce_prodotti' => 'Fino a 30 prodotti inclusi',
+		// Servizi aggiuntivi (sezione "Completa il tuo sito"): prezzi in euro, IVA esclusa.
+		'servizi_attivi'           => 1,
+		'servizi_titolo'           => 'Completa il tuo sito',
+		'servizi_sottotitolo'      => 'Servizi da aggiungere a qualsiasi pacchetto, quando ti servono.',
+		'hosting_nome'             => 'Hosting, manutenzione e backup',
+		'hosting_descrizione'      => 'Il tuo sito sempre online, aggiornato e al sicuro. Ci pensiamo noi, tu pensi al tuo lavoro.',
+		'hosting_mese'             => 39,
+		'hosting_anno'             => 390,
+		'hosting_anno_etichetta'   => '2 mesi gratis',
+		'blog_nome'                => 'Pacchetto blog',
+		'blog_descrizione'         => '2 articoli al mese ottimizzati SEO, per farti trovare su Google da nuovi clienti.',
+		'blog_mese'                => 150,
+		'pagina_extra_nome'        => 'Pagina extra',
+		'pagina_extra_prezzo'      => 120,
+		'lingua_nome'              => 'Lingua aggiuntiva',
+		'lingua_percentuale'       => 40,
+		'prodotti_extra_testo'     => 'Prodotti oltre i 30 a preventivo',
+		'servizi_cta'              => 'Componi il tuo preventivo',
 		'sconto_attivo'      => 1,
 		'sconto_percentuale' => 15,
 		'sconto_giorni'      => 10,
@@ -70,11 +90,39 @@ function nl_opt( $chiave = null ) {
 }
 
 /**
- * Prezzo formattato all'italiana: "1.100 €". Stringa vuota se manca.
+ * Importo formattato all'italiana: "1.100 €". Stringa vuota se manca.
+ */
+function nl_euro( $valore ) {
+	$valore = (int) $valore;
+	return $valore > 0 ? number_format( $valore, 0, ',', '.' ) . ' €' : '';
+}
+
+/**
+ * Prezzo di un pacchetto: "1.100 €". Stringa vuota se manca.
  */
 function nl_prezzo( $pacchetto ) {
-	$valore = (int) nl_opt( 'prezzo_' . $pacchetto );
-	return $valore > 0 ? number_format( $valore, 0, ',', '.' ) . ' €' : '';
+	return nl_euro( nl_opt( 'prezzo_' . $pacchetto ) );
+}
+
+/**
+ * Dicitura IVA da Impostazioni landing ("+ IVA"), uguale accanto a ogni prezzo.
+ */
+function nl_iva() {
+	return trim( (string) nl_opt( 'iva_dicitura' ) );
+}
+
+/**
+ * Dicitura IVA in corpo più piccolo, da mettere subito dopo un prezzo. HTML già sicuro.
+ */
+function nl_iva_html() {
+	return nl_iva() ? '<small class="iva">' . esc_html( nl_iva() ) . '</small>' : '';
+}
+
+/**
+ * Prezzo con dicitura IVA in testo semplice, per le frasi (FAQ): "1.100 € + IVA".
+ */
+function nl_con_iva( $prezzo ) {
+	return $prezzo && nl_iva() ? $prezzo . "\u{00A0}" . str_replace( ' ', "\u{00A0}", nl_iva() ) : $prezzo;
 }
 
 /**
@@ -82,7 +130,7 @@ function nl_prezzo( $pacchetto ) {
  */
 function nl_prezzo_minimo() {
 	$prezzi = array_filter( array_map( 'intval', array( nl_opt( 'prezzo_vetrina' ), nl_opt( 'prezzo_blog' ), nl_opt( 'prezzo_ecommerce' ) ) ) );
-	return $prezzi ? number_format( min( $prezzi ), 0, ',', '.' ) . ' €' : '';
+	return $prezzi ? nl_euro( min( $prezzi ) ) : '';
 }
 
 function nl_sconto_attivo() {

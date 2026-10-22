@@ -30,7 +30,7 @@ $nl_pacchetti = array(
 				<li><?php nl_icona( 'spunta' ); ?><span><strong>Più richieste</strong> di preventivo, non solo visite</span></li>
 				<li><?php nl_icona( 'spunta' ); ?><span><strong>Un solo referente</strong>, Matteo, dall'inizio alla fine</span></li>
 				<?php if ( nl_prezzo_minimo() ) : ?>
-					<li><?php nl_icona( 'spunta' ); ?><span><strong>Prezzi chiari</strong>: da&nbsp;<?php echo esc_html( nl_prezzo_minimo() ); ?></span></li>
+					<li><?php nl_icona( 'spunta' ); ?><span><strong>Prezzi chiari</strong>: da&nbsp;<?php echo esc_html( nl_con_iva( nl_prezzo_minimo() ) ); ?></span></li>
 				<?php endif; ?>
 			</ul>
 
@@ -52,7 +52,7 @@ $nl_pacchetti = array(
 
 		<aside class="prezzi-lampo" aria-labelledby="prezzi-lampo-titolo">
 			<p id="prezzi-lampo-titolo" class="prezzi-lampo__titolo">Prezzi chiari, subito</p>
-			<!-- DA VERIFICARE: tempi di consegna (3–4 / 4–6 / 5–7 settimane oppure 4–8 settimane) e prezzi IVA esclusa o inclusa. -->
+			<!-- DA VERIFICARE: tempi di consegna (3–4 / 4–6 / 5–7 settimane oppure 4–8 settimane). -->
 			<!-- DA VERIFICARE: etichetta "Più richiesto" su Sito + Blog, da mostrare solo se corrisponde ai dati reali. -->
 			<ul class="prezzi-lampo__lista" role="list">
 				<?php foreach ( $nl_pacchetti as $p ) : ?>
@@ -69,7 +69,7 @@ $nl_pacchetti = array(
 							<?php endif; ?>
 						</span>
 						<span class="prezzi-lampo__tempi">Online in <?php echo esc_html( $p['tempi'] ); ?></span>
-						<span class="prezzi-lampo__prezzo"><small>da</small>&nbsp;<?php echo esc_html( nl_prezzo( $p['chiave'] ) ); ?></span>
+						<span class="prezzi-lampo__prezzo"><small>da</small>&nbsp;<?php echo esc_html( nl_prezzo( $p['chiave'] ) ); ?><?php echo nl_iva_html(); // phpcs:ignore WordPress.Security.EscapeOutput -- HTML già sanificato. ?></span>
 					</li>
 				<?php endforeach; ?>
 			</ul>

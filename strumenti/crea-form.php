@@ -28,6 +28,10 @@ $markup = <<<'FORM'
 	<legend>Che sito ti serve?</legend>
 	[radio tipo use_label_element "Sito vetrina" "Sito + Blog" "E-commerce" "Non lo so ancora"]
 </fieldset>
+<fieldset class="campo campo--scelta campo--interessi">
+	<legend>Ti interessano anche: <span>(facoltativo)</span></legend>
+	[checkbox interessi use_label_element "Hosting e manutenzione" "Pacchetto blog" "Lingue aggiuntive"]
+</fieldset>
 <div class="campo">
 	<label for="nl-messaggio">Vuoi aggiungere qualcosa? <span>(facoltativo)</span></label>
 	[textarea messaggio id:nl-messaggio x3 placeholder "Es. che lavoro fai, se hai già un sito, entro quando ti serve"]
@@ -46,7 +50,7 @@ $mail = array(
 	'subject'            => 'Nuova richiesta di preventivo: [tipo] – [nome]',
 	'sender'             => 'Landing Nativo Studio <wordpress@nativo.studio>',
 	'recipient'          => 'info@nativo.studio',
-	'body'               => "Nuova richiesta dalla landing.\n\nNome: [nome]\nEmail: [email]\nTelefono: [telefono]\nTipo di sito: [tipo]\nSito attuale: [sito_attuale]\nRichiesta: [richiesta]\n\nMessaggio:\n[messaggio]\n\n--\nCampagna\nutm_source: [utm_source]\nutm_medium: [utm_medium]\nutm_campaign: [utm_campaign]\nutm_term: [utm_term]\nutm_content: [utm_content]\nVariante A/B: [variante]\nPacchetto cliccato: [pacchetto_cliccato]\nOpenAI Ads: event_id [event_id], oppref [oppref], consenso marketing [consenso_marketing]\n\nInviato il [_date] alle [_time] da [_url]",
+	'body'               => "Nuova richiesta dalla landing.\n\nNome: [nome]\nEmail: [email]\nTelefono: [telefono]\nTipo di sito: [tipo]\nTi interessano anche: [interessi]\nSito attuale: [sito_attuale]\nRichiesta: [richiesta]\n\nMessaggio:\n[messaggio]\n\n--\nCampagna\nutm_source: [utm_source]\nutm_medium: [utm_medium]\nutm_campaign: [utm_campaign]\nutm_term: [utm_term]\nutm_content: [utm_content]\nVariante A/B: [variante]\nPacchetto cliccato: [pacchetto_cliccato]\nOpenAI Ads: event_id [event_id], oppref [oppref], consenso marketing [consenso_marketing]\n\nInviato il [_date] alle [_time] da [_url]",
 	'additional_headers' => 'Reply-To: [nome] <[email]>',
 	'attachments'        => '',
 	'use_html'           => false,

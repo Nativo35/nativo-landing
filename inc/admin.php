@@ -53,6 +53,24 @@ function nl_admin_sanifica( $input ) {
 		$out[ $k ] = isset( $input[ $k ] ) && '' !== $input[ $k ] ? absint( $input[ $k ] ) : 0;
 	}
 
+	$out['iva_dicitura']       = sanitize_text_field( $input['iva_dicitura'] ?? $def['iva_dicitura'] );
+	$out['ecommerce_prodotti'] = sanitize_text_field( $input['ecommerce_prodotti'] ?? $def['ecommerce_prodotti'] );
+
+	// Servizi aggiuntivi: importi interi (0 = voce nascosta) e testi brevi.
+	$out['servizi_attivi'] = empty( $input['servizi_attivi'] ) ? 0 : 1;
+	foreach ( array( 'hosting_mese', 'hosting_anno', 'blog_mese', 'pagina_extra_prezzo', 'lingua_percentuale' ) as $k ) {
+		$out[ $k ] = isset( $input[ $k ] ) && '' !== $input[ $k ] ? absint( $input[ $k ] ) : 0;
+	}
+	foreach ( array( 'servizi_titolo', 'servizi_sottotitolo', 'hosting_nome', 'hosting_anno_etichetta', 'blog_nome', 'pagina_extra_nome', 'lingua_nome', 'prodotti_extra_testo', 'servizi_cta' ) as $k ) {
+		$out[ $k ] = sanitize_text_field( $input[ $k ] ?? $def[ $k ] );
+	}
+	foreach ( array( 'hosting_descrizione', 'blog_descrizione' ) as $k ) {
+		$out[ $k ] = sanitize_textarea_field( $input[ $k ] ?? $def[ $k ] );
+	}
+	if ( '' === $out['servizi_cta'] ) {
+		$out['servizi_cta'] = $def['servizi_cta'];
+	}
+
 	$out['sconto_attivo']      = empty( $input['sconto_attivo'] ) ? 0 : 1;
 	$out['sconto_percentuale'] = min( 100, absint( $input['sconto_percentuale'] ?? 0 ) );
 	$out['sconto_giorni']      = absint( $input['sconto_giorni'] ?? 0 );
@@ -147,6 +165,62 @@ function nl_admin_pagina() {
 				nl_admin_campo( 'prezzo_blog', 'Sito + Blog', 'number', 'min="0" step="1"' );
 				nl_admin_campo( 'prezzo_ecommerce', 'E-commerce', 'number', 'min="0" step="1"' );
 				?>
+			</div>
+			<div class="nl-riga">
+				<?php
+				nl_admin_campo( 'iva_dicitura', 'Dicitura IVA', 'text', 'placeholder="+ IVA"' );
+				nl_admin_campo( 'ecommerce_prodotti', 'E-commerce: voce sui prodotti' );
+				?>
+			</div>
+			<p class="description">La dicitura IVA compare in piccolo accanto a tutti i prezzi della landing (pacchetti, servizi aggiuntivi, FAQ). Lasciala vuota per nasconderla.</p>
+
+			<h2>Servizi aggiuntivi</h2>
+			<p><label><input type="checkbox" name="<?php echo esc_attr( $n ); ?>[servizi_attivi]" value="1" <?php checked( nl_opt( 'servizi_attivi' ) ); ?>> Mostra la sezione dopo i pacchetti</label></p>
+			<p class="description">Prezzi in euro, IVA esclusa. Un prezzo a 0 o vuoto nasconde la voce.</p>
+			<div class="nl-riga">
+				<?php
+				nl_admin_campo( 'servizi_titolo', 'Titolo' );
+				nl_admin_campo( 'servizi_sottotitolo', 'Sottotitolo' );
+				nl_admin_campo( 'servizi_cta', 'Testo del pulsante' );
+				?>
+			</div>
+			<div class="nl-voce">
+				<div class="nl-riga">
+					<?php
+					nl_admin_campo( 'hosting_nome', 'Card principale: nome' );
+					nl_admin_campo( 'hosting_mese', 'Prezzo al mese (€)', 'number', 'min="0" step="1"' );
+					nl_admin_campo( 'hosting_anno', 'Prezzo all\'anno (€)', 'number', 'min="0" step="1"' );
+					?>
+				</div>
+				<div class="nl-riga">
+					<?php nl_admin_campo( 'hosting_anno_etichetta', 'Etichetta dell\'opzione annuale' ); ?>
+				</div>
+				<label><span>Descrizione</span><textarea rows="2" name="<?php echo esc_attr( $n ); ?>[hosting_descrizione]"><?php echo esc_textarea( nl_opt( 'hosting_descrizione' ) ); ?></textarea></label>
+			</div>
+			<div class="nl-voce">
+				<div class="nl-riga">
+					<?php
+					nl_admin_campo( 'blog_nome', 'Seconda card: nome' );
+					nl_admin_campo( 'blog_mese', 'Prezzo al mese (€)', 'number', 'min="0" step="1"' );
+					?>
+				</div>
+				<label><span>Descrizione</span><textarea rows="2" name="<?php echo esc_attr( $n ); ?>[blog_descrizione]"><?php echo esc_textarea( nl_opt( 'blog_descrizione' ) ); ?></textarea></label>
+			</div>
+			<p><strong>Riga con le altre voci</strong></p>
+			<div class="nl-riga">
+				<?php
+				nl_admin_campo( 'pagina_extra_nome', 'Voce' );
+				nl_admin_campo( 'pagina_extra_prezzo', 'Prezzo (€)', 'number', 'min="0" step="1"' );
+				?>
+			</div>
+			<div class="nl-riga">
+				<?php
+				nl_admin_campo( 'lingua_nome', 'Voce' );
+				nl_admin_campo( 'lingua_percentuale', 'Maggiorazione sul prezzo del sito (%)', 'number', 'min="0" step="1"' );
+				?>
+			</div>
+			<div class="nl-riga">
+				<?php nl_admin_campo( 'prodotti_extra_testo', 'Terza voce (testo libero)' ); ?>
 			</div>
 
 			<h2>Sconto</h2>

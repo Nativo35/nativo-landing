@@ -8,11 +8,20 @@ defined( 'ABSPATH' ) || exit;
 
 $nl_prezzi = array_filter(
 	array(
-		nl_prezzo( 'vetrina' ) ? nl_prezzo( 'vetrina' ) . ' per un sito vetrina' : '',
-		nl_prezzo( 'blog' ) ? nl_prezzo( 'blog' ) . ' con il blog' : '',
-		nl_prezzo( 'ecommerce' ) ? nl_prezzo( 'ecommerce' ) . ' per un e-commerce' : '',
+		nl_prezzo( 'vetrina' ) ? nl_con_iva( nl_prezzo( 'vetrina' ) ) . ' per un sito vetrina' : '',
+		nl_prezzo( 'blog' ) ? nl_con_iva( nl_prezzo( 'blog' ) ) . ' con il blog' : '',
+		nl_prezzo( 'ecommerce' ) ? nl_con_iva( nl_prezzo( 'ecommerce' ) ) . ' per un e-commerce' : '',
 	)
 );
+
+// Hosting: cita il servizio "Hosting, manutenzione e backup" con i prezzi delle impostazioni.
+$nl_hosting = '';
+if ( nl_opt( 'servizi_attivi' ) && nl_euro( nl_opt( 'hosting_mese' ) ) ) {
+	$nl_hosting = ' oppure affidarli a noi con il servizio <strong>' . esc_html( nl_opt( 'hosting_nome' ) ) . '</strong>, a '
+		. esc_html( nl_con_iva( nl_euro( nl_opt( 'hosting_mese' ) ) . '/mese' ) )
+		. ( nl_euro( nl_opt( 'hosting_anno' ) ) ? ' (oppure ' . esc_html( nl_con_iva( nl_euro( nl_opt( 'hosting_anno' ) ) . '/anno' ) ) . ')' : '' )
+		. ': sito sempre online, aggiornato e al sicuro';
+}
 
 $nl_faq = array(
 	array(
@@ -30,7 +39,7 @@ $nl_faq = array(
 	),
 	array(
 		'Hosting e dominio sono inclusi?',
-		'<p>Possiamo gestirli noi o usare quelli che hai già. Ti consigliamo la soluzione migliore durante la chiamata.</p>',
+		'<p>Non sono compresi nel prezzo del sito. Puoi usare quelli che hai già' . ( $nl_hosting ?: ' oppure affidarli a noi' ) . '. Ti consigliamo la soluzione migliore durante la chiamata.</p>',
 	),
 	array(
 		'E se il risultato non mi piace?',
@@ -61,7 +70,7 @@ $nl_faq = array(
 			</div>
 		</header>
 
-		<!-- DA VERIFICARE: tempi di consegna, revisioni incluse, servizio di assistenza e tempo di risposta ("entro 24 ore"). -->
+		<!-- DA VERIFICARE: tempi di consegna, revisioni incluse, servizio di assistenza e tempo di risposta ("entro 24 ore"). Dominio compreso o no nel servizio hosting. -->
 		<div class="faq__elenco">
 			<?php foreach ( $nl_faq as $i => $voce ) : ?>
 				<?php // name condiviso: aprendo una domanda il browser chiude le altre (accordion esclusivo nativo). ?>

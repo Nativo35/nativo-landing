@@ -216,6 +216,16 @@ mark {
 	color: var(--c-scuro);
 }
 
+/* Dicitura IVA accanto ai prezzi: più piccola, ma leggibile (contrasto AA) */
+.iva {
+	margin-left: 0.3em;
+	color: var(--c-testo-2);
+	font-size: var(--t-piccolo);
+	font-weight: 700;
+	letter-spacing: 0;
+	white-space: nowrap;
+}
+
 /* Etichette (es. "Più richiesto") */
 .etichetta {
 	display: inline-block;
@@ -398,6 +408,7 @@ mark {
 	white-space: nowrap;
 }
 .prezzi-lampo__prezzo small { color: var(--c-testo-2); font-size: var(--t-piccolo); font-weight: 400; letter-spacing: 0; }
+.prezzi-lampo__prezzo .iva { margin-left: 0.35rem; font-size: 0.8125rem; font-weight: 700; }
 
 /* Banda dello sconto: unica formulazione, letta dalle impostazioni */
 .sconto {
