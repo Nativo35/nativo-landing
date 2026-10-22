@@ -90,6 +90,29 @@ add_action( 'wp_head', function () {
 	echo '<meta name="theme-color" content="#FFFFFF">' . "\n";
 }, 1 );
 
+/**
+ * Favicon di nativo.studio (logo su fondo bianco), salvata nel tema.
+ * Se in WordPress si imposta un'Icona del sito, vale quella.
+ */
+add_action( 'wp_head', function () {
+	if ( has_site_icon() ) {
+		return;
+	}
+	$img = NL_URI . '/assets/img/';
+	echo '<link rel="icon" href="' . esc_url( $img . 'favicon.ico' ) . '" sizes="48x48">' . "\n";
+	echo '<link rel="icon" href="' . esc_url( $img . 'favicon-32.png' ) . '" type="image/png" sizes="32x32">' . "\n";
+	echo '<link rel="icon" href="' . esc_url( $img . 'favicon-192.png' ) . '" type="image/png" sizes="192x192">' . "\n";
+	echo '<link rel="apple-touch-icon" href="' . esc_url( $img . 'apple-touch-icon.png' ) . '">' . "\n";
+}, 4 );
+
+// /favicon.ico chiesto direttamente dal browser: WordPress mostrerebbe il suo logo, qui si usa quello di Nativo Studio.
+add_action( 'do_favicon', function () {
+	if ( ! has_site_icon() ) {
+		wp_safe_redirect( NL_URI . '/assets/img/favicon.ico', 301 );
+		exit;
+	}
+}, 1 );
+
 add_filter( 'body_class', function ( $classes ) {
 	$classes[] = 'variante-' . nl_variante();
 	return $classes;
