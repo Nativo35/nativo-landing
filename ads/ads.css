@@ -1,0 +1,106 @@
+/*
+ * Annunci 1080 × 1080: stessi font, palette, pulsanti e card della landing (critical.css),
+ * ingranditi per un'immagine che nell'annuncio compare piccola.
+ */
+
+html, body { width: 1080px; height: 1080px; overflow: hidden; scroll-behavior: auto; }
+body { background: var(--c-fondo); padding: 0 !important; }
+
+.annuncio {
+	display: flex;
+	flex-direction: column;
+	width: 1080px;
+	height: 1080px;
+	padding: 96px;
+}
+.annuncio--alt { background: var(--c-fondo-alt); }
+
+.annuncio__logo { width: 330px; height: auto; }
+
+.annuncio__corpo { display: flex; flex: 1; flex-direction: column; justify-content: center; padding-block: 48px 64px; }
+
+.annuncio__titolo { font-size: 104px; line-height: 1; letter-spacing: -0.04em; }
+.annuncio__sotto { margin-top: 28px; color: var(--c-testo); font-size: 50px; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+
+/* Pulsante nello stile della CTA principale */
+.annuncio .pulsante {
+	align-self: flex-start;
+	gap: 22px;
+	min-height: 0;
+	padding: 30px 48px;
+	border-width: 4px;
+	border-radius: 24px;
+	box-shadow: 0 10px 0 var(--c-scuro);
+	font-size: 50px;
+	letter-spacing: -0.01em;
+}
+.annuncio .pulsante .icona { width: 50px; height: 50px; stroke-width: 2.5; }
+
+/* Annuncio 1: prezzo */
+.prezzo-annuncio { margin-top: 12px; color: var(--c-scuro); font-size: 240px; font-weight: 700; line-height: 0.85; letter-spacing: -0.05em; white-space: nowrap; }
+.prezzo-annuncio__nota { margin-top: 24px; color: var(--c-testo-2); font-size: 42px; font-weight: 700; }
+.annuncio .spunte { gap: 18px; margin-top: 40px; }
+.annuncio .spunte li { align-items: center; gap: 22px; color: var(--c-scuro); font-size: 46px; font-weight: 700; line-height: 1.1; }
+.annuncio .spunte .icona { width: 56px; height: 56px; padding: 11px; margin: 0; }
+
+/* Annuncio 2: card con grafico a barre in crescita (illustrativo, nessun dato) */
+.grafico {
+	display: flex;
+	align-items: flex-end;
+	gap: 26px;
+	width: 520px;
+	height: 260px;
+	margin-top: 48px;
+	padding: 44px 48px;
+	background: var(--c-fondo);
+	border: 4px solid var(--c-scuro);
+	border-radius: 40px;
+	box-shadow: 16px 16px 0 var(--c-accento);
+}
+.grafico span { flex: 1; background: var(--c-linea); border-radius: 12px 12px 4px 4px; }
+.grafico span:nth-child(1) { height: 22%; }
+.grafico span:nth-child(2) { height: 38%; }
+.grafico span:nth-child(3) { height: 55%; background: #b3b3ab; }
+.grafico span:nth-child(4) { height: 74%; background: var(--c-accento-scuro); }
+.grafico span:nth-child(5) { height: 100%; background: var(--c-accento); border: 4px solid var(--c-scuro); }
+
+/* Annuncio 3: referente e tappe */
+.annuncio__testa { display: flex; align-items: center; justify-content: space-between; }
+.ritratto-annuncio {
+	width: 150px;
+	height: 150px;
+	border: 6px solid var(--c-accento);
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.tappe { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 64px; }
+.tappe::before {
+	content: "";
+	position: absolute;
+	top: 26px;
+	left: 26px;
+	right: calc(33.333% - 26px);
+	height: 6px;
+	background: var(--c-scuro);
+}
+.tappa { position: relative; display: grid; gap: 22px; justify-items: start; color: var(--c-scuro); font-size: 46px; font-weight: 700; line-height: 1; }
+.tappa::before {
+	content: "";
+	width: 58px;
+	height: 58px;
+	background: var(--c-fondo);
+	border: 6px solid var(--c-scuro);
+	border-radius: 50%;
+}
+.tappa:last-child::before { background: var(--c-accento); }
+
+/* Logo dell'account: 512 × 512 su colore principale */
+.logo-account {
+	display: grid;
+	place-items: center;
+	width: 512px;
+	height: 512px;
+	background: var(--c-accento);
+}
+.logo-account img { width: 300px; height: auto; }
