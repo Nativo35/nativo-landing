@@ -1,4 +1,5 @@
-/* CSS critico, stampato inline nell'head: base, header, hero, footer, barra CTA. Mobile first (390 px). */
+/* CSS critico, stampato inline nell'head: base, header, hero, footer, barra CTA. Mobile first (390 px).
+   Le regole tra "@sezione chiave" e il marcatore successivo non vengono stampate se il blocco è disattivato (inc/sezioni.php). */
 
 @font-face {
 	font-family: "Gilroy";
@@ -360,6 +361,7 @@ mark {
 	font-weight: 700;
 }
 
+/* @sezione prezzi_lampo */
 /* Riquadro prezzi della hero */
 .prezzi-lampo {
 	padding: var(--s-5);
@@ -410,6 +412,7 @@ mark {
 .prezzi-lampo__prezzo small { color: var(--c-testo-2); font-size: var(--t-piccolo); font-weight: 400; letter-spacing: 0; }
 .prezzi-lampo__prezzo .iva { margin-left: 0.35rem; font-size: 0.8125rem; font-weight: 700; }
 
+/* @sezione comune */
 /* Banda dello sconto: unica formulazione, letta dalle impostazioni */
 .sconto {
 	display: flex;

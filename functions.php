@@ -72,7 +72,7 @@ add_action( 'wp_head', function () {
 		);
 	}
 
-	$css = file_get_contents( NL_DIR . '/assets/css/critical.css' );
+	$css = nl_css_senza_spente( file_get_contents( NL_DIR . '/assets/css/critical.css' ) ); // senza i blocchi disattivati (inc/sezioni.php)
 	$css = str_replace( '../fonts/', NL_URI . '/assets/fonts/', $css );
 	echo '<style id="nl-critical">' . $css . "</style>\n"; // phpcs:ignore WordPress.Security.EscapeOutput -- file del tema.
 }, 2 );

@@ -456,6 +456,7 @@ function nl_admin_sezioni() {
 	$con_foto   = count( array_filter( (array) nl_opt( 'progetti' ), fn( $p ) => ! empty( $p['immagine'] ) && wp_attachment_is_image( $p['immagine'] ) ) );
 	$con_valore = count( array_filter( (array) nl_opt( 'numeri' ), fn( $x ) => '' !== ( $x['valore'] ?? '' ) ) );
 	$note       = array(
+		'prezzi_lampo'  => 'Riquadro dei prezzi dentro la hero, con la banda dello sconto.',
 		'servizi'       => 'Una voce senza prezzo non compare.',
 		'progetti'      => sprintf( 'Ai visitatori compaiono solo i progetti con immagine (ora %d).', $con_foto ),
 		'numeri'        => sprintf( 'Dentro la sezione del referente. Compaiono solo i numeri con un valore (ora %d).', $con_valore ),

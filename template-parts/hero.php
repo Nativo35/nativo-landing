@@ -1,6 +1,7 @@
 <?php
 /**
  * Hero: titolo e CTA in variante A/B (?v=b), benefici in elenco, fiducia vicino alla CTA, prezzi e sconto.
+ * Il riquadro "Prezzi chiari, subito" si gestisce da Impostazioni landing › Sezioni.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -50,7 +51,8 @@ $nl_pacchetti = array(
 			?>
 		</div>
 
-		<aside class="prezzi-lampo" aria-labelledby="prezzi-lampo-titolo">
+		<?php if ( nl_sezione_attiva( 'prezzi_lampo' ) || nl_anteprima_sezioni() ) : ?>
+		<aside <?php nl_sezione_attr( 'prezzi_lampo', 'prezzi-lampo' ); ?> aria-labelledby="prezzi-lampo-titolo">
 			<p id="prezzi-lampo-titolo" class="prezzi-lampo__titolo">Prezzi chiari, subito</p>
 			<!-- DA VERIFICARE: tempi di consegna (si modificano in Impostazioni landing; le fonti dicono anche 4–8 settimane). -->
 			<!-- DA VERIFICARE: etichetta "Più richiesto" su Sito + Blog, da mostrare solo se corrisponde ai dati reali. -->
@@ -77,5 +79,6 @@ $nl_pacchetti = array(
 			</ul>
 			<?php nl_sconto_banda(); ?>
 		</aside>
+		<?php endif; ?>
 	</div>
 </section>

@@ -34,12 +34,13 @@ function nl_dispositivi() {
 /**
  * Sezioni nell'ordine della pagina.
  * - protetta: non si può disattivare (Hero e Form);
- * - dentro: blocco che sta dentro un'altra sezione (Numeri e Metodo sono nella sezione del referente);
+ * - dentro: blocco che sta dentro un'altra sezione ("Prezzi chiari, subito" nella hero, Numeri e Metodo nella sezione del referente);
  * - ancore: id dei link interni che portano alla sezione.
  */
 function nl_sezioni_elenco() {
 	return array(
 		'hero'          => array( 'nome' => 'Hero', 'protetta' => true ),
+		'prezzi_lampo'  => array( 'nome' => 'Prezzi chiari, subito', 'dentro' => 'hero' ),
 		'problemi'      => array( 'nome' => 'Problemi', 'ancore' => array( 'problemi' ) ),
 		'soluzione'     => array( 'nome' => 'Cosa ottieni', 'ancore' => array( 'soluzione' ) ),
 		'pacchetti'     => array( 'nome' => 'Pacchetti', 'ancore' => array( 'pacchetti' ) ),
@@ -187,7 +188,7 @@ function nl_sezione( $chiave ) {
 	if ( ! isset( $elenco[ $chiave ] ) || ! empty( $elenco[ $chiave ]['dentro'] ) ) {
 		return;
 	}
-	// La sezione del referente contiene anche Numeri e Metodo: decide il template quali blocchi stampare.
+	// Hero e referente contengono altri blocchi (prezzi, Numeri, Metodo): decide il template quali stampare.
 	$blocchi = array_merge( array( $chiave ), array_keys( wp_list_filter( $elenco, array( 'dentro' => $chiave ) ) ) );
 	if ( ! array_filter( $blocchi, 'nl_sezione_attiva' ) && ! nl_anteprima_sezioni() ) {
 		return;
@@ -271,7 +272,7 @@ function nl_sezioni_css() {
 	$css = '';
 	if ( nl_anteprima_sezioni() ) {
 		$css .= '[data-nl-stato]{position:relative;outline:3px dashed var(--c-cta);outline-offset:-3px}';
-		$css .= '[data-nl-stato]::after{content:attr(data-nl-stato);position:absolute;top:.75rem;left:.75rem;z-index:5;padding:.25rem .75rem;border-radius:999px;background:var(--c-scuro);color:#fff;font-size:.8125rem;font-weight:700;line-height:1.4;pointer-events:none}';
+		$css .= '[data-nl-stato]::before{content:attr(data-nl-stato);position:absolute;top:.75rem;right:.75rem;z-index:5;padding:.25rem .75rem;border-radius:999px;background:var(--c-scuro);color:#fff;font-size:.8125rem;font-weight:700;line-height:1.4;pointer-events:none}';
 		return $css;
 	}
 	foreach ( nl_dispositivi() as $chiave => $d ) {
@@ -287,6 +288,35 @@ add_action( 'wp_head', function () {
 }, 2 );
 
 /**
+ * Sezioni disattivate (chiavi), il cui CSS non va caricato. Vuoto fuori dalla landing e in anteprima.
+ */
+function nl_sezioni_spente() {
+	if ( ! is_front_page() || nl_anteprima_sezioni() ) {
+		return array();
+	}
+	return array_keys( array_filter( nl_sezioni_elenco(), fn( $s, $k ) => ! nl_sezione_attiva( $k ), ARRAY_FILTER_USE_BOTH ) );
+}
+
+/**
+ * Toglie da un CSS del tema le regole delle sezioni disattivate:
+ * stanno tra "/* @sezione chiave *\/" e il marcatore successivo ("@sezione comune" chiude un blocco).
+ */
+function nl_css_senza_spente( $css ) {
+	$spente = nl_sezioni_spente();
+	if ( ! $spente ) {
+		return $css;
+	}
+	$parti = preg_split( '#^/\* @sezione (\S+) \*/\R#m', $css, -1, PREG_SPLIT_DELIM_CAPTURE );
+	$css   = $parti[0];
+	for ( $i = 1; $i < count( $parti ); $i += 2 ) {
+		if ( ! in_array( $parti[ $i ], $spente, true ) ) {
+			$css .= $parti[ $i + 1 ];
+		}
+	}
+	return $css;
+}
+
+/**
  * Foglio sezioni.css della landing senza le regole delle sezioni disattivate.
  * Le regole di una sezione stanno tra "@sezione chiave" e il marcatore successivo in sezioni.css.
  * Il file ridotto viene scritto una volta in wp-content/uploads/nativo-landing/ e riusato finché
@@ -297,10 +327,7 @@ function nl_sezioni_css_url() {
 	$ver  = filemtime( $file );
 	$url  = add_query_arg( 'ver', $ver, NL_URI . '/assets/css/sezioni.css' );
 
-	if ( ! is_front_page() || nl_anteprima_sezioni() ) {
-		return $url;
-	}
-	$spente = array_keys( array_filter( nl_sezioni_elenco(), fn( $s, $k ) => ! nl_sezione_attiva( $k ), ARRAY_FILTER_USE_BOTH ) );
+	$spente = nl_sezioni_spente();
 	if ( ! $spente ) {
 		return $url;
 	}
@@ -312,13 +339,7 @@ function nl_sezioni_css_url() {
 	$nome = 'sezioni-' . substr( md5( $ver . '|' . implode( ',', $spente ) ), 0, 12 ) . '.css';
 	$dir  = trailingslashit( $uploads['basedir'] ) . 'nativo-landing';
 	if ( ! file_exists( "{$dir}/{$nome}" ) ) {
-		$parti = preg_split( '#^/\* @sezione (\S+) \*/\R#m', file_get_contents( $file ), -1, PREG_SPLIT_DELIM_CAPTURE ); // phpcs:ignore WordPress.WP.AlternativeFunctions
-		$css   = $parti[0];
-		for ( $i = 1; $i < count( $parti ); $i += 2 ) {
-			if ( ! in_array( $parti[ $i ], $spente, true ) ) {
-				$css .= $parti[ $i + 1 ];
-			}
-		}
+		$css = nl_css_senza_spente( file_get_contents( $file ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions
 		// sezioni.css non contiene url(): spostarlo in uploads non rompe percorsi.
 		if ( ! wp_mkdir_p( $dir ) || false === file_put_contents( "{$dir}/{$nome}", $css ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions
 			return $url;
