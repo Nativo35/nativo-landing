@@ -13,7 +13,7 @@ $nl_pacchetti = array(
 	array( 'nome' => 'E-commerce', 'chiave' => 'ecommerce', 'tempi' => nl_tempi( 'ecommerce' ) ),
 );
 ?>
-<section class="hero" aria-labelledby="hero-titolo">
+<section <?php nl_sezione_attr( 'hero', 'hero' ); ?> aria-labelledby="hero-titolo">
 	<div class="contenitore hero__griglia">
 		<div class="hero__testo">
 			<p class="occhiello">Siti web per PMI e professionisti in Toscana</p>

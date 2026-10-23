@@ -10,6 +10,7 @@ define( 'NL_DIR', get_template_directory() );
 define( 'NL_URI', get_template_directory_uri() );
 
 require NL_DIR . '/inc/opzioni.php';
+require NL_DIR . '/inc/sezioni.php';
 require NL_DIR . '/inc/admin.php';
 require NL_DIR . '/inc/icone.php';
 require NL_DIR . '/inc/form.php';
@@ -80,7 +81,7 @@ add_action( 'wp_head', function () {
  * CSS delle sezioni sotto la prima schermata: caricato senza bloccare il rendering.
  */
 add_action( 'wp_head', function () {
-	$href = esc_url( add_query_arg( 'ver', filemtime( NL_DIR . '/assets/css/sezioni.css' ), NL_URI . '/assets/css/sezioni.css' ) );
+	$href = esc_url( nl_sezioni_css_url() ); // senza le regole delle sezioni disattivate (inc/sezioni.php)
 	echo '<link rel="stylesheet" href="' . $href . '" media="print" onload="this.media=\'all\'">' . "\n"; // phpcs:ignore WordPress.WP.EnqueuedResources
 	echo '<noscript><link rel="stylesheet" href="' . $href . '"></noscript>' . "\n"; // phpcs:ignore WordPress.WP.EnqueuedResources
 }, 3 );

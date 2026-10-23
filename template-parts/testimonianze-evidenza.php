@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 $nl_testimonianze = $args['testimonianze'];
 ?>
-<section id="testimonianze" class="sezione testimonianze-evidenza" aria-labelledby="testimonianze-titolo">
+<section id="testimonianze" <?php nl_sezione_attr( 'testimonianze', 'sezione testimonianze-evidenza' ); ?> aria-labelledby="testimonianze-titolo">
 	<div class="contenitore evidenza__griglia">
 		<div class="evidenza__lato">
 			<h2 id="testimonianze-titolo" class="sezione__titolo">Cosa dicono <mark>i clienti</mark></h2>

@@ -6,15 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$nl_admin    = current_user_can( 'manage_options' );
-
-// Sezione spenta da Impostazioni landing: nascosta a tutti, da loggato resta solo un avviso.
-if ( ! nl_opt( 'progetti_attivi' ) ) {
-	if ( $nl_admin ) {
-		echo '<div class="contenitore sezione-spenta">' . nl_segnaposto_admin( 'Sezione "Progetti" spenta: riattivala da Impostazioni landing' ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML già sanificato.
-	}
-	return;
-}
+$nl_admin = current_user_can( 'manage_options' );
 
 $nl_progetti = array_filter(
 	(array) nl_opt( 'progetti' ),
@@ -27,7 +19,7 @@ if ( ! $nl_progetti ) {
 	return;
 }
 ?>
-<section id="progetti" class="sezione progetti" aria-labelledby="progetti-titolo">
+<section id="progetti" <?php nl_sezione_attr( 'progetti', 'sezione progetti' ); ?> aria-labelledby="progetti-titolo">
 	<div class="contenitore">
 		<header class="sezione__intestazione">
 			<h2 id="progetti-titolo" class="sezione__titolo">Progetti veri, per attività <mark>come la tua</mark></h2>

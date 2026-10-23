@@ -1,23 +1,15 @@
 <?php
 /**
- * Landing: le sezioni sono in template-parts/, nell'ordine approvato in analisi.md.
+ * Landing: le sezioni sono in template-parts/, nell'ordine approvato in analisi.md (elenco in inc/sezioni.php).
  */
 
 defined( 'ABSPATH' ) || exit;
 
 get_header();
 
-get_template_part( 'template-parts/hero' );
-get_template_part( 'template-parts/problemi' );
-get_template_part( 'template-parts/soluzione' );
-get_template_part( 'template-parts/pacchetti' );
-get_template_part( 'template-parts/servizi' );
-get_template_part( 'template-parts/progetti' );
-get_template_part( 'template-parts/referente' );
-get_template_part( 'template-parts/territorio' );
-get_template_part( 'template-parts/testimonianze' );
-get_template_part( 'template-parts/faq' );
-get_template_part( 'template-parts/preventivo' );
-get_template_part( 'template-parts/contatto' );
+// Ordine, attivazione e visibilità per dispositivo da Impostazioni landing › Sezioni (inc/sezioni.php).
+foreach ( array_keys( nl_sezioni_elenco() ) as $nl_chiave ) {
+	nl_sezione( $nl_chiave );
+}
 
 get_footer();

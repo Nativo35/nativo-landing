@@ -25,7 +25,7 @@ $nl_tempi = array_filter(
 
 // Hosting: cita il servizio "Hosting, manutenzione e backup" con i prezzi delle impostazioni.
 $nl_hosting = '';
-if ( nl_opt( 'servizi_attivi' ) && nl_euro( nl_opt( 'hosting_mese' ) ) ) {
+if ( nl_sezione_attiva( 'servizi' ) && nl_euro( nl_opt( 'hosting_mese' ) ) ) {
 	$nl_hosting = ' oppure affidarli a noi con il servizio <strong>' . esc_html( nl_opt( 'hosting_nome' ) ) . '</strong>, a '
 		. esc_html( nl_con_iva( nl_euro( nl_opt( 'hosting_mese' ) ) . '/mese' ) )
 		. ( nl_euro( nl_opt( 'hosting_anno' ) ) ? ' (oppure ' . esc_html( nl_con_iva( nl_euro( nl_opt( 'hosting_anno' ) ) . '/anno' ) ) . ')' : '' )
@@ -68,7 +68,7 @@ $nl_faq = array(
 	),
 );
 ?>
-<section id="faq" class="sezione sezione--alt faq" aria-labelledby="faq-titolo">
+<section id="faq" <?php nl_sezione_attr( 'faq', 'sezione sezione--alt faq' ); ?> aria-labelledby="faq-titolo">
 	<div class="contenitore faq__griglia">
 		<header class="faq__intestazione">
 			<h2 id="faq-titolo" class="sezione__titolo">Hai dei dubbi? <mark>Ecco le risposte.</mark></h2>

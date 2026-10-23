@@ -32,4 +32,7 @@ if ( $nl_admin && isset( $_GET['testimonianze'] ) ) { // phpcs:ignore WordPress.
 }
 $nl_stile = in_array( $nl_stile, array( 'card', 'evidenza' ), true ) ? $nl_stile : 'card';
 
+// Carosello e schede: script caricato solo quando la sezione è nella pagina.
+wp_enqueue_script( 'nl-testimonianze', NL_URI . '/assets/js/testimonianze.js', array(), filemtime( NL_DIR . '/assets/js/testimonianze.js' ), array( 'in_footer' => true, 'strategy' => 'defer' ) );
+
 get_template_part( 'template-parts/testimonianze-' . $nl_stile, null, array( 'testimonianze' => $nl_testimonianze ) );

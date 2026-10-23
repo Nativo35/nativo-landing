@@ -2,19 +2,13 @@
 /**
  * Cartina della Toscana con i capoluoghi di provincia e la sede dello studio.
  * Confini: openpolis/geojson-italy (dati ISTAT), semplificati e proiettati in SVG (viewBox 600 × 686.8).
- * Si accende e spegne da Impostazioni landing.
+ * Si accende e spegne da Impostazioni landing › Sezioni.
  */
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! nl_opt( 'territorio_attivo' ) ) {
-	if ( current_user_can( 'manage_options' ) ) {
-		echo '<div class="contenitore sezione-spenta">' . nl_segnaposto_admin( 'Sezione "Cartina della Toscana" spenta: riattivala da Impostazioni landing' ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput -- HTML già sanificato.
-	}
-	return;
-}
 ?>
-<section id="territorio" class="sezione territorio" aria-labelledby="territorio-titolo">
+<section id="territorio" <?php nl_sezione_attr( 'territorio', 'sezione territorio' ); ?> aria-labelledby="territorio-titolo">
 	<div class="contenitore territorio__griglia">
 		<header class="territorio__testo">
 			<h2 id="territorio-titolo" class="sezione__titolo">Lavoriamo in <mark>tutta la Toscana</mark></h2>

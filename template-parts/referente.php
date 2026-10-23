@@ -1,6 +1,8 @@
 <?php
 /**
  * Referente unico, numeri (da Impostazioni landing) e metodo in 5 passi.
+ * Tre blocchi gestiti uno per uno da Impostazioni landing › Sezioni (Referente unico, Numeri, Metodo):
+ * la sezione si nasconde su un dispositivo solo quando lo sono tutti e tre.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -13,6 +15,26 @@ $nl_numeri = array_filter(
 	}
 );
 
+// Blocchi da mostrare: attivi (Numeri solo con almeno un valore), oppure tutti in anteprima da loggato.
+$nl_blocchi = array_values(
+	array_filter(
+		array( 'referente', 'numeri', 'metodo' ),
+		fn( $b ) => ( nl_sezione_attiva( $b ) || nl_anteprima_sezioni() ) && ( 'numeri' !== $b || $nl_numeri )
+	)
+);
+if ( ! $nl_blocchi ) {
+	return;
+}
+$nl_mostra   = fn( $b ) => in_array( $b, $nl_blocchi, true );
+$nl_nascosta = array_values( array_intersect( array_keys( nl_dispositivi() ), ...array_map( 'nl_sezione_nascosta_su', $nl_blocchi ) ) );
+if ( $nl_mostra( 'referente' ) ) {
+	$nl_etichetta = 'aria-labelledby="referente-titolo"';
+} elseif ( $nl_mostra( 'metodo' ) ) {
+	$nl_etichetta = 'aria-labelledby="metodo-titolo"';
+} else {
+	$nl_etichetta = 'aria-label="Nativo Studio in numeri"';
+}
+
 $nl_passi = array(
 	array( 'Chiamata conoscitiva.', 'Gratis e senza impegno: capiamo obiettivi, clienti e concorrenti.' ),
 	array( 'Struttura.', 'Pagine e percorso dei visitatori, prima ancora della grafica.' ),
@@ -21,9 +43,10 @@ $nl_passi = array(
 	array( 'Lancio e formazione.', 'Il sito va online, impari a gestirlo e noi restiamo a disposizione.' ),
 );
 ?>
-<section id="referente" class="sezione sezione--alt referente" aria-labelledby="referente-titolo">
+<section id="referente" class="<?php echo esc_attr( trim( 'sezione sezione--alt referente ' . nl_classi_nascosta( $nl_nascosta ) ) ); ?>" <?php echo $nl_etichetta; // phpcs:ignore WordPress.Security.EscapeOutput -- testo fisso. ?>>
 	<div class="contenitore">
-		<div class="referente__griglia">
+		<?php if ( $nl_mostra( 'referente' ) ) : ?>
+		<div <?php nl_sezione_attr( 'referente', 'referente__griglia' ); ?>>
 			<div class="referente__foto">
 				<?php echo nl_ritratto( 'referente__ritratto', 'nl-ritratto-grande', '(min-width: 64rem) 320px, 220px', 'lazy' ); // phpcs:ignore WordPress.Security.EscapeOutput -- HTML generato da WordPress o fisso. ?>
 				<p class="referente__firma"><strong>Matteo Pugi</strong> Fondatore di Nativo Studio</p>
@@ -41,10 +64,11 @@ $nl_passi = array(
 				</ul>
 			</div>
 		</div>
+		<?php endif; ?>
 
-		<?php if ( $nl_numeri ) : ?>
+		<?php if ( $nl_mostra( 'numeri' ) ) : ?>
 			<!-- DA VERIFICARE: i valori dei numeri si inseriscono da Impostazioni landing; senza valore non compaiono ai visitatori. -->
-			<ul class="numeri" role="list">
+			<ul <?php nl_sezione_attr( 'numeri', 'numeri' ); ?> role="list">
 				<?php foreach ( $nl_numeri as $n ) : ?>
 					<li class="numero">
 						<?php if ( '' !== $n['valore'] ) : ?>
@@ -58,8 +82,9 @@ $nl_passi = array(
 			</ul>
 		<?php endif; ?>
 
-		<div class="metodo">
-			<h3 class="metodo__titolo">Come lavoriamo: <mark>5 passi</mark>, zero sorprese</h3>
+		<?php if ( $nl_mostra( 'metodo' ) ) : ?>
+		<div <?php nl_sezione_attr( 'metodo', 'metodo' ); ?>>
+			<h3 id="metodo-titolo" class="metodo__titolo">Come lavoriamo: <mark>5 passi</mark>, zero sorprese</h3>
 			<ol class="metodo__passi" role="list">
 				<?php foreach ( $nl_passi as $i => $passo ) : ?>
 					<li class="passo">
@@ -70,6 +95,7 @@ $nl_passi = array(
 				<?php endforeach; ?>
 			</ol>
 		</div>
+		<?php endif; ?>
 
 		<div class="sezione__cta">
 			<?php nl_cta( 'Parla con Matteo, è gratis', 'referente' ); ?>

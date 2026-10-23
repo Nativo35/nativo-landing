@@ -15,7 +15,7 @@ $nl_inclusi = array(
 	array( 'Vedi i risultati.', 'Sai quante persone arrivano e quante ti scrivono.' ),
 );
 ?>
-<section id="soluzione" class="sezione soluzione" aria-labelledby="soluzione-titolo">
+<section id="soluzione" <?php nl_sezione_attr( 'soluzione', 'sezione soluzione' ); ?> aria-labelledby="soluzione-titolo">
 	<div class="contenitore soluzione__griglia">
 		<header class="soluzione__intestazione">
 			<h2 id="soluzione-titolo" class="sezione__titolo">Un sito costruito per <mark>farti contattare</mark></h2>

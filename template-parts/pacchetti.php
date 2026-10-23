@@ -36,7 +36,7 @@ $nl_pacchetti = array(
 	),
 );
 ?>
-<section id="pacchetti" class="sezione sezione--alt pacchetti" aria-labelledby="pacchetti-titolo">
+<section id="pacchetti" <?php nl_sezione_attr( 'pacchetti', 'sezione sezione--alt pacchetti' ); ?> aria-labelledby="pacchetti-titolo">
 	<div class="contenitore">
 		<header class="sezione__intestazione">
 			<h2 id="pacchetti-titolo" class="sezione__titolo">Prezzi chiari. <mark>Nessuna sorpresa.</mark></h2>
@@ -80,6 +80,6 @@ $nl_pacchetti = array(
 		<?php nl_sconto_banda( 'sconto--grande' ); ?>
 
 		<!-- DA VERIFICARE: hosting e dominio esclusi dal prezzo del sito. -->
-		<p class="pacchetti__nota">Hosting e dominio non sono compresi nel prezzo: puoi usare quelli che hai già oppure affidarli a noi<?php echo nl_opt( 'servizi_attivi' ) ? ' con il servizio qui sotto' : ''; ?>.</p>
+		<p class="pacchetti__nota">Hosting e dominio non sono compresi nel prezzo: puoi usare quelli che hai già oppure affidarli a noi<?php echo nl_sezione_attiva( 'servizi' ) && ! nl_sezione_nascosta_su( 'servizi' ) ? ' con il servizio qui sotto' : ''; ?>.</p>
 	</div>
 </section>

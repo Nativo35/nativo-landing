@@ -3,13 +3,10 @@
  * Servizi aggiuntivi, subito dopo i pacchetti: completano l'offerta senza fare concorrenza alle tre card.
  * Grafica più leggera dei pacchetti: bordo sottile, prezzi più piccoli, nessuna card scura.
  * Prezzi e testi letti da Impostazioni landing; un servizio senza prezzo non compare.
+ * Si accende e spegne da Impostazioni landing › Sezioni.
  */
 
 defined( 'ABSPATH' ) || exit;
-
-if ( ! nl_opt( 'servizi_attivi' ) ) {
-	return;
-}
 
 $nl_mese = nl_euro( nl_opt( 'hosting_mese' ) );
 $nl_anno = nl_euro( nl_opt( 'hosting_anno' ) );
@@ -24,7 +21,7 @@ $nl_altre = array_filter(
 	)
 );
 ?>
-<section id="servizi" class="sezione servizi" aria-labelledby="servizi-titolo">
+<section id="servizi" <?php nl_sezione_attr( 'servizi', 'sezione servizi' ); ?> aria-labelledby="servizi-titolo">
 	<div class="contenitore">
 		<header class="sezione__intestazione">
 			<h2 id="servizi-titolo" class="sezione__titolo"><?php echo esc_html( nl_opt( 'servizi_titolo' ) ); ?></h2>

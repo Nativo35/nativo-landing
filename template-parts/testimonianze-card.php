@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 $nl_testimonianze = $args['testimonianze'];
 ?>
-<section id="testimonianze" class="sezione testimonianze" aria-labelledby="testimonianze-titolo">
+<section id="testimonianze" <?php nl_sezione_attr( 'testimonianze', 'sezione testimonianze' ); ?> aria-labelledby="testimonianze-titolo">
 	<div class="contenitore">
 		<header class="sezione__intestazione">
 			<h2 id="testimonianze-titolo" class="sezione__titolo">Cosa dicono <mark>i clienti</mark></h2>

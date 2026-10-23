@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 $nl_foto = (int) nl_opt( 'foto_id' ) && wp_attachment_is_image( (int) nl_opt( 'foto_id' ) );
 ?>
-<section id="contatto" class="sezione contatto" aria-labelledby="contatto-titolo">
+<section id="contatto" <?php nl_sezione_attr( 'contatto', 'sezione contatto' ); ?> aria-labelledby="contatto-titolo">
 	<div class="contenitore contatto__griglia">
 		<div class="contatto__testo">
 			<div class="contatto__intestazione">

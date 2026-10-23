@@ -42,7 +42,7 @@ $nl_privacy = get_privacy_policy_url();
 </footer>
 
 <div class="barra-cta" id="barra-cta" aria-hidden="true" inert>
-	<a class="pulsante barra-cta__pulsante" href="<?php echo esc_url( is_front_page() ? "#preventivo" : home_url( "/#preventivo" ) ); ?>" data-cta="barra-mobile">
+	<a class="<?php echo esc_attr( trim( 'pulsante barra-cta__pulsante ' . ( is_front_page() ? nl_classi_link( '#preventivo' ) : '' ) ) ); ?>" href="<?php echo esc_url( is_front_page() ? "#preventivo" : home_url( "/#preventivo" ) ); ?>" data-cta="barra-mobile">
 		<span>Preventivo gratis</span>
 		<?php nl_icona( 'freccia' ); ?>
 	</a>

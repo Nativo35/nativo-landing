@@ -1,4 +1,5 @@
 /* Sezioni sotto la prima schermata. Caricato senza bloccare il rendering; le variabili sono in critical.css. */
+/* Le regole tra "@sezione chiave" e il marcatore successivo appartengono a una sola sezione: se la sezione è disattivata non vengono caricate (inc/sezioni.php). "@sezione comune" chiude un blocco. */
 
 /* Struttura comune delle sezioni */
 .sezione { padding-block: var(--sezione); }
@@ -43,6 +44,7 @@
 	text-transform: uppercase;
 }
 
+/* @sezione problemi */
 /* Problemi */
 .problemi__griglia {
 	display: grid;
@@ -158,6 +160,7 @@
 	.problemi__nuovo { margin-top: var(--s-6); }
 }
 
+/* @sezione soluzione */
 /* Soluzione: cosa ottieni */
 .soluzione__griglia {
 	display: grid;
@@ -232,6 +235,7 @@
 	.soluzione__azione { margin-top: var(--s-6); padding: var(--s-6); }
 }
 
+/* @sezione pacchetti */
 /* Pacchetti */
 .pacchetti__griglia {
 	display: grid;
@@ -310,6 +314,7 @@
 	font-size: 0.8125rem;
 }
 
+/* @sezione servizi */
 /* Servizi aggiuntivi: completano i pacchetti, con una grafica più leggera (bordo sottile, prezzi più piccoli). */
 /* Sottotitolo su una riga da tablet in su (su mobile non ci sta e va a capo). */
 @media (min-width: 48rem) {
@@ -415,6 +420,7 @@
 	.opzione { padding: var(--s-4); }
 }
 
+/* @sezione pacchetti */
 /* Banda grande dello sconto */
 .sconto--grande {
 	flex-direction: column;
@@ -443,6 +449,7 @@
 	}
 }
 
+/* @sezione progetti */
 /* Progetti */
 .progetti__griglia { display: grid; gap: var(--s-6); }
 
@@ -492,6 +499,7 @@
 	.progetto:hover .progetto__immagine { transform: none; }
 }
 
+/* @sezione referente */
 /* Referente unico, numeri e metodo */
 .referente__griglia { display: grid; gap: var(--s-6); }
 
@@ -519,6 +527,7 @@
 
 .referente__punti { margin-top: var(--s-5); gap: var(--s-3); }
 
+/* @sezione numeri */
 /* Banda turchese dei numeri */
 .numeri {
 	display: grid;
@@ -541,6 +550,7 @@
 .numero__etichetta { color: var(--c-scuro); font-weight: 700; line-height: 1.25; }
 .numero .nl-segnaposto { margin-top: 0; justify-self: start; background: var(--c-fondo); }
 
+/* @sezione metodo */
 /* Metodo */
 .metodo { margin-top: var(--s-8); }
 .metodo__titolo { font-size: clamp(1.625rem, 1.3rem + 1.4vw, 2.25rem); }
@@ -582,6 +592,7 @@
 	.passo__numero { grid-row: auto; margin-bottom: var(--s-2); font-size: 3rem; }
 }
 
+/* @sezione testimonianze */
 /* Testimonianze: scorrimento orizzontale su mobile, griglia su desktop */
 .testimonianze__contenitore { padding-inline: 0; }
 
@@ -925,6 +936,7 @@
 	.evidenza__attesa { left: var(--s-7); }
 }
 
+/* @sezione faq */
 /* FAQ */
 .faq__griglia { display: grid; gap: var(--s-6); }
 
@@ -1005,6 +1017,7 @@
 	.faq__azione { margin-top: var(--s-6); }
 }
 
+/* @sezione comune */
 /* Form di preventivo: banda scura, modulo bianco */
 .preventivo { background: var(--c-scuro); color: #fff; }
 .preventivo .sezione__titolo { color: #fff; }
@@ -1136,6 +1149,7 @@
 /* Avviso di sezione spenta, visibile solo da loggati */
 .sezione-spenta { padding-block: var(--s-5); }
 
+/* @sezione territorio */
 /* Territorio: cartina della Toscana */
 .territorio__griglia { display: grid; gap: var(--s-6); }
 
@@ -1192,6 +1206,7 @@
 	.territorio__azione { margin-top: var(--s-6); }
 }
 
+/* @sezione contatto */
 /* Ultima sezione "Non è ancora il momento?": tono calmo, nessun arancio, pulsanti leggeri */
 .contatto { background: var(--c-fondo); }
 .contatto__griglia { display: grid; gap: var(--s-6); }

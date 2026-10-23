@@ -28,7 +28,7 @@ $nl_problemi = array(
 	),
 );
 ?>
-<section id="problemi" class="sezione sezione--alt problemi" aria-labelledby="problemi-titolo">
+<section id="problemi" <?php nl_sezione_attr( 'problemi', 'sezione sezione--alt problemi' ); ?> aria-labelledby="problemi-titolo">
 	<div class="contenitore">
 		<header class="sezione__intestazione">
 			<h2 id="problemi-titolo" class="sezione__titolo">Il tuo sito ti sta facendo <mark>perdere clienti?</mark></h2>
@@ -46,12 +46,12 @@ $nl_problemi = array(
 		</ul>
 
 		<!-- DA VERIFICARE: cosa include l'analisi gratuita del sito e in quanto tempo arriva. -->
-		<div class="sezione__cta analisi" data-richiesta="analisi">
+		<div class="<?php echo esc_attr( trim( 'sezione__cta analisi ' . nl_classi_link( '#modulo' ) ) ); ?>" data-richiesta="analisi">
 			<p class="analisi__testo"><strong>Hai già un sito?</strong><br>Lascia l'indirizzo: Matteo lo analizza gratis e ti dice cosa lo frena.</p>
 			<?php nl_cta( 'Analizza gratis il mio sito', 'problemi-analisi', '#modulo' ); ?>
 		</div>
 
-		<p class="problemi__nuovo">
+		<p class="<?php echo esc_attr( trim( 'problemi__nuovo ' . nl_classi_link( '#preventivo' ) ) ); ?>">
 			<strong>Non hai ancora un sito?</strong>
 			Partiamo da zero, con le idee chiare.
 			<a href="#preventivo" data-cta="problemi-nuovo">Richiedi il preventivo gratis</a>

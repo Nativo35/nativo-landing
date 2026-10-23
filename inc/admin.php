@@ -42,6 +42,27 @@ add_action( 'admin_enqueue_scripts', function ( $hook ) {
 		.nl-admin .nl-media__anteprima img{display:block;width:160px;height:auto;margin-bottom:8px;border:1px solid #dcdcde}
 		.nl-admin .nl-media--ritratto .nl-media__anteprima img{width:120px;height:120px;object-fit:cover;border-radius:50%}
 		.nl-admin label span{display:block;font-weight:600;margin-bottom:4px}
+		.nl-admin .nav-tab-wrapper{margin-bottom:16px}
+		.nl-admin .nl-sezioni{max-width:980px}
+		.nl-admin .nl-sezioni th,.nl-admin .nl-sezioni td{vertical-align:middle}
+		.nl-admin .nl-sezioni .nl-col{width:92px;text-align:center}
+		.nl-admin .nl-sezioni thead small{display:block;font-weight:400;color:#646970}
+		.nl-admin .nl-sezioni td.nl-col input{margin:0}
+		.nl-admin .nl-sezioni .nl-dentro{padding-left:28px}
+		.nl-admin .nl-sezioni .nl-dentro strong::before{content:"↳ ";color:#646970}
+		.nl-admin .nl-sezione.is-spenta .nl-disp{opacity:.35}
+		.nl-admin .nl-sezione.is-spenta .nl-nome{color:#646970}
+		.nl-admin .nl-nota{margin:0;color:#646970}
+		.nl-admin .nl-avviso{margin:4px 0 0;padding:4px 8px;border-left:4px solid #d63638;background:#fcf0f1;color:#1d2327}
+		.nl-admin .nl-avviso[hidden]{display:none}
+		.nl-admin .nl-interruttore{display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+		.nl-admin .nl-interruttore input{appearance:none;-webkit-appearance:none;position:relative;width:36px;height:20px;margin:0;border:0;border-radius:10px;background:#8c8f94;box-shadow:none;cursor:pointer;transition:background .15s}
+		.nl-admin .nl-interruttore input::before{content:"";position:absolute;top:3px;left:3px;width:14px;height:14px;margin:0;border-radius:50%;background:#fff;transition:transform .15s}
+		.nl-admin .nl-interruttore input:checked{background:#2271b1}
+		.nl-admin .nl-interruttore input:checked::before{transform:translateX(16px)}
+		.nl-admin .nl-interruttore input:focus-visible{outline:2px solid #2271b1;outline-offset:2px}
+		.nl-admin .nl-interruttore span{display:inline;margin:0;font-weight:400}
+		.nl-admin .nl-sempre{color:#646970;white-space:nowrap}
 	' );
 } );
 
@@ -59,8 +80,10 @@ function nl_admin_sanifica( $input ) {
 	$out['iva_dicitura']       = sanitize_text_field( $input['iva_dicitura'] ?? $def['iva_dicitura'] );
 	$out['ecommerce_prodotti'] = sanitize_text_field( $input['ecommerce_prodotti'] ?? $def['ecommerce_prodotti'] );
 
+	// Visibilità delle sezioni (scheda "Sezioni"), vedi inc/sezioni.php.
+	$out['sezioni'] = nl_sezioni_sanifica( $input['sezioni'] ?? null );
+
 	// Servizi aggiuntivi: importi interi (0 = voce nascosta) e testi brevi.
-	$out['servizi_attivi'] = empty( $input['servizi_attivi'] ) ? 0 : 1;
 	foreach ( array( 'hosting_mese', 'hosting_anno', 'blog_mese', 'pagina_extra_prezzo', 'lingua_percentuale' ) as $k ) {
 		$out[ $k ] = isset( $input[ $k ] ) && '' !== $input[ $k ] ? absint( $input[ $k ] ) : 0;
 	}
@@ -104,8 +127,6 @@ function nl_admin_sanifica( $input ) {
 		}
 	}
 
-	$out['progetti_attivi'] = empty( $input['progetti_attivi'] ) ? 0 : 1;
-	$out['territorio_attivo'] = empty( $input['territorio_attivo'] ) ? 0 : 1;
 	$out['stile_testimonianze'] = in_array( $input['stile_testimonianze'] ?? '', array( 'card', 'evidenza' ), true ) ? $input['stile_testimonianze'] : 'card';
 
 	$out['progetti'] = array();
@@ -158,9 +179,17 @@ function nl_admin_pagina() {
 		<h1>Impostazioni landing</h1>
 		<p>Questi valori compaiono in tutta la landing. Ogni modifica vale ovunque, così i testi restano coerenti.</p>
 
+		<?php nl_admin_avviso_form(); ?>
+
+		<nav class="nav-tab-wrapper" aria-label="Schede delle impostazioni">
+			<a class="nav-tab nav-tab-active" href="#generale" data-scheda="generale">Generale</a>
+			<a class="nav-tab" href="#sezioni" data-scheda="sezioni">Sezioni</a>
+		</nav>
+
 		<form method="post" action="options.php">
 			<?php settings_fields( 'nl_impostazioni_gruppo' ); ?>
 
+			<div class="nl-scheda" id="generale">
 			<h2>Pacchetti: prezzi e tempi</h2>
 			<p class="description">Prezzo "a partire da" in euro, IVA esclusa (a 0 il pacchetto non compare). I tempi compaiono come "Online in …" nella hero e nelle card, e nella FAQ sui tempi; lasciali vuoti per nasconderli.</p>
 			<?php foreach ( array( 'vetrina' => 'Sito Vetrina', 'blog' => 'Sito + Blog', 'ecommerce' => 'E-commerce' ) as $nl_chiave => $nl_nome ) : ?>
@@ -183,8 +212,7 @@ function nl_admin_pagina() {
 			<p class="description">La dicitura IVA compare in piccolo accanto a tutti i prezzi della landing (pacchetti, servizi aggiuntivi, FAQ). Lasciala vuota per nasconderla.</p>
 
 			<h2>Servizi aggiuntivi</h2>
-			<p><label><input type="checkbox" name="<?php echo esc_attr( $n ); ?>[servizi_attivi]" value="1" <?php checked( nl_opt( 'servizi_attivi' ) ); ?>> Mostra la sezione dopo i pacchetti</label></p>
-			<p class="description">Prezzi in euro, IVA esclusa. Un prezzo a 0 o vuoto nasconde la voce.</p>
+			<p class="description">La sezione si accende e spegne nella scheda <a href="#sezioni">Sezioni</a>. Prezzi in euro, IVA esclusa. Un prezzo a 0 o vuoto nasconde la voce.</p>
 			<div class="nl-riga">
 				<?php
 				nl_admin_campo( 'servizi_titolo', 'Titolo' );
@@ -262,12 +290,8 @@ function nl_admin_pagina() {
 			<?php nl_admin_ripetitore( 'testimonianze', 'nl_admin_testimonianza', 'Aggiungi testimonianza' ); ?>
 
 			<h2>Progetti realizzati</h2>
-			<p><label><input type="checkbox" name="<?php echo esc_attr( $n ); ?>[progetti_attivi]" value="1" <?php checked( nl_opt( 'progetti_attivi' ) ); ?>> Mostra la sezione "Progetti veri, per attività come la tua"</label></p>
-			<p class="description">Ai visitatori compaiono solo i progetti con un'immagine. Da loggato vedi anche gli altri, con i segnaposto. Immagine orizzontale, almeno 1200 × 750 px.</p>
+			<p class="description">La sezione si accende e spegne nella scheda <a href="#sezioni">Sezioni</a>. Ai visitatori compaiono solo i progetti con un'immagine. Da loggato vedi anche gli altri, con i segnaposto. Immagine orizzontale, almeno 1200 × 750 px.</p>
 			<?php nl_admin_ripetitore( 'progetti', 'nl_admin_progetto', 'Aggiungi progetto' ); ?>
-
-			<h2>Cartina della Toscana</h2>
-			<p><label><input type="checkbox" name="<?php echo esc_attr( $n ); ?>[territorio_attivo]" value="1" <?php checked( nl_opt( 'territorio_attivo' ) ); ?>> Mostra la sezione "Lavoriamo in tutta la Toscana"</label></p>
 
 			<h2>Foto di Matteo</h2>
 			<?php nl_admin_media( "{$n}[foto_id]", $foto_id, 'Scegli foto', 'nl-ritratto', 'nl-media--ritratto' ); ?>
@@ -330,6 +354,11 @@ function nl_admin_pagina() {
 				<p class="description">Ultima risposta della Conversions API:</p>
 				<pre style="max-width:760px;white-space:pre-wrap;background:#fff;border:1px solid #dcdcde;padding:8px"><?php echo esc_html( wp_json_encode( get_option( 'nl_openai_ultima_risposta' ), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) ); ?></pre>
 			<?php endif; ?>
+			</div>
+
+			<div class="nl-scheda" id="sezioni">
+				<?php nl_admin_sezioni(); ?>
+			</div>
 
 			<?php submit_button( 'Salva impostazioni' ); ?>
 		</form>
@@ -396,5 +425,104 @@ function nl_admin_progetto( $i, $pr ) {
 		<p><?php nl_admin_media( $base . '[immagine]', $pr['immagine'] ?? 0, 'Scegli immagine' ); ?></p>
 		<p><button type="button" class="button-link-delete nl-rimuovi-voce">Rimuovi progetto</button></p>
 	</div>
+	<?php
+}
+
+/**
+ * Avviso in cima al pannello se il form è nascosto su qualche dispositivo: lì la landing non raccoglie lead.
+ */
+function nl_admin_avviso_form() {
+	$nascosto = nl_sezione_nascosta_su( 'preventivo' );
+	if ( ! $nascosto ) {
+		return;
+	}
+	$nomi = array_map( fn( $d ) => nl_dispositivi()[ $d ]['nome'], $nascosto );
+	printf(
+		'<div class="notice notice-error"><p><strong>Il form è nascosto su %s:</strong> su questo dispositivo la landing non raccoglie lead, e i pulsanti che portano al form sono nascosti. <a href="#sezioni" data-scheda="sezioni">Controlla le sezioni</a></p></div>',
+		esc_html( implode( ' e ', $nomi ) )
+	);
+}
+
+/**
+ * Scheda "Sezioni": per ogni sezione, nell'ordine della pagina, l'interruttore "Attiva" e i tre dispositivi.
+ */
+function nl_admin_sezioni() {
+	$n           = NL_OPZIONE;
+	$config      = nl_sezioni_config();
+	$dispositivi = nl_dispositivi();
+	$elenco      = nl_sezioni_elenco();
+
+	$pubblicate = count( array_filter( (array) nl_opt( 'testimonianze' ), fn( $t ) => ! empty( $t['pubblicata'] ) ) );
+	$con_foto   = count( array_filter( (array) nl_opt( 'progetti' ), fn( $p ) => ! empty( $p['immagine'] ) && wp_attachment_is_image( $p['immagine'] ) ) );
+	$con_valore = count( array_filter( (array) nl_opt( 'numeri' ), fn( $x ) => '' !== ( $x['valore'] ?? '' ) ) );
+	$note       = array(
+		'servizi'       => 'Una voce senza prezzo non compare.',
+		'progetti'      => sprintf( 'Ai visitatori compaiono solo i progetti con immagine (ora %d).', $con_foto ),
+		'numeri'        => sprintf( 'Dentro la sezione del referente. Compaiono solo i numeri con un valore (ora %d).', $con_valore ),
+		'metodo'        => 'Dentro la sezione del referente.',
+		'testimonianze' => sprintf( 'Ai visitatori compare solo con almeno una testimonianza pubblicata (ora %d).', $pubblicate ),
+	);
+	$avvisi     = array(
+		'hero'       => 'La pagina si aprirebbe senza titolo e senza la CTA principale su: ',
+		'preventivo' => 'La landing non raccoglierebbe lead su: ',
+	);
+	?>
+	<h2>Sezioni della landing</h2>
+	<p class="description" style="max-width:760px">
+		Una sezione <strong>disattivata</strong> non viene generata nella pagina, e il suo CSS e JavaScript non vengono caricati.
+		Una sezione attiva si può nascondere solo su alcuni dispositivi. Le CTA che portano a una sezione nascosta portano al form; se è nascosto anche il form, spariscono.
+		Da loggato vedi tutto, con un bordo tratteggiato e un'etichetta sulle sezioni nascoste o disattivate.
+	</p>
+	<input type="hidden" name="<?php echo esc_attr( $n ); ?>[sezioni][_inviato]" value="1">
+	<table class="widefat striped nl-sezioni">
+		<thead>
+			<tr>
+				<th scope="col">Sezione</th>
+				<th scope="col">Attiva</th>
+				<?php foreach ( $dispositivi as $d ) : ?>
+					<th scope="col" class="nl-col"><?php echo esc_html( $d['nome'] ); ?><small><?php echo esc_html( $d['px'] ); ?></small></th>
+				<?php endforeach; ?>
+				<th scope="col">Note</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ( $elenco as $chiave => $sezione ) : ?>
+				<?php
+				$riga     = $config[ $chiave ];
+				$base     = "{$n}[sezioni][{$chiave}]";
+				$protetta = ! empty( $sezione['protetta'] );
+				$nascosta = array_map( fn( $d ) => $dispositivi[ $d ]['nome'], nl_sezione_nascosta_su( $chiave ) );
+				?>
+				<tr class="nl-sezione<?php echo $riga['attiva'] ? '' : ' is-spenta'; ?>" data-sezione="<?php echo esc_attr( $chiave ); ?>">
+					<td class="nl-nome<?php echo empty( $sezione['dentro'] ) ? '' : ' nl-dentro'; ?>"><strong><?php echo esc_html( $sezione['nome'] ); ?></strong></td>
+					<td>
+						<?php if ( $protetta ) : ?>
+							<input type="hidden" name="<?php echo esc_attr( $base ); ?>[attiva]" value="1">
+							<span class="nl-sempre">Sempre attiva</span>
+						<?php else : ?>
+							<label class="nl-interruttore">
+								<input type="checkbox" role="switch" class="nl-attiva" name="<?php echo esc_attr( $base ); ?>[attiva]" value="1" <?php checked( $riga['attiva'] ); ?> aria-label="<?php echo esc_attr( $sezione['nome'] ); ?>: attiva">
+								<span>Attiva</span>
+							</label>
+						<?php endif; ?>
+					</td>
+					<?php foreach ( $dispositivi as $d_chiave => $d ) : ?>
+						<td class="nl-col nl-disp">
+							<input type="checkbox" class="nl-dispositivo" data-nome="<?php echo esc_attr( $d['nome'] ); ?>" name="<?php echo esc_attr( "{$base}[{$d_chiave}]" ); ?>" value="1" <?php checked( $riga[ $d_chiave ] ); ?> aria-label="<?php echo esc_attr( $sezione['nome'] . ' visibile su ' . $d['nome'] ); ?>">
+						</td>
+					<?php endforeach; ?>
+					<td>
+						<?php if ( isset( $note[ $chiave ] ) ) : ?>
+							<p class="nl-nota"><?php echo esc_html( $note[ $chiave ] ); ?></p>
+						<?php endif; ?>
+						<?php if ( isset( $avvisi[ $chiave ] ) ) : ?>
+							<p class="nl-avviso" data-testo="<?php echo esc_attr( $avvisi[ $chiave ] ); ?>" role="status" <?php echo $nascosta ? '' : 'hidden'; ?>><?php echo esc_html( $avvisi[ $chiave ] . implode( ', ', $nascosta ) . '.' ); ?></p>
+						<?php endif; ?>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<p><button type="button" class="button" id="nl-ripristina-sezioni">Ripristina tutto visibile</button> <span class="description">Attiva tutte le sezioni su tutti i dispositivi e salva.</span></p>
 	<?php
 }

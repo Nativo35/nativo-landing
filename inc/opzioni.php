@@ -238,9 +238,11 @@ function nl_rischio_testo() {
  * $posizione finisce in data-cta, per distinguere le CTA nel tracciamento.
  */
 function nl_cta( $testo, $posizione, $href = '#preventivo', $rischio = true, $evento = '' ) {
+	// Link interno: segue la visibilità della sezione di destinazione (inc/sezioni.php).
+	list( $href, $classi, $ripiego ) = nl_link_sezione( $href );
 	?>
-	<div class="cta">
-		<a class="pulsante pulsante--grande" href="<?php echo esc_url( $href ); ?>" data-cta="<?php echo esc_attr( $posizione ); ?>"<?php echo $evento ? ' data-evento="' . esc_attr( $evento ) . '"' : ''; ?>>
+	<div class="<?php echo esc_attr( trim( 'cta ' . $classi ) ); ?>">
+		<a class="pulsante pulsante--grande" href="<?php echo esc_url( $href ); ?>" data-cta="<?php echo esc_attr( $posizione ); ?>"<?php echo $evento ? ' data-evento="' . esc_attr( $evento ) . '"' : ''; ?><?php echo $ripiego; // phpcs:ignore WordPress.Security.EscapeOutput -- attributo fisso. ?>>
 			<span><?php echo esc_html( $testo ); ?></span>
 			<?php nl_icona( 'freccia' ); ?>
 		</a>

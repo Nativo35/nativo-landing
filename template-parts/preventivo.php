@@ -14,7 +14,7 @@ if ( $nl_form && function_exists( 'wpcf7_enqueue_scripts' ) ) {
 	}
 }
 ?>
-<section id="preventivo" class="sezione preventivo" aria-labelledby="preventivo-titolo" data-grazie="<?php echo esc_url( home_url( "/grazie/" ) ); ?>">
+<section id="preventivo" <?php nl_sezione_attr( 'preventivo', 'sezione preventivo' ); ?> aria-labelledby="preventivo-titolo" data-grazie="<?php echo esc_url( home_url( "/grazie/" ) ); ?>">
 	<div class="contenitore preventivo__griglia">
 		<div class="preventivo__testo">
 			<h2 id="preventivo-titolo" class="sezione__titolo">Ricevi il tuo <mark>preventivo gratis</mark></h2>
