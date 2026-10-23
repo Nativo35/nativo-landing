@@ -1,0 +1,39 @@
+# Per un repository che contiene SOLO il tema (style.css, functions.php… nella cartella principale).
+# Va salvato nel repository come: .github/workflows/deploy.yml
+#
+# Secrets da creare su GitHub (Settings → Secrets and variables → Actions):
+#   FTP_SERVER    es. ftp.nativo.studio
+#   FTP_USERNAME
+#   FTP_PASSWORD
+#   FTP_PATH      percorso della cartella del tema sul server, con "/" finale,
+#                 es. /public_html/wp-content/themes/nome-del-tema/
+
+name: Deploy produzione
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # permette anche l'avvio manuale dalla scheda Actions
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scarica il codice
+        uses: actions/checkout@v4
+
+      - name: Invia il tema sul server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps # se dà errore di connessione, cambia in: ftp
+          local-dir: ./
+          server-dir: ${{ secrets.FTP_PATH }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            README.md
